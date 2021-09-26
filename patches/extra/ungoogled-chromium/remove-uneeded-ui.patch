@@ -193,7 +193,7 @@
          </cr-icon-button>
 --- a/chrome/browser/ui/views/profiles/profile_menu_view.cc
 +++ b/chrome/browser/ui/views/profiles/profile_menu_view.cc
-@@ -175,6 +175,7 @@ void ProfileMenuView::BuildMenu() {
+@@ -176,6 +176,7 @@ void ProfileMenuView::BuildMenu() {
  }
  
  gfx::ImageSkia ProfileMenuView::GetSyncIcon() const {

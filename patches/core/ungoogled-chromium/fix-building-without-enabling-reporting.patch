@@ -1,6 +1,6 @@
 --- a/content/browser/BUILD.gn
 +++ b/content/browser/BUILD.gn
-@@ -1239,6 +1239,10 @@ source_set("browser") {
+@@ -1257,6 +1257,10 @@ source_set("browser") {
      "net/browser_online_state_observer.cc",
      "net/browser_online_state_observer.h",
      "net/cookie_store_factory.cc",
@@ -11,7 +11,7 @@
      "net/network_errors_listing_ui.cc",
      "net/network_errors_listing_ui.h",
      "net/network_quality_observer_impl.cc",
-@@ -2988,10 +2992,6 @@ source_set("browser") {
+@@ -3019,10 +3023,6 @@ source_set("browser") {
  
    if (enable_reporting) {
      sources += [
@@ -22,9 +22,22 @@
        "net/reporting_service_proxy.cc",
        "net/reporting_service_proxy.h",
      ]
+--- a/content/browser/devtools/protocol/network_handler.h
++++ b/content/browser/devtools/protocol/network_handler.h
+@@ -308,8 +308,10 @@ class NetworkHandler : public DevToolsDo
+       Response response,
+       mojo::ScopedDataPipeConsumerHandle pipe,
+       const std::string& mime_type);
++#if BUILDFLAG(ENABLE_REPORTING)
+   std::unique_ptr<protocol::Network::ReportingApiReport> BuildProtocolReport(
+       const net::ReportingReport& report);
++#endif  // BUILDFLAG(ENABLE_REPORTING)
+ 
+   // TODO(dgozman): Remove this.
+   const std::string host_id_;
 --- a/content/public/common/content_switch_dependent_feature_overrides.cc
 +++ b/content/public/common/content_switch_dependent_feature_overrides.cc
-@@ -46,9 +46,11 @@ GetSwitchDependentFeatureOverrides(const
+@@ -40,9 +40,11 @@ GetSwitchDependentFeatureOverrides(const
        {switches::kEnableExperimentalWebPlatformFeatures,
         std::cref(features::kDocumentPolicyNegotiation),
         base::FeatureList::OVERRIDE_ENABLE_FEATURE},
@@ -36,6 +49,27 @@
        {switches::kEnableExperimentalWebPlatformFeatures,
         std::cref(features::kExperimentalContentSecurityPolicyFeatures),
         base::FeatureList::OVERRIDE_ENABLE_FEATURE},
+--- a/net/features.gni
++++ b/net/features.gni
+@@ -25,7 +25,7 @@ declare_args() {
+   enable_mdns = is_win || is_linux || is_chromeos || is_fuchsia || is_apple
+ 
+   # Reporting not used on iOS.
+-  enable_reporting = !is_ios
++  enable_reporting = false
+ 
+   # Includes the transport security state preload list. This list includes
+   # mechanisms (e.g. HSTS, HPKP) to enforce trusted connections to a significant
+--- a/services/network/public/mojom/BUILD.gn
++++ b/services/network/public/mojom/BUILD.gn
+@@ -892,7 +892,6 @@ mojom("mojom") {
+     export_class_attribute_blink = "BLINK_PLATFORM_EXPORT"
+     export_define_blink = "BLINK_PLATFORM_IMPLEMENTATION=1"
+     export_header_blink = "third_party/blink/public/platform/web_common.h"
+-    enabled_features += [ "enable_reporting" ]
+   }
+ 
+   # This is only needed on desktop linux, but the defines make this difficult
 --- a/third_party/blink/renderer/core/frame/local_frame.cc
 +++ b/third_party/blink/renderer/core/frame/local_frame.cc
 @@ -39,6 +39,7 @@
@@ -46,7 +80,7 @@
  #include "services/data_decoder/public/mojom/resource_snapshot_for_web_bundle.mojom-blink.h"
  #include "services/network/public/cpp/features.h"
  #include "services/network/public/mojom/content_security_policy.mojom-blink.h"
-@@ -2284,9 +2285,11 @@ const base::UnguessableToken& LocalFrame
+@@ -2283,9 +2284,11 @@ const base::UnguessableToken& LocalFrame
    return base::UnguessableToken::Null();
  }
  
@@ -60,7 +94,7 @@
  void LocalFrame::NotifyUserActivation(
 --- a/third_party/blink/renderer/core/frame/local_frame.h
 +++ b/third_party/blink/renderer/core/frame/local_frame.h
-@@ -36,6 +36,7 @@
+@@ -37,6 +37,7 @@
  #include "build/build_config.h"
  #include "mojo/public/cpp/bindings/pending_associated_receiver.h"
  #include "mojo/public/cpp/bindings/pending_receiver.h"
@@ -68,7 +102,7 @@
  #include "services/device/public/mojom/device_posture_provider.mojom-blink-forward.h"
  #include "services/network/public/mojom/fetch_api.mojom-blink-forward.h"
  #include "third_party/blink/public/common/frame/frame_ad_evidence.h"
-@@ -543,9 +544,9 @@ class CORE_EXPORT LocalFrame final : pub
+@@ -544,9 +545,9 @@ class CORE_EXPORT LocalFrame final : pub
    }
  
    SmoothScrollSequencer& GetSmoothScrollSequencer();

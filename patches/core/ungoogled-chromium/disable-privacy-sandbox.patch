@@ -1,25 +1,24 @@
 --- a/chrome/browser/privacy_sandbox/privacy_sandbox_settings.cc
 +++ b/chrome/browser/privacy_sandbox/privacy_sandbox_settings.cc
-@@ -207,7 +207,7 @@ PrivacySandboxSettings::PrivacySandboxSe
- PrivacySandboxSettings::~PrivacySandboxSettings() = default;
+@@ -380,15 +380,15 @@ std::vector<GURL> PrivacySandboxSettings
+ }
  
- /*static*/ bool PrivacySandboxSettings::PrivacySandboxSettingsFunctional() {
--  return base::FeatureList::IsEnabled(features::kPrivacySandboxSettings);
+ bool PrivacySandboxSettings::IsPrivacySandboxAllowed() {
+-  return pref_service_->GetBoolean(prefs::kPrivacySandboxApisEnabled);
 +  return false;
  }
  
- bool PrivacySandboxSettings::IsFlocAllowed() const {
---- a/chrome/common/chrome_features.cc
-+++ b/chrome/common/chrome_features.cc
-@@ -782,7 +782,7 @@ const base::Feature kPrivacyReview{"Priv
+ bool PrivacySandboxSettings::IsPrivacySandboxEnabled() {
+-  return pref_service_->GetBoolean(prefs::kPrivacySandboxApisEnabled);
++  return false;
+ }
  
- // Enables the privacy sandbox settings page.
- const base::Feature kPrivacySandboxSettings{"PrivacySandboxSettings",
--                                            base::FEATURE_ENABLED_BY_DEFAULT};
-+                                            base::FEATURE_DISABLED_BY_DEFAULT};
- const base::FeatureParam<std::string> kPrivacySandboxSettingsURL{
-     &kPrivacySandboxSettings, "website-url", "https://www.privacysandbox.com"};
+ bool PrivacySandboxSettings::IsPrivacySandboxManaged() {
+-  return pref_service_->IsManagedPreference(prefs::kPrivacySandboxApisEnabled);
++  return false;
+ }
  
+ void PrivacySandboxSettings::SetPrivacySandboxEnabled(bool enabled) {
 --- a/components/privacy_sandbox/privacy_sandbox_prefs.cc
 +++ b/components/privacy_sandbox/privacy_sandbox_prefs.cc
 @@ -31,7 +31,7 @@ namespace privacy_sandbox {

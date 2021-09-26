@@ -1,6 +1,6 @@
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
-@@ -2158,7 +2158,6 @@ static_library("browser") {
+@@ -2182,7 +2182,6 @@ static_library("browser") {
      "//components/reputation/core:proto",
      "//components/resources",
      "//components/safe_browsing/content/browser",
@@ -8,7 +8,7 @@
      "//components/safe_browsing/content/browser:safe_browsing_service",
      "//components/safe_browsing/content/browser/password_protection",
      "//components/safe_browsing/content/browser/web_ui",
-@@ -3600,8 +3599,6 @@ static_library("browser") {
+@@ -3657,8 +3656,6 @@ static_library("browser") {
        "download/download_commands.h",
        "download/download_crx_util.cc",
        "download/download_crx_util.h",
@@ -19,7 +19,7 @@
        "download/download_dir_util.cc",
 --- a/chrome/browser/browser_process.h
 +++ b/chrome/browser/browser_process.h
-@@ -51,10 +51,6 @@ class NetworkQualityTracker;
+@@ -55,10 +55,6 @@ class NetworkQualityTracker;
  class SharedURLLoaderFactory;
  }
  
@@ -30,7 +30,7 @@
  namespace subresource_filter {
  class RulesetService;
  }
-@@ -210,9 +206,6 @@ class BrowserProcess {
+@@ -218,9 +214,6 @@ class BrowserProcess {
    // on this platform (or this is a unit test).
    virtual StatusTray* status_tray() = 0;
  
@@ -50,7 +50,7 @@
  #include "chrome/browser/shell_integration.h"
  #include "chrome/browser/site_isolation/prefs_observer.h"
  #include "chrome/browser/ssl/secure_origin_prefs_observer.h"
-@@ -388,8 +387,6 @@ void BrowserProcessImpl::StartTearDown()
+@@ -392,8 +391,6 @@ void BrowserProcessImpl::StartTearDown()
  
    metrics_services_manager_.reset();
    intranet_redirect_detector_.reset();
@@ -59,7 +59,7 @@
    network_time_tracker_.reset();
  #if BUILDFLAG(ENABLE_PLUGINS)
    plugins_resource_service_.reset();
-@@ -1006,14 +1003,6 @@ StatusTray* BrowserProcessImpl::status_t
+@@ -1023,14 +1020,6 @@ StatusTray* BrowserProcessImpl::status_t
    return status_tray_.get();
  }
  
@@ -74,7 +74,7 @@
  subresource_filter::RulesetService*
  BrowserProcessImpl::subresource_filter_ruleset_service() {
    DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-@@ -1261,26 +1250,6 @@ void BrowserProcessImpl::CreateBackgroun
+@@ -1295,26 +1284,6 @@ void BrowserProcessImpl::CreateBackgroun
  #endif
  }
  
@@ -103,7 +103,7 @@
    created_subresource_filter_ruleset_service_ = true;
 --- a/chrome/browser/browser_process_impl.h
 +++ b/chrome/browser/browser_process_impl.h
-@@ -180,7 +180,6 @@ class BrowserProcessImpl : public Browse
+@@ -190,7 +190,6 @@ class BrowserProcessImpl : public Browse
        std::unique_ptr<BackgroundModeManager> manager) override;
  #endif
    StatusTray* status_tray() override;
@@ -111,7 +111,7 @@
    subresource_filter::RulesetService* subresource_filter_ruleset_service()
        override;
    federated_learning::FlocSortingLshClustersService*
-@@ -332,9 +331,6 @@ class BrowserProcessImpl : public Browse
+@@ -344,9 +343,6 @@ class BrowserProcessImpl : public Browse
    std::unique_ptr<BackgroundModeManager> background_mode_manager_;
  #endif
  
@@ -131,7 +131,7 @@
  #include "chrome/browser/search_engines/template_url_service_factory.h"
  #include "chrome/browser/share/share_history.h"
  #include "chrome/browser/share/share_ranking.h"
-@@ -674,10 +673,6 @@ void ChromeBrowsingDataRemoverDelegate::
+@@ -640,10 +639,6 @@ void ChromeBrowsingDataRemoverDelegate::
      base::RecordAction(UserMetricsAction("ClearBrowsingData_Cookies"));
  
      network::mojom::NetworkContext* safe_browsing_context = nullptr;
@@ -144,7 +144,7 @@
          delete_begin, delete_end, filter_builder, host_content_settings_map_,
 --- a/chrome/browser/chrome_content_browser_client.cc
 +++ b/chrome/browser/chrome_content_browser_client.cc
-@@ -914,30 +914,6 @@ void SetApplicationLocaleOnIOThread(cons
+@@ -921,34 +921,6 @@ void SetApplicationLocaleOnIOThread(cons
    GetIOThreadApplicationLocale() = locale;
  }
  
@@ -158,6 +158,12 @@
 -      content::WebContents* web_contents)
 -      : service_(CertificateReportingServiceFactory::GetForBrowserContext(
 -            web_contents->GetBrowserContext())) {}
+-
+-  CertificateReportingServiceCertReporter(
+-      const CertificateReportingServiceCertReporter&) = delete;
+-  CertificateReportingServiceCertReporter& operator=(
+-      const CertificateReportingServiceCertReporter&) = delete;
+-
 -  ~CertificateReportingServiceCertReporter() override {}
 -
 -  // SSLCertReporter implementation
@@ -168,14 +174,12 @@
 -
 - private:
 -  CertificateReportingService* service_;
--
--  DISALLOW_COPY_AND_ASSIGN(CertificateReportingServiceCertReporter);
 -};
 -
  #if BUILDFLAG(ENABLE_EXTENSIONS)
  
  AppLoadedInTabSource ClassifyAppLoadedInTabSource(
-@@ -1339,7 +1315,6 @@ void ChromeContentBrowserClient::PostAft
+@@ -1365,7 +1337,6 @@ void ChromeContentBrowserClient::PostAft
    InitNetworkContextsParentDirectory();
  
    DCHECK_CURRENTLY_ON(BrowserThread::UI);
@@ -183,7 +187,7 @@
  }
  
  bool ChromeContentBrowserClient::IsBrowserStartupComplete() {
-@@ -4054,7 +4029,7 @@ ChromeContentBrowserClient::CreateThrott
+@@ -4075,7 +4046,7 @@ ChromeContentBrowserClient::CreateThrott
    content::WebContents* web_contents = handle->GetWebContents();
    throttles.push_back(std::make_unique<SSLErrorNavigationThrottle>(
        handle,
@@ -192,7 +196,7 @@
        base::BindOnce(&HandleSSLErrorWrapper), base::BindOnce(&IsInHostedApp),
        base::BindOnce(
            &ShouldIgnoreSslInterstitialBecauseNavigationDefaultedToHttps)));
-@@ -4083,15 +4058,6 @@ ChromeContentBrowserClient::CreateThrott
+@@ -4104,15 +4075,6 @@ ChromeContentBrowserClient::CreateThrott
                     &throttles);
  #endif
  
@@ -210,7 +214,7 @@
          std::make_unique<safe_browsing::DelayedWarningNavigationThrottle>(
 --- a/chrome/browser/component_updater/file_type_policies_component_installer.cc
 +++ b/chrome/browser/component_updater/file_type_policies_component_installer.cc
-@@ -39,20 +39,6 @@ const uint8_t kFileTypePoliciesPublicKey
+@@ -40,20 +40,6 @@ const uint8_t kFileTypePoliciesPublicKey
  const char kFileTypePoliciesManifestName[] = "File Type Policies";
  
  void LoadFileTypesFromDisk(const base::FilePath& pb_path) {
@@ -233,7 +237,7 @@
  }  // namespace
 --- a/chrome/browser/download/chrome_download_manager_delegate.cc
 +++ b/chrome/browser/download/chrome_download_manager_delegate.cc
-@@ -395,13 +395,6 @@ ChromeDownloadManagerDelegate::~ChromeDo
+@@ -400,13 +400,6 @@ ChromeDownloadManagerDelegate::~ChromeDo
  
  void ChromeDownloadManagerDelegate::SetDownloadManager(DownloadManager* dm) {
    download_manager_ = dm;
@@ -247,7 +251,7 @@
  }
  
  #if defined(OS_ANDROID)
-@@ -748,16 +741,6 @@ void ChromeDownloadManagerDelegate::Choo
+@@ -755,16 +748,6 @@ void ChromeDownloadManagerDelegate::Choo
  
  void ChromeDownloadManagerDelegate::SanitizeSavePackageResourceName(
      base::FilePath* filename) {
@@ -356,7 +360,7 @@
    // If no mime type or explicitly specified a name, don't replace file
    // extension.
    if (sniffed_mime_type.empty() || !suggested_filename.empty())
-@@ -1111,29 +1104,7 @@ DownloadFileType::DangerLevel DownloadTa
+@@ -1113,29 +1106,7 @@ DownloadFileType::DangerLevel DownloadTa
        download_->HasUserGesture())
      return DownloadFileType::NOT_DANGEROUS;
  
@@ -397,7 +401,7 @@
  #include "chrome/browser/download/download_file_icon_extractor.h"
  #include "chrome/browser/download/download_open_prompt.h"
  #include "chrome/browser/download/download_prefs.h"
-@@ -1271,9 +1270,6 @@ DownloadsAcceptDangerFunction::Downloads
+@@ -1274,9 +1273,6 @@ DownloadsAcceptDangerFunction::Downloads
  
  DownloadsAcceptDangerFunction::~DownloadsAcceptDangerFunction() {}
  
@@ -406,8 +410,8 @@
 -
  ExtensionFunction::ResponseAction DownloadsAcceptDangerFunction::Run() {
    std::unique_ptr<downloads::AcceptDanger::Params> params(
-       downloads::AcceptDanger::Params::Create(*args_));
-@@ -1311,42 +1307,7 @@ void DownloadsAcceptDangerFunction::Prom
+       downloads::AcceptDanger::Params::Create(args()));
+@@ -1314,42 +1310,7 @@ void DownloadsAcceptDangerFunction::Prom
      return;
    }
    RecordApiFunctions(DOWNLOADS_FUNCTION_ACCEPT_DANGER);
@@ -461,7 +465,7 @@
  #include "chrome/common/extensions/api/downloads.h"
  #include "components/download/content/public/all_download_item_notifier.h"
  #include "components/download/public/common/download_path_reservation_tracker.h"
-@@ -187,26 +186,16 @@ class DownloadsRemoveFileFunction : publ
+@@ -199,13 +198,6 @@ class DownloadsRemoveFileFunction : publ
  
  class DownloadsAcceptDangerFunction : public ExtensionFunction {
   public:
@@ -474,7 +478,8 @@
 -
    DECLARE_EXTENSION_FUNCTION("downloads.acceptDanger", DOWNLOADS_ACCEPTDANGER)
    DownloadsAcceptDangerFunction();
-   ResponseAction Run() override;
+ 
+@@ -217,13 +209,9 @@ class DownloadsAcceptDangerFunction : pu
  
   protected:
    ~DownloadsAcceptDangerFunction() override;
@@ -483,11 +488,11 @@
  
   private:
    void PromptOrWait(int download_id, int retries);
- 
+-
 -  static OnPromptCreatedCallback* on_prompt_created_;
-   DISALLOW_COPY_AND_ASSIGN(DownloadsAcceptDangerFunction);
  };
  
+ class DownloadsShowFunction : public ExtensionFunction {
 --- a/chrome/browser/extensions/api/safe_browsing_private/safe_browsing_private_api.cc
 +++ b/chrome/browser/extensions/api/safe_browsing_private/safe_browsing_private_api.cc
 @@ -54,38 +54,7 @@ SafeBrowsingPrivateGetReferrerChainFunct
@@ -531,7 +536,7 @@
            referrer_entries)));
 --- a/chrome/browser/extensions/api/webstore_private/webstore_private_api.cc
 +++ b/chrome/browser/extensions/api/webstore_private/webstore_private_api.cc
-@@ -681,18 +681,6 @@ void WebstorePrivateBeginInstallWithMani
+@@ -683,18 +683,6 @@ void WebstorePrivateBeginInstallWithMani
  
  void WebstorePrivateBeginInstallWithManifest3Function::
      ReportFrictionAcceptedEvent() {
@@ -550,7 +555,7 @@
  }
  
  void WebstorePrivateBeginInstallWithManifest3Function::OnInstallPromptDone(
-@@ -1157,52 +1145,9 @@ WebstorePrivateGetReferrerChainFunction:
+@@ -1159,52 +1147,9 @@ WebstorePrivateGetReferrerChainFunction:
  
  ExtensionFunction::ResponseAction
  WebstorePrivateGetReferrerChainFunction::Run() {
@@ -667,7 +672,7 @@
      std::unique_ptr<std::string> response_body) {
 --- a/chrome/browser/extensions/blocklist_state_fetcher.h
 +++ b/chrome/browser/extensions/blocklist_state_fetcher.h
-@@ -34,8 +34,6 @@ class BlocklistStateFetcher {
+@@ -37,8 +37,6 @@ class BlocklistStateFetcher {
  
    virtual void Request(const std::string& id, RequestCallback callback);
  
@@ -676,7 +681,7 @@
   protected:
    void OnURLLoaderComplete(network::SimpleURLLoader* url_loader,
                             std::unique_ptr<std::string> response_body);
-@@ -54,7 +52,6 @@ class BlocklistStateFetcher {
+@@ -57,7 +55,6 @@ class BlocklistStateFetcher {
  
    void SendRequest(const std::string& id);
  
@@ -686,7 +691,7 @@
    // SimpleURLLoader -> (owned loader, extension id).
 --- a/chrome/browser/metrics/chrome_metrics_service_client.cc
 +++ b/chrome/browser/metrics/chrome_metrics_service_client.cc
-@@ -806,9 +806,6 @@ void ChromeMetricsServiceClient::Registe
+@@ -823,9 +823,6 @@ void ChromeMetricsServiceClient::Registe
    metrics_service_->RegisterMetricsProvider(
        std::make_unique<HttpsEngagementMetricsProvider>());
  
@@ -710,7 +715,7 @@
  // static
 --- a/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc
 +++ b/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc
-@@ -288,7 +288,6 @@ void ChromeBrowserMainExtraPartsProfiles
+@@ -292,7 +292,6 @@ void ChromeBrowserMainExtraPartsProfiles
  #if BUILDFLAG(IS_CHROMEOS_LACROS)
    CertDbInitializerFactory::GetInstance();
  #endif
@@ -720,7 +725,7 @@
  #endif
 --- a/chrome/browser/profiles/profile_impl.cc
 +++ b/chrome/browser/profiles/profile_impl.cc
-@@ -90,7 +90,6 @@
+@@ -92,7 +92,6 @@
  #include "chrome/browser/profiles/profile_metrics.h"
  #include "chrome/browser/push_messaging/push_messaging_service_factory.h"
  #include "chrome/browser/push_messaging/push_messaging_service_impl.h"
@@ -728,7 +733,7 @@
  #include "chrome/browser/sharing/sharing_service_factory.h"
  #include "chrome/browser/signin/identity_manager_factory.h"
  #include "chrome/browser/signin/signin_ui_util.h"
-@@ -647,17 +646,6 @@ void ProfileImpl::LoadPrefsForNormalStar
+@@ -657,17 +656,6 @@ void ProfileImpl::LoadPrefsForNormalStar
  
    mojo::PendingRemote<prefs::mojom::TrackedPreferenceValidationDelegate>
        pref_validation_delegate;
@@ -748,7 +753,7 @@
        CreatePrefService(pref_registry_, CreateExtensionPrefStore(this, false),
 --- a/chrome/browser/profiles/profiles_state.cc
 +++ b/chrome/browser/profiles/profiles_state.cc
-@@ -258,9 +258,6 @@ void RemoveBrowsingDataForProfile(const
+@@ -259,9 +259,6 @@ void RemoveBrowsingDataForProfile(const
    // The BrowsingDataRemover relies on many objects that aren't created in unit
    // tests. Previously this code would depend on content::ResourceDispatcherHost
    // but that's gone, so do a similar hack for now.
@@ -760,7 +765,7 @@
    if (!profile)
 --- a/chrome/browser/safe_browsing/BUILD.gn
 +++ b/chrome/browser/safe_browsing/BUILD.gn
-@@ -6,6 +6,7 @@ import("//components/safe_browsing/build
+@@ -5,6 +5,7 @@ import("//components/safe_browsing/build
  import("//extensions/buildflags/buildflags.gni")
  
  static_library("safe_browsing") {
@@ -776,7 +781,7 @@
  
    if (safe_browsing_mode != 0) {
      # "Safe Browsing Basic" files used for safe browsing in full mode
-@@ -398,6 +400,7 @@ static_library("advanced_protection") {
+@@ -411,6 +413,7 @@ static_library("advanced_protection") {
  }
  
  source_set("metrics_collector") {
@@ -784,7 +789,7 @@
    sources = [
      "safe_browsing_metrics_collector_factory.cc",
      "safe_browsing_metrics_collector_factory.h",
-@@ -414,6 +417,7 @@ source_set("metrics_collector") {
+@@ -427,6 +430,7 @@ source_set("metrics_collector") {
      "//components/safe_browsing/core/common:safe_browsing_prefs",
      "//content/public/browser",
    ]
@@ -886,7 +891,7 @@
  
 --- a/chrome/browser/ui/BUILD.gn
 +++ b/chrome/browser/ui/BUILD.gn
-@@ -3861,7 +3861,6 @@ static_library("ui") {
+@@ -3900,7 +3900,6 @@ static_library("ui") {
        "views/device_chooser_content_view.h",
        "views/devtools_process_observer.cc",
        "views/devtools_process_observer.h",
@@ -896,7 +901,7 @@
        "views/download/download_item_view.cc",
 --- a/chrome/browser/ui/tab_helpers.cc
 +++ b/chrome/browser/ui/tab_helpers.cc
-@@ -316,14 +316,6 @@ void TabHelpers::AttachTabHelpers(WebCon
+@@ -328,16 +328,6 @@ void TabHelpers::AttachTabHelpers(WebCon
    //     See https://crbug.com/910288.
    resource_coordinator::ResourceCoordinatorTabHelper::CreateForWebContents(
        web_contents);
@@ -905,7 +910,9 @@
 -      safe_browsing::SafeBrowsingNavigationObserverManagerFactory::
 -          GetForBrowserContext(profile),
 -      profile->GetPrefs(), g_browser_process->safe_browsing_service());
--  safe_browsing::SafeBrowsingTabObserver::CreateForWebContents(web_contents);
+-  safe_browsing::SafeBrowsingTabObserver::CreateForWebContents(
+-      web_contents,
+-      std::make_unique<safe_browsing::ChromeSafeBrowsingTabObserverDelegate>());
 -  safe_browsing::TriggerCreator::MaybeCreateTriggersForWebContents(
 -      profile, web_contents);
    ReputationWebContentsObserver::CreateForWebContents(web_contents);
@@ -999,7 +1006,7 @@
  #include "chrome/browser/ui/webui/downloads/downloads.mojom-forward.h"
  #include "chrome/browser/ui/webui/downloads/downloads_list_tracker.h"
  #include "content/public/browser/web_contents_observer.h"
-@@ -89,18 +88,6 @@ class DownloadsDOMHandler : public conte
+@@ -93,18 +92,6 @@ class DownloadsDOMHandler : public conte
    // null-checking |original_notifier_|.
    content::DownloadManager* GetOriginalNotifierManager() const;
  
@@ -1020,7 +1027,7 @@
    bool IsDeletingHistoryAllowed();
 --- a/chrome/browser/ui/webui/interstitials/interstitial_ui.cc
 +++ b/chrome/browser/ui/webui/interstitials/interstitial_ui.cc
-@@ -279,117 +279,6 @@ CreateHttpsOnlyModePage(content::WebCont
+@@ -282,116 +282,6 @@ CreateHttpsOnlyModePage(content::WebCont
                                                        request_url));
  }
  
@@ -1061,8 +1068,6 @@
 -  resource.is_subresource = request_url != main_frame_url;
 -  resource.is_subframe = false;
 -  resource.threat_type = threat_type;
--  resource.web_contents_getter =
--      security_interstitials::GetWebContentsGetter(primary_main_frame_id);
 -  resource.render_process_id = primary_main_frame_id.child_id;
 -  resource.render_frame_id = primary_main_frame_id.frame_routing_id;
 -  resource.threat_source = g_browser_process->safe_browsing_service()
@@ -1110,14 +1115,15 @@
 -      is_giant_webview = true;
 -    }
 -  }
+-  const content::GlobalRenderFrameHostId primary_main_frame_id =
+-      web_contents->GetMainFrame()->GetGlobalId();
 -  safe_browsing::SafeBrowsingBlockingPage::UnsafeResource resource;
 -  resource.url = request_url;
 -  resource.is_subresource = request_url != main_frame_url;
 -  resource.is_subframe = false;
 -  resource.threat_type = threat_type;
--  resource.web_contents_getter = security_interstitials::GetWebContentsGetter(
--      web_contents->GetMainFrame()->GetProcess()->GetID(),
--      web_contents->GetMainFrame()->GetRoutingID());
+-  resource.render_process_id = primary_main_frame_id.child_id;
+-  resource.render_frame_id = primary_main_frame_id.frame_routing_id;
 -  resource.threat_source = g_browser_process->safe_browsing_service()
 -                               ->database_manager()
 -                               ->GetThreatSource();
@@ -1138,7 +1144,7 @@
  #if BUILDFLAG(ENABLE_CAPTIVE_PORTAL_DETECTION)
  std::unique_ptr<CaptivePortalBlockingPage> CreateCaptivePortalBlockingPage(
      content::WebContents* web_contents) {
-@@ -506,8 +395,6 @@ void InterstitialHTMLSource::StartDataRe
+@@ -508,8 +398,6 @@ void InterstitialHTMLSource::StartDataRe
      interstitial_delegate = CreateBlockedInterceptionBlockingPage(web_contents);
    } else if (path_without_query == "/legacy-tls") {
      interstitial_delegate = CreateLegacyTLSBlockingPage(web_contents);
@@ -1147,7 +1153,7 @@
    } else if (path_without_query == "/clock") {
      interstitial_delegate = CreateBadClockBlockingPage(web_contents);
    } else if (path_without_query == "/lookalike") {
-@@ -524,16 +411,12 @@ void InterstitialHTMLSource::StartDataRe
+@@ -526,16 +414,12 @@ void InterstitialHTMLSource::StartDataRe
      interstitial_delegate = CreateHttpsOnlyModePage(web_contents);
    }
  

@@ -46,16 +46,10 @@
  }  // namespace federated_learning
 --- a/chrome/browser/privacy_sandbox/privacy_sandbox_settings.cc
 +++ b/chrome/browser/privacy_sandbox/privacy_sandbox_settings.cc
-@@ -211,13 +211,7 @@ PrivacySandboxSettings::~PrivacySandboxS
- }
+@@ -208,7 +208,7 @@ PrivacySandboxSettings::PrivacySandboxSe
+ PrivacySandboxSettings::~PrivacySandboxSettings() = default;
  
  bool PrivacySandboxSettings::IsFlocAllowed() const {
--  if (!PrivacySandboxSettingsFunctional()) {
--    // Simply respect 3rd-party cookies blocking settings if the UI is not
--    // available.
--    return !cookie_settings_->ShouldBlockThirdPartyCookies();
--  }
--
 -  return IsFlocAllowedByPrefs(pref_service_);
 +  return false;
  }
