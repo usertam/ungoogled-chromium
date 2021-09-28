@@ -330,7 +330,7 @@
  
 --- a/chrome/browser/enterprise/signals/context_info_fetcher.cc
 +++ b/chrome/browser/enterprise/signals/context_info_fetcher.cc
-@@ -181,12 +181,9 @@ void ContextInfoFetcher::Fetch(ContextIn
+@@ -183,12 +183,9 @@ void ContextInfoFetcher::Fetch(ContextIn
        GetAnalysisConnectorProviders(enterprise_connectors::BULK_DATA_ENTRY);
    info.on_security_event_providers = GetOnSecurityEventProviders();
    info.browser_version = version_info::GetVersionNumber();
@@ -343,7 +343,7 @@
    info.chrome_cleanup_enabled = GetChromeCleanupEnabled();
    info.chrome_remote_desktop_app_blocked = GetChromeRemoteDesktopAppBlocked();
    info.third_party_blocking_enabled = GetThirdPartyBLockingEnabled();
-@@ -232,25 +229,6 @@ std::vector<std::string> ContextInfoFetc
+@@ -234,25 +231,6 @@ std::vector<std::string> ContextInfoFetc
        enterprise_connectors::ReportingConnector::SECURITY_EVENT);
  }
  
@@ -369,7 +369,7 @@
  absl::optional<bool> ContextInfoFetcher::GetThirdPartyBLockingEnabled() {
  #if defined(OS_WIN) && BUILDFLAG(GOOGLE_CHROME_BRANDING)
    return g_browser_process->local_state()->GetBoolean(
-@@ -265,17 +243,6 @@ bool ContextInfoFetcher::GetBuiltInDnsCl
+@@ -267,17 +245,6 @@ bool ContextInfoFetcher::GetBuiltInDnsCl
        prefs::kBuiltInDnsClientEnabled);
  }
  
@@ -2790,7 +2790,7 @@
  #include "components/signin/public/base/signin_buildflags.h"
  #include "components/strings/grit/components_chromium_strings.h"
  #include "components/strings/grit/components_strings.h"
-@@ -1389,46 +1388,6 @@ void AddPrivacyStrings(content::WebUIDat
+@@ -1386,46 +1385,6 @@ void AddPrivacyStrings(content::WebUIDat
      {"clearBrowsingData", IDS_SETTINGS_CLEAR_BROWSING_DATA},
      {"clearBrowsingDataDescription", IDS_SETTINGS_CLEAR_DATA_DESCRIPTION},
      {"titleAndCount", IDS_SETTINGS_TITLE_AND_COUNT},
@@ -2837,7 +2837,7 @@
      {"safeBrowsingSectionLabel", IDS_SETTINGS_SAFEBROWSING_SECTION_LABEL},
      {"syncAndGoogleServicesPrivacyDescription",
       IDS_SETTINGS_SYNC_AND_GOOGLE_SERVICES_PRIVACY_DESC_UNIFIED_CONSENT},
-@@ -2591,11 +2550,6 @@ void AddSiteSettingsStrings(content::Web
+@@ -2588,11 +2547,6 @@ void AddSiteSettingsStrings(content::Web
    html_source->AddLocalizedStrings(kSensorsLocalizedStrings);
  
    html_source->AddBoolean(
@@ -5230,7 +5230,7 @@
  #include "components/signin/public/identity_manager/identity_test_utils.h"
 --- a/tools/metrics/histograms/enums.xml
 +++ b/tools/metrics/histograms/enums.xml
-@@ -83077,7 +83077,6 @@ Full version information for the fingerp
+@@ -83123,7 +83123,6 @@ Full version information for the fingerp
    <int value="3" label="kRestoreOnStartup"/>
    <int value="4" label="kURLsToRestoreOnStartup"/>
    <int value="5" label="extensions::pref_names::kExtensions"/>
@@ -5238,7 +5238,7 @@
    <int value="7" label="kSearchProviderOverrides"/>
    <int value="8" label="kDefaultSearchProviderSearchURL (Obsolete 12/2016)"/>
    <int value="9" label="kDefaultSearchProviderKeyword (Obsolete 12/2016)"/>
-@@ -83092,10 +83091,7 @@ Full version information for the fingerp
+@@ -83138,10 +83137,7 @@ Full version information for the fingerp
    <int value="18" label="kSafeBrowsingIncidentsSent"/>
    <int value="19" label="kSwReporterPromptVersion"/>
    <int value="20" label="kSwReporterPromptReason"/>

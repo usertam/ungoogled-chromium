@@ -64,7 +64,7 @@ chrome/browser/resources/chromeos/accessibility/select_to_speak/earcons/null_sel
 chrome/browser/resources/media/mei_preload/preloaded_data.pb
 chrome/browser/ui/app_list/search/search_result_ranker/20190722_example_preprocessor_config.pb
 chrome/browser/ui/app_list/search/search_result_ranker/search_ranker_assets/20190923_example_preprocessor_config.pb
-chrome/build/pgo_profiles/chrome-linux-main-1632505958-ddbb37bcdfa7dbd7b10cf3a9b6a5bc45e7a958a6.profdata
+chrome/build/pgo_profiles/chrome-linux-main-1632765560-6f551e1f4988ba72ac588c4fe34045e6fb0df6a7.profdata
 chrome/chrome_cleaner/parsers/shortcut_parser/target/data/lnk_parser_fuzzer/Network Share Test.lnk
 chrome/chrome_cleaner/parsers/shortcut_parser/target/data/lnk_parser_fuzzer/New folder - Shortcut.lnk
 chrome/chrome_cleaner/parsers/shortcut_parser/target/data/lnk_parser_fuzzer/long_name.lnk
@@ -17255,6 +17255,7 @@ third_party/llvm/llvm/test/Bitcode/DIExpression-deref.ll.bc
 third_party/llvm/llvm/test/Bitcode/DIExpression-minus-upgrade.ll.bc
 third_party/llvm/llvm/test/Bitcode/DIGlobalVariableExpression.ll.bc
 third_party/llvm/llvm/test/Bitcode/DIGlobalVariableExpression2.ll.bc
+third_party/llvm/llvm/test/Bitcode/DIImportedEntity_backward.ll.bc
 third_party/llvm/llvm/test/Bitcode/DILocalVariable-explicit-tags.ll.bc
 third_party/llvm/llvm/test/Bitcode/DILocation-implicit-code.ll.bc
 third_party/llvm/llvm/test/Bitcode/DIModule-clang-module.ll.bc
@@ -17862,6 +17863,9 @@ third_party/llvm/llvm/test/tools/dsymutil/Inputs/private/tmp/thinlto/foo.o
 third_party/llvm/llvm/test/tools/dsymutil/Inputs/private/tmp/thinlto/foobar.dylib
 third_party/llvm/llvm/test/tools/dsymutil/Inputs/private/tmp/thinlto/lto/0.x86_64.thinlto.o
 third_party/llvm/llvm/test/tools/dsymutil/Inputs/private/tmp/thinlto/lto/1.x86_64.thinlto.o
+third_party/llvm/llvm/test/tools/dsymutil/Inputs/private/tmp/union/a.out
+third_party/llvm/llvm/test/tools/dsymutil/Inputs/private/tmp/union/container.o
+third_party/llvm/llvm/test/tools/dsymutil/Inputs/private/tmp/union/use.o
 third_party/llvm/llvm/test/tools/dsymutil/Inputs/remarks/basic.macho.remarks.archive.x86_64
 third_party/llvm/llvm/test/tools/dsymutil/Inputs/remarks/basic.macho.remarks.empty.x86_64
 third_party/llvm/llvm/test/tools/dsymutil/Inputs/remarks/basic.macho.remarks.x86_64
@@ -18268,12 +18272,15 @@ third_party/llvm/llvm/test/tools/llvm-profdata/Inputs/compat.profdata.v2
 third_party/llvm/llvm/test/tools/llvm-profdata/Inputs/compat.profdata.v4
 third_party/llvm/llvm/test/tools/llvm-profdata/Inputs/compressed.profraw
 third_party/llvm/llvm/test/tools/llvm-profdata/Inputs/gcc-sample-profile.gcov
+third_party/llvm/llvm/test/tools/llvm-profdata/Inputs/unknown.section.compressed.extbin.profdata
 third_party/llvm/llvm/test/tools/llvm-profdata/Inputs/unknown.section.extbin.profdata
 third_party/llvm/llvm/test/tools/llvm-profdata/Inputs/weight-instr-bar.profdata
 third_party/llvm/llvm/test/tools/llvm-profdata/Inputs/weight-instr-foo.profdata
 third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/cs-preinline-cost.perfbin
 third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/inline-cs-noprobe.perfbin
 third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/inline-cs-pseudoprobe.perfbin
+third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/inline-noprobe.perfbin
+third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/inline-noprobe2.perfbin
 third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/multi-load-segs.perfbin
 third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/noinline-cs-noprobe.perfbin
 third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/noinline-cs-pseudoprobe.perfbin

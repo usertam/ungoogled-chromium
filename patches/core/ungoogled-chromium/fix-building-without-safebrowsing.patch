@@ -2,7 +2,7 @@
 
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
-@@ -3677,9 +3677,6 @@ static_library("browser") {
+@@ -3691,9 +3691,6 @@ static_library("browser") {
        "download/offline_item_model_manager_factory.h",
        "enterprise/connectors/analysis/analysis_service_settings.cc",
        "enterprise/connectors/analysis/analysis_service_settings.h",
@@ -12,7 +12,7 @@
        "enterprise/connectors/analysis/content_analysis_dialog.cc",
        "enterprise/connectors/analysis/content_analysis_dialog.h",
        "enterprise/connectors/analysis/content_analysis_downloads_delegate.cc",
-@@ -6940,9 +6937,14 @@ static_library("browser") {
+@@ -6956,9 +6953,14 @@ static_library("browser") {
        "//components/safe_browsing/content/browser:safe_browsing_blocking_page",
        "//components/safe_browsing/content/browser/download:download_stats",
        "//components/safe_browsing/content/common:file_type_policies",
@@ -44,7 +44,7 @@
    auto delegate = std::make_unique<AccuracyServiceDelegate>(profile);
 --- a/chrome/browser/chrome_content_browser_client.cc
 +++ b/chrome/browser/chrome_content_browser_client.cc
-@@ -4075,11 +4075,13 @@ ChromeContentBrowserClient::CreateThrott
+@@ -4096,11 +4096,13 @@ ChromeContentBrowserClient::CreateThrott
                     &throttles);
  #endif
  
@@ -58,7 +58,7 @@
  
  // TODO(crbug.com/1052397): Revisit the macro expression once build flag switch
  // of lacros-chrome is complete.
-@@ -5472,26 +5474,7 @@ ChromeContentBrowserClient::GetSafeBrows
+@@ -5493,26 +5495,7 @@ ChromeContentBrowserClient::GetSafeBrows
      const std::vector<std::string>& allowlist_domains) {
    DCHECK_CURRENTLY_ON(BrowserThread::IO);
  
@@ -86,7 +86,7 @@
  }
  
  safe_browsing::RealTimeUrlLookupServiceBase*
-@@ -5512,11 +5495,6 @@ ChromeContentBrowserClient::GetUrlLookup
+@@ -5533,11 +5516,6 @@ ChromeContentBrowserClient::GetUrlLookup
          GetForProfile(profile);
    }
  #endif
@@ -295,7 +295,7 @@
    // precedence.
 --- a/chrome/browser/enterprise/signals/context_info_fetcher.cc
 +++ b/chrome/browser/enterprise/signals/context_info_fetcher.cc
-@@ -179,7 +179,6 @@ void ContextInfoFetcher::Fetch(ContextIn
+@@ -181,7 +181,6 @@ void ContextInfoFetcher::Fetch(ContextIn
        GetAnalysisConnectorProviders(enterprise_connectors::FILE_DOWNLOADED);
    info.on_bulk_data_entry_providers =
        GetAnalysisConnectorProviders(enterprise_connectors::BULK_DATA_ENTRY);
@@ -303,7 +303,7 @@
    info.on_security_event_providers = GetOnSecurityEventProviders();
    info.browser_version = version_info::GetVersionNumber();
    info.safe_browsing_protection_level = GetSafeBrowsingProtectionLevel();
-@@ -228,11 +227,6 @@ std::vector<std::string> ContextInfoFetc
+@@ -230,11 +229,6 @@ std::vector<std::string> ContextInfoFetc
    return connectors_service_->GetAnalysisServiceProviderNames(connector);
  }
  
@@ -591,7 +591,7 @@
  #include "chrome/browser/extensions/pending_extension_manager.h"
  #include "chrome/browser/extensions/permissions_updater.h"
  #include "chrome/browser/extensions/shared_module_service.h"
-@@ -374,7 +373,6 @@ ExtensionService::ExtensionService(Profi
+@@ -373,7 +372,6 @@ ExtensionService::ExtensionService(Profi
        safe_browsing_verdict_handler_(extension_prefs,
                                       ExtensionRegistry::Get(profile),
                                       this),
@@ -599,7 +599,7 @@
        registry_(ExtensionRegistry::Get(profile)),
        pending_extension_manager_(profile),
        install_directory_(install_directory),
-@@ -855,47 +853,6 @@ bool ExtensionService::IsExtensionEnable
+@@ -854,47 +852,6 @@ bool ExtensionService::IsExtensionEnable
    return extension_registrar_.IsExtensionEnabled(extension_id);
  }
  
@@ -647,7 +647,7 @@
  
  void ExtensionService::MaybeEnableRemotelyDisabledExtension(
      const std::string& extension_id) {
-@@ -912,56 +869,6 @@ void ExtensionService::MaybeEnableRemote
+@@ -911,56 +868,6 @@ void ExtensionService::MaybeEnableRemote
    unchanged.erase(extension_id);
    // Remove the extension from the blocklist.
    UpdateBlocklistedExtensions({}, unchanged);
@@ -766,7 +766,7 @@
  
 --- a/chrome/browser/extensions/extension_system_impl.cc
 +++ b/chrome/browser/extensions/extension_system_impl.cc
-@@ -478,8 +478,6 @@ void ExtensionSystemImpl::InstallUpdate(
+@@ -465,8 +465,6 @@ void ExtensionSystemImpl::InstallUpdate(
  void ExtensionSystemImpl::PerformActionBasedOnOmahaAttributes(
      const std::string& extension_id,
      const base::Value& attributes) {
@@ -1390,9 +1390,9 @@
    if (!enterprise_connectors::ContentAnalysisDelegate::IsEnabled(
            profile, web_contents->GetLastCommittedURL(), &data, connector)) {
      std::move(callback).Run(
-@@ -141,4 +151,8 @@ void HandleOnPerformDrop(
-         base::BindOnce(&HandleDropScanData::ScanData,
-                        handle_drop_scan_data->GetWeakPtr()));
+@@ -154,4 +164,8 @@ void HandleOnPerformDrop(
+     std::move(callback).Run(
+         content::WebContentsViewDelegate::DropCompletionResult::kContinue);
    }
 +#else
 +  std::move(callback).Run(
@@ -1465,7 +1465,7 @@
    if (enterprise_manager.empty())
 --- a/chrome/browser/webshare/share_service_impl.cc
 +++ b/chrome/browser/webshare/share_service_impl.cc
-@@ -15,7 +15,9 @@
+@@ -14,7 +14,9 @@
  #include "chrome/browser/browser_process.h"
  #include "chrome/browser/safe_browsing/safe_browsing_service.h"
  #include "chrome/common/chrome_features.h"
@@ -1475,7 +1475,7 @@
  #include "components/safe_browsing/core/browser/db/database_manager.h"
  #include "content/public/browser/web_contents.h"
  #include "mojo/public/cpp/bindings/self_owned_receiver.h"
-@@ -183,11 +185,13 @@ void ShareServiceImpl::Share(const std::
+@@ -182,11 +184,13 @@ void ShareServiceImpl::Share(const std::
      // Check if at least one file is marked by the download protection service
      // to send a ping to check this file type.
      const base::FilePath path = base::FilePath::FromUTF8Unsafe(file->name);
@@ -1489,7 +1489,7 @@
  
      // In the case where the original blob handle was to a native file (of
      // unknown size), the serialized data does not contain an accurate file
-@@ -197,6 +201,7 @@ void ShareServiceImpl::Share(const std::
+@@ -196,6 +200,7 @@ void ShareServiceImpl::Share(const std::
    }
  
    DCHECK(!safe_browsing_request_);
@@ -1497,7 +1497,7 @@
    if (should_check_url && g_browser_process->safe_browsing_service()) {
      safe_browsing_request_.emplace(
          g_browser_process->safe_browsing_service()->database_manager(),
-@@ -206,6 +211,7 @@ void ShareServiceImpl::Share(const std::
+@@ -205,6 +210,7 @@ void ShareServiceImpl::Share(const std::
                         std::move(files), std::move(callback)));
      return;
    }

@@ -760,7 +760,7 @@ by default.
  std::string MakeMCSEndpoint(const std::string& mcs_hostname, int port) {
 --- a/jingle/notifier/base/gaia_token_pre_xmpp_auth.cc
 +++ b/jingle/notifier/base/gaia_token_pre_xmpp_auth.cc
-@@ -33,7 +33,7 @@ class GaiaCookieMechanism : public jingl
+@@ -36,7 +36,7 @@ class GaiaCookieMechanism : public jingl
      // These attributes are necessary for working with non-gmail gaia
      // accounts.
      const std::string NS_GOOGLE_AUTH_PROTOCOL(

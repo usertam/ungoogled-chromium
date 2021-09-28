@@ -64,7 +64,7 @@
  // These lists are lazily initialized below and are leaked on shutdown to
 --- a/content/public/common/url_utils.cc
 +++ b/content/public/common/url_utils.cc
-@@ -27,11 +27,7 @@ bool HasWebUIScheme(const GURL& url) {
+@@ -26,11 +26,7 @@ bool HasWebUIScheme(const GURL& url) {
  }
  
  bool IsSavableURL(const GURL& url) {

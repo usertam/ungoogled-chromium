@@ -2703,6 +2703,7 @@ content/browser/appcache/appcache_request_handler.cc
 content/browser/appcache/appcache_update_job.cc
 content/browser/appcache/appcache_update_url_fetcher.cc
 content/browser/appcache/appcache_url_loader.cc
+content/browser/attribution_reporting/PRESUBMIT.py
 content/browser/background_fetch/background_fetch_cross_origin_filter_unittest.cc
 content/browser/background_fetch/background_fetch_service_unittest.cc
 content/browser/blob_storage/blob_url_browsertest.cc
@@ -2716,7 +2717,6 @@ content/browser/cache_storage/cache_storage_context_unittest.cc
 content/browser/child_process_security_policy_impl.h
 content/browser/child_process_security_policy_unittest.cc
 content/browser/client_hints/client_hints.cc
-content/browser/conversions/PRESUBMIT.py
 content/browser/cookie_store/cookie_store_manager_unittest.cc
 content/browser/devtools/devtools_http_handler.cc
 content/browser/devtools/devtools_manager_unittest.cc
@@ -9871,7 +9871,6 @@ third_party/llvm/lld/COFF/PDB.cpp
 third_party/llvm/lld/ELF/ICF.cpp
 third_party/llvm/lld/ELF/SyntheticSections.cpp
 third_party/llvm/lld/ELF/SyntheticSections.h
-third_party/llvm/lld/MachO/SyntheticSections.cpp
 third_party/llvm/lldb/CODE_OWNERS.txt
 third_party/llvm/lldb/include/lldb/Utility/UUID.h
 third_party/llvm/lldb/source/Plugins/LanguageRuntime/RenderScript/RenderScriptRuntime/RenderScriptExpressionOpts.cpp
@@ -9916,8 +9915,9 @@ third_party/llvm/llvm/lib/CodeGen/MachineOutliner.cpp
 third_party/llvm/llvm/lib/DebugInfo/CodeView/Formatters.cpp
 third_party/llvm/llvm/lib/MC/MCWin64EH.cpp
 third_party/llvm/llvm/lib/Object/COFFModuleDefinition.cpp
+third_party/llvm/llvm/lib/Object/CodeSignatureSection.cpp
 third_party/llvm/llvm/lib/Object/ELF.cpp
-third_party/llvm/llvm/lib/Passes/PassBuilder.cpp
+third_party/llvm/llvm/lib/Passes/PassBuilderPipelines.cpp
 third_party/llvm/llvm/lib/Support/SHA1.cpp
 third_party/llvm/llvm/lib/Target/AArch64/AArch64FrameLowering.cpp
 third_party/llvm/llvm/lib/Target/AArch64/AArch64ISelLowering.cpp
