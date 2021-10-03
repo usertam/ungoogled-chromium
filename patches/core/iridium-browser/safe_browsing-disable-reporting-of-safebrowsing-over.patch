@@ -21,7 +21,7 @@ This prevents trk:148 (phishing) and trk:149 (malware).
    // Fill in metadata about which model we used.
    *request->mutable_population() = delegate_->GetUserPopulation();
  
-@@ -292,6 +293,7 @@ void ClientSideDetectionService::StartCl
+@@ -288,6 +289,7 @@ void ClientSideDetectionService::StartCl
        base::BindOnce(&WebUIInfoSingleton::AddToClientPhishingRequestsSent,
                       base::Unretained(WebUIInfoSingleton::GetInstance()),
                       std::move(request), access_token));

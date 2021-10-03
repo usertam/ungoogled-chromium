@@ -3,7 +3,7 @@
 
 --- a/chrome/test/chromedriver/BUILD.gn
 +++ b/chrome/test/chromedriver/BUILD.gn
-@@ -308,11 +308,7 @@ source_set("lib") {
+@@ -311,11 +311,7 @@ source_set("lib") {
    }
  }
  
@@ -15,7 +15,7 @@
  
  executable("$chromedriver_output") {
    testonly = true
-@@ -336,16 +332,6 @@ executable("$chromedriver_output") {
+@@ -337,16 +333,6 @@ executable("$chromedriver_output") {
    }
  }
  

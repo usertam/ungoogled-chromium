@@ -115,7 +115,7 @@ by default.
  
 --- a/chrome/browser/extensions/api/cryptotoken_private/cryptotoken_private_api.cc
 +++ b/chrome/browser/extensions/api/cryptotoken_private/cryptotoken_private_api.cc
-@@ -46,8 +46,8 @@ namespace {
+@@ -47,8 +47,8 @@ namespace {
  
  const char kGoogleDotCom[] = "google.com";
  constexpr const char* kGoogleGstaticAppIds[] = {

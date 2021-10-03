@@ -1,6 +1,6 @@
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
-@@ -2186,7 +2186,6 @@ static_library("browser") {
+@@ -2189,7 +2189,6 @@ static_library("browser") {
      "//components/reputation/core:proto",
      "//components/resources",
      "//components/safe_browsing/content/browser",
@@ -8,7 +8,7 @@
      "//components/safe_browsing/content/browser:safe_browsing_service",
      "//components/safe_browsing/content/browser/password_protection",
      "//components/safe_browsing/content/browser/web_ui",
-@@ -3671,8 +3670,6 @@ static_library("browser") {
+@@ -3685,8 +3684,6 @@ static_library("browser") {
        "download/download_commands.h",
        "download/download_crx_util.cc",
        "download/download_crx_util.h",
@@ -59,7 +59,7 @@
    network_time_tracker_.reset();
  #if BUILDFLAG(ENABLE_PLUGINS)
    plugins_resource_service_.reset();
-@@ -1023,14 +1020,6 @@ StatusTray* BrowserProcessImpl::status_t
+@@ -1024,14 +1021,6 @@ StatusTray* BrowserProcessImpl::status_t
    return status_tray_.get();
  }
  
@@ -74,7 +74,7 @@
  subresource_filter::RulesetService*
  BrowserProcessImpl::subresource_filter_ruleset_service() {
    DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-@@ -1295,26 +1284,6 @@ void BrowserProcessImpl::CreateBackgroun
+@@ -1296,26 +1285,6 @@ void BrowserProcessImpl::CreateBackgroun
  #endif
  }
  
@@ -131,7 +131,7 @@
  #include "chrome/browser/search_engines/template_url_service_factory.h"
  #include "chrome/browser/share/share_history.h"
  #include "chrome/browser/share/share_ranking.h"
-@@ -640,10 +639,6 @@ void ChromeBrowsingDataRemoverDelegate::
+@@ -642,10 +641,6 @@ void ChromeBrowsingDataRemoverDelegate::
      base::RecordAction(UserMetricsAction("ClearBrowsingData_Cookies"));
  
      network::mojom::NetworkContext* safe_browsing_context = nullptr;
@@ -144,7 +144,7 @@
          delete_begin, delete_end, filter_builder, host_content_settings_map_,
 --- a/chrome/browser/chrome_content_browser_client.cc
 +++ b/chrome/browser/chrome_content_browser_client.cc
-@@ -921,34 +921,6 @@ void SetApplicationLocaleOnIOThread(cons
+@@ -919,34 +919,6 @@ void SetApplicationLocaleOnIOThread(cons
    GetIOThreadApplicationLocale() = locale;
  }
  
@@ -187,7 +187,7 @@
  }
  
  bool ChromeContentBrowserClient::IsBrowserStartupComplete() {
-@@ -4096,7 +4067,7 @@ ChromeContentBrowserClient::CreateThrott
+@@ -4139,7 +4110,7 @@ ChromeContentBrowserClient::CreateThrott
    content::WebContents* web_contents = handle->GetWebContents();
    throttles.push_back(std::make_unique<SSLErrorNavigationThrottle>(
        handle,
@@ -196,7 +196,7 @@
        base::BindOnce(&HandleSSLErrorWrapper), base::BindOnce(&IsInHostedApp),
        base::BindOnce(
            &ShouldIgnoreSslInterstitialBecauseNavigationDefaultedToHttps)));
-@@ -4125,15 +4096,6 @@ ChromeContentBrowserClient::CreateThrott
+@@ -4168,15 +4139,6 @@ ChromeContentBrowserClient::CreateThrott
                     &throttles);
  #endif
  
@@ -237,7 +237,7 @@
  }  // namespace
 --- a/chrome/browser/download/chrome_download_manager_delegate.cc
 +++ b/chrome/browser/download/chrome_download_manager_delegate.cc
-@@ -400,13 +400,6 @@ ChromeDownloadManagerDelegate::~ChromeDo
+@@ -435,13 +435,6 @@ ChromeDownloadManagerDelegate::~ChromeDo
  
  void ChromeDownloadManagerDelegate::SetDownloadManager(DownloadManager* dm) {
    download_manager_ = dm;
@@ -251,7 +251,7 @@
  }
  
  #if defined(OS_ANDROID)
-@@ -755,16 +748,6 @@ void ChromeDownloadManagerDelegate::Choo
+@@ -790,16 +783,6 @@ void ChromeDownloadManagerDelegate::Choo
  
  void ChromeDownloadManagerDelegate::SanitizeSavePackageResourceName(
      base::FilePath* filename) {
@@ -317,7 +317,7 @@
        return !download_->IsSavePackageDownload() &&
 --- a/chrome/browser/download/download_prefs.cc
 +++ b/chrome/browser/download/download_prefs.cc
-@@ -259,14 +259,7 @@ DownloadPrefs::DownloadPrefs(Profile* pr
+@@ -260,14 +260,7 @@ DownloadPrefs::DownloadPrefs(Profile* pr
          base::FilePath::StringType(1, base::FilePath::kExtensionSeparator) +
          extension);
  
@@ -333,7 +333,7 @@
    }
  }
  
-@@ -474,10 +467,6 @@ bool DownloadPrefs::IsAutoOpenByPolicy(c
+@@ -475,10 +468,6 @@ bool DownloadPrefs::IsAutoOpenByPolicy(c
  bool DownloadPrefs::EnableAutoOpenByUserBasedOnExtension(
      const base::FilePath& file_name) {
    base::FilePath::StringType extension = file_name.Extension();
@@ -715,7 +715,7 @@
  // static
 --- a/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc
 +++ b/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc
-@@ -298,7 +298,6 @@ void ChromeBrowserMainExtraPartsProfiles
+@@ -294,7 +294,6 @@ void ChromeBrowserMainExtraPartsProfiles
  #if BUILDFLAG(IS_CHROMEOS_LACROS)
    CertDbInitializerFactory::GetInstance();
  #endif
@@ -781,7 +781,7 @@
  
    if (safe_browsing_mode != 0) {
      # "Safe Browsing Basic" files used for safe browsing in full mode
-@@ -411,6 +413,7 @@ static_library("advanced_protection") {
+@@ -410,6 +412,7 @@ static_library("advanced_protection") {
  }
  
  source_set("metrics_collector") {
@@ -789,7 +789,7 @@
    sources = [
      "safe_browsing_metrics_collector_factory.cc",
      "safe_browsing_metrics_collector_factory.h",
-@@ -427,6 +430,7 @@ source_set("metrics_collector") {
+@@ -426,6 +429,7 @@ source_set("metrics_collector") {
      "//components/safe_browsing/core/common:safe_browsing_prefs",
      "//content/public/browser",
    ]
@@ -891,7 +891,7 @@
  
 --- a/chrome/browser/ui/BUILD.gn
 +++ b/chrome/browser/ui/BUILD.gn
-@@ -3913,7 +3913,6 @@ static_library("ui") {
+@@ -3914,7 +3914,6 @@ static_library("ui") {
        "views/device_chooser_content_view.h",
        "views/devtools_process_observer.cc",
        "views/devtools_process_observer.h",
@@ -901,7 +901,7 @@
        "views/download/download_item_view.cc",
 --- a/chrome/browser/ui/tab_helpers.cc
 +++ b/chrome/browser/ui/tab_helpers.cc
-@@ -328,16 +328,6 @@ void TabHelpers::AttachTabHelpers(WebCon
+@@ -324,16 +324,6 @@ void TabHelpers::AttachTabHelpers(WebCon
    //     See https://crbug.com/910288.
    resource_coordinator::ResourceCoordinatorTabHelper::CreateForWebContents(
        web_contents);

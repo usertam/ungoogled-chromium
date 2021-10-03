@@ -9,7 +9,7 @@
 
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
-@@ -2360,6 +2360,7 @@ static_library("browser") {
+@@ -2363,6 +2363,7 @@ static_library("browser") {
      "//third_party/libyuv",
      "//third_party/metrics_proto",
      "//third_party/re2",
@@ -19,7 +19,7 @@
      "//third_party/widevine/cdm:headers",
 --- a/chrome/browser/about_flags.cc
 +++ b/chrome/browser/about_flags.cc
-@@ -149,6 +149,7 @@
+@@ -150,6 +150,7 @@
  #include "components/translate/core/browser/translate_ranker_impl.h"
  #include "components/translate/core/common/translate_util.h"
  #include "components/ui_devtools/switches.h"
@@ -44,7 +44,7 @@
  #endif  // CHROME_BROWSER_BROMITE_FLAG_ENTRIES_H_
 --- a/content/browser/BUILD.gn
 +++ b/content/browser/BUILD.gn
-@@ -220,6 +220,7 @@ source_set("browser") {
+@@ -221,6 +221,7 @@ source_set("browser") {
      "//third_party/libyuv",
      "//third_party/re2",
      "//third_party/sqlite",
@@ -62,7 +62,7 @@
  #include "ui/accessibility/accessibility_switches.h"
  #include "ui/base/ui_base_switches.h"
  #include "ui/display/display_switches.h"
-@@ -3455,6 +3456,8 @@ void RenderProcessHostImpl::PropagateBro
+@@ -3457,6 +3458,8 @@ void RenderProcessHostImpl::PropagateBro
      switches::kEnableWebGLDraftExtensions,
      switches::kEnableWebGLImageChromium,
      switches::kFileUrlPathAlias,
@@ -91,7 +91,7 @@
  #include "ui/accessibility/accessibility_features.h"
  #include "ui/base/ui_base_features.h"
  #include "ui/events/blink/blink_features.h"
-@@ -468,6 +469,10 @@ void SetRuntimeFeaturesFromCommandLine(c
+@@ -465,6 +466,10 @@ void SetRuntimeFeaturesFromCommandLine(c
        {wrf::EnableWebGPU, switches::kEnableUnsafeWebGPU, true},
        {wrf::ForceOverlayFullscreenVideo, switches::kForceOverlayFullscreenVideo,
         true},
@@ -104,7 +104,7 @@
      if (command_line.HasSwitch(mapping.switch_name))
 --- a/third_party/blink/public/platform/web_runtime_features.h
 +++ b/third_party/blink/public/platform/web_runtime_features.h
-@@ -219,6 +219,8 @@ class WebRuntimeFeatures {
+@@ -218,6 +218,8 @@ class WebRuntimeFeatures {
    BLINK_PLATFORM_EXPORT static void EnableMediaControlsExpandGesture(bool);
    BLINK_PLATFORM_EXPORT static void EnableGetDisplayMedia(bool);
    BLINK_PLATFORM_EXPORT static void EnableAllowSyncXHRInPageDismissal(bool);
@@ -156,7 +156,7 @@
  void Document::InvalidateStyleAndLayoutForFontUpdates() {
 --- a/third_party/blink/renderer/core/dom/document.h
 +++ b/third_party/blink/renderer/core/dom/document.h
-@@ -456,6 +456,10 @@ class CORE_EXPORT Document : public Cont
+@@ -457,6 +457,10 @@ class CORE_EXPORT Document : public Cont
      has_xml_declaration_ = has_xml_declaration ? 1 : 0;
    }
  
@@ -167,7 +167,7 @@
    AtomicString visibilityState() const;
    bool IsPageVisible() const;
    bool hidden() const;
-@@ -2074,6 +2078,9 @@ class CORE_EXPORT Document : public Cont
+@@ -2080,6 +2084,9 @@ class CORE_EXPORT Document : public Cont
  
    base::ElapsedTimer start_time_;
  
@@ -179,7 +179,7 @@
    HeapVector<Member<ScriptElementBase>> current_script_stack_;
 --- a/third_party/blink/renderer/core/dom/element.cc
 +++ b/third_party/blink/renderer/core/dom/element.cc
-@@ -2118,6 +2118,11 @@ DOMRectList* Element::getClientRects() {
+@@ -2117,6 +2117,11 @@ DOMRectList* Element::getClientRects() {
    DCHECK(element_layout_object);
    GetDocument().AdjustFloatQuadsForScrollAndAbsoluteZoom(
        quads, *element_layout_object);
@@ -191,7 +191,7 @@
    return MakeGarbageCollected<DOMRectList>(quads);
  }
  
-@@ -2135,6 +2140,9 @@ FloatRect Element::GetBoundingClientRect
+@@ -2134,6 +2139,9 @@ FloatRect Element::GetBoundingClientRect
    DCHECK(element_layout_object);
    GetDocument().AdjustFloatRectForScrollAndAbsoluteZoom(result,
                                                          *element_layout_object);
@@ -285,7 +285,7 @@
  void CanvasRenderingContext2D::fillFormattedText(
 --- a/third_party/blink/renderer/platform/BUILD.gn
 +++ b/third_party/blink/renderer/platform/BUILD.gn
-@@ -1684,6 +1684,7 @@ component("platform") {
+@@ -1686,6 +1686,7 @@ component("platform") {
      "//components/paint_preview/common",
      "//components/power_scheduler",
      "//components/search_engines:search_engine_utils",
@@ -295,7 +295,7 @@
      "//crypto",
 --- a/third_party/blink/renderer/platform/exported/web_runtime_features.cc
 +++ b/third_party/blink/renderer/platform/exported/web_runtime_features.cc
-@@ -693,4 +693,12 @@ void WebRuntimeFeatures::EnableCLSScroll
+@@ -689,4 +689,12 @@ void WebRuntimeFeatures::EnableCLSScroll
    RuntimeEnabledFeatures::SetCLSScrollAnchoringEnabled(enable);
  }
  
