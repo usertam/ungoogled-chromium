@@ -13,7 +13,7 @@
  #endif  // CHROME_BROWSER_UNGOOGLED_FLAG_ENTRIES_H_
 --- a/chrome/renderer/chrome_render_frame_observer.cc
 +++ b/chrome/renderer/chrome_render_frame_observer.cc
-@@ -140,9 +140,10 @@ ChromeRenderFrameObserver::ChromeRenderF
+@@ -139,9 +139,10 @@ ChromeRenderFrameObserver::ChromeRenderF
    if (!render_frame->IsMainFrame())
      return;
  
@@ -25,7 +25,7 @@
    if (!command_line.HasSwitch(switches::kDisableClientSidePhishingDetection))
      SetClientSidePhishingDetection();
  #endif
-@@ -202,14 +203,16 @@ void ChromeRenderFrameObserver::DidFinis
+@@ -201,14 +202,16 @@ void ChromeRenderFrameObserver::DidFinis
    if (frame->Parent())
      return;
  

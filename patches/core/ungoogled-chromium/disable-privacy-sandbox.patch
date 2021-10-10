@@ -1,6 +1,6 @@
 --- a/chrome/browser/privacy_sandbox/privacy_sandbox_settings.cc
 +++ b/chrome/browser/privacy_sandbox/privacy_sandbox_settings.cc
-@@ -380,15 +380,15 @@ std::vector<GURL> PrivacySandboxSettings
+@@ -379,15 +379,15 @@ std::vector<GURL> PrivacySandboxSettings
  }
  
  bool PrivacySandboxSettings::IsPrivacySandboxAllowed() {

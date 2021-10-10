@@ -70,7 +70,7 @@
    // TODO(nick): https://crbug.com/651534 blob: and filesystem: schemes embed
 --- a/net/BUILD.gn
 +++ b/net/BUILD.gn
-@@ -1008,6 +1008,8 @@ component("net") {
+@@ -1010,6 +1010,8 @@ component("net") {
      "url_request/report_sender.h",
      "url_request/static_http_user_agent_settings.cc",
      "url_request/static_http_user_agent_settings.h",

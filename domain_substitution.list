@@ -332,7 +332,6 @@ chrome/browser/android/explore_sites/ntp_json_fetcher_unittest.cc
 chrome/browser/android/explore_sites/record_site_click_task_unittest.cc
 chrome/browser/android/explore_sites/url_util.cc
 chrome/browser/android/explore_sites/url_util_experimental.cc
-chrome/browser/android/feed/v2/feed_reliability_logging_bridge.cc
 chrome/browser/android/history/history_deletion_bridge_unittest.cc
 chrome/browser/android/history_report/delta_file_commons_unittest.cc
 chrome/browser/android/search_permissions/search_permissions_service.h
@@ -341,9 +340,9 @@ chrome/browser/android/signin/signin_manager_android_unittest.cc
 chrome/browser/android/signin/web_signin_bridge_unittest.cc
 chrome/browser/android/tab_android.cc
 chrome/browser/android/vr/PRESUBMIT.py
-chrome/browser/apps/app_service/app_icon_loader.cc
-chrome/browser/apps/app_service/app_service_metrics.h
+chrome/browser/apps/app_service/app_icon/app_icon_loader.cc
 chrome/browser/apps/app_service/intent_util_unittest.cc
+chrome/browser/apps/app_service/metrics/app_service_metrics.h
 chrome/browser/apps/app_service/web_contents_app_id_utils.h
 chrome/browser/apps/app_service/webapk/webapk_install_task.cc
 chrome/browser/apps/digital_goods/digital_goods_factory_impl.cc
@@ -372,6 +371,7 @@ chrome/browser/ash/arc/bluetooth/arc_bluetooth_bridge.cc
 chrome/browser/ash/arc/bluetooth/arc_bluetooth_bridge.h
 chrome/browser/ash/arc/enterprise/arc_data_snapshotd_delegate_unittest.cc
 chrome/browser/ash/arc/file_system_watcher/file_system_scanner.h
+chrome/browser/ash/arc/instance_throttle/arc_kiosk_mode_throttle_observer_unittest.cc
 chrome/browser/ash/arc/intent_helper/arc_external_protocol_dialog_unittest.cc
 chrome/browser/ash/arc/policy/arc_policy_bridge_unittest.cc
 chrome/browser/ash/arc/policy/arc_policy_util.h
@@ -393,6 +393,7 @@ chrome/browser/ash/child_accounts/child_user_service.cc
 chrome/browser/ash/child_accounts/family_user_device_metrics_browsertest.cc
 chrome/browser/ash/child_accounts/parent_access_code/parent_access_service_browsertest.cc
 chrome/browser/ash/child_accounts/secondary_account_consent_logger_unittest.cc
+chrome/browser/ash/child_accounts/time_limits/app_time_limit_utils_unittest.cc
 chrome/browser/ash/child_accounts/time_limits/web_time_limit_error_page/resources/web_time_limit_error_page.html
 chrome/browser/ash/chrome_content_browser_client_ash_part_unittest.cc
 chrome/browser/ash/crosapi/browser_util_unittest.cc
@@ -503,13 +504,18 @@ chrome/browser/ash/power/auto_screen_brightness/modeller_impl_unittest.cc
 chrome/browser/ash/power/ml/smart_dim/ml_agent_unittest.cc
 chrome/browser/ash/printing/specifics_translation_unittest.cc
 chrome/browser/ash/printing/synced_printers_manager_unittest.cc
+chrome/browser/ash/proxy_config_service_impl_unittest.cc
 chrome/browser/ash/release_notes/release_notes_notification_unittest.cc
 chrome/browser/ash/release_notes/release_notes_storage_unittest.cc
 chrome/browser/ash/scanning/chrome_scanning_app_delegate_unittest.cc
+chrome/browser/ash/scheduler_configuration_manager.h
 chrome/browser/ash/settings/cros_settings_unittest.cc
 chrome/browser/ash/settings/device_settings_provider_unittest.cc
 chrome/browser/ash/smb_client/smb_service_helper.h
 chrome/browser/ash/sync/ash_turn_sync_on_helper_unittest.cc
+chrome/browser/ash/system_token_cert_db_initializer.h
+chrome/browser/ash/tpm_firmware_update.h
+chrome/browser/ash/u2f_notification.cc
 chrome/browser/ash/web_applications/help_app/help_app_discover_tab_notification_unittest.cc
 chrome/browser/ash/web_applications/help_app/help_app_notification_controller_unittest.cc
 chrome/browser/ash/web_applications/terminal_source.cc
@@ -570,17 +576,11 @@ chrome/browser/chromeos/extensions/device_local_account_management_policy_provid
 chrome/browser/chromeos/extensions/file_manager/private_api_misc.cc
 chrome/browser/chromeos/extensions/file_manager/system_notification_manager_unittest.cc
 chrome/browser/chromeos/extensions/permissions_updater_delegate_chromeos_unittest.cc
-chrome/browser/chromeos/extensions/telemetry/api/base_telemetry_extension_api_guard_function.cc
 chrome/browser/chromeos/extensions/telemetry/api/base_telemetry_extension_api_guard_function_browsertest.cc
 chrome/browser/chromeos/extensions/telemetry/api/base_telemetry_extension_browser_test.cc
 chrome/browser/chromeos/extensions/telemetry/chromeos_permission_messages_unittest.cc
 chrome/browser/chromeos/extensions/users_private/users_private_apitest.cc
 chrome/browser/chromeos/platform_keys/key_permissions/key_permissions_manager_impl.cc
-chrome/browser/chromeos/proxy_config_service_impl_unittest.cc
-chrome/browser/chromeos/scheduler_configuration_manager.h
-chrome/browser/chromeos/system_token_cert_db_initializer.h
-chrome/browser/chromeos/tpm_firmware_update.h
-chrome/browser/chromeos/u2f_notification.cc
 chrome/browser/complex_tasks/task_tab_helper_unittest.cc
 chrome/browser/component_updater/recovery_component_installer.cc
 chrome/browser/content_settings/content_settings_default_provider_unittest.cc
@@ -617,6 +617,7 @@ chrome/browser/enterprise/connectors/connectors_service.cc
 chrome/browser/enterprise/connectors/connectors_service_unittest.cc
 chrome/browser/enterprise/connectors/device_trust/attestation/desktop/google_keys.cc
 chrome/browser/enterprise/connectors/device_trust/device_trust_browsertest.cc
+chrome/browser/enterprise/connectors/device_trust/signals/decorators/browser/browser_signals_decorator_unittest.cc
 chrome/browser/enterprise/connectors/file_system/box_api_call_flow.cc
 chrome/browser/enterprise/connectors/file_system/box_api_call_flow_unittest.cc
 chrome/browser/enterprise/connectors/file_system/box_uploader.cc
@@ -752,6 +753,7 @@ chrome/browser/extensions/updater/extension_updater_unittest.cc
 chrome/browser/extensions/user_script_listener_unittest.cc
 chrome/browser/federated_learning/floc_remote_permission_service.cc
 chrome/browser/federated_learning/floc_remote_permission_service_unittest.cc
+chrome/browser/feed/android/feed_reliability_logging_bridge.cc
 chrome/browser/feedback/show_feedback_page.cc
 chrome/browser/feedback/system_logs/log_sources/crash_ids_source.cc
 chrome/browser/first_run/first_run_unittest.cc
@@ -1011,6 +1013,7 @@ chrome/browser/resources/chromeos/accessibility/select_to_speak/select_to_speak.
 chrome/browser/resources/chromeos/accessibility/select_to_speak/select_to_speak_navigation_control_test.js
 chrome/browser/resources/chromeos/accessibility/select_to_speak/select_to_speak_unittest.js
 chrome/browser/resources/chromeos/accessibility/select_to_speak_manifest.json.jinja2
+chrome/browser/resources/chromeos/accessibility/switch_access/item_scan_manager_test.js
 chrome/browser/resources/chromeos/accessibility/switch_access/switch_access.js
 chrome/browser/resources/chromeos/accessibility/switch_access/switch_access_predicate_test.js
 chrome/browser/resources/chromeos/accessibility/switch_access_manifest.json.jinja2
@@ -1184,7 +1187,6 @@ chrome/browser/subresource_filter/subresource_filter_browsertest.cc
 chrome/browser/subresource_redirect/origin_robots_rules_unittest.cc
 chrome/browser/subresource_redirect/subresource_redirect_util.cc
 chrome/browser/subresource_redirect/subresource_redirect_util_unit_test.cc
-chrome/browser/supervised_user/child_accounts/family_info_fetcher.cc
 chrome/browser/supervised_user/child_accounts/family_info_fetcher_unittest.cc
 chrome/browser/supervised_user/child_accounts/kids_management_api.cc
 chrome/browser/supervised_user/child_accounts/permission_request_creator_apiary_unittest.cc
@@ -1396,6 +1398,7 @@ chrome/browser/ui/webui/chromeos/login/consolidated_consent_screen_handler.h
 chrome/browser/ui/webui/chromeos/login/gaia_screen_handler.h
 chrome/browser/ui/webui/chromeos/login/l10n_util_unittest.cc
 chrome/browser/ui/webui/chromeos/login/signin_userlist_unittest.cc
+chrome/browser/ui/webui/chromeos/parent_access/parent_access_ui.cc
 chrome/browser/ui/webui/chromeos/sync/os_sync_handler_unittest.cc
 chrome/browser/ui/webui/components/components_handler.cc
 chrome/browser/ui/webui/devtools_ui_data_source_unittest.cc
@@ -1527,7 +1530,8 @@ chrome/chrome_elf/third_party_dlls/main.h
 chrome/common/apps/platform_apps/api/PRESUBMIT.py
 chrome/common/chrome_features.cc
 chrome/common/chrome_switches.cc
-chrome/common/chromeos/extensions/chromeos_system_extensions_manifest_handler.cc
+chrome/common/chromeos/extensions/chromeos_system_extension_info.cc
+chrome/common/chromeos/extensions/chromeos_system_extension_info_unittest.cc
 chrome/common/cloud_print/cloud_print_constants.cc
 chrome/common/cloud_print/cloud_print_helpers_unittest.cc
 chrome/common/conflicts/module_watcher_win.cc
@@ -2002,6 +2006,7 @@ components/components_google_chrome_strings.grd
 components/content_creation/notes/core/server/notes_repository.cc
 components/content_creation/notes/core/server/notes_server_base.cc
 components/content_creation/notes/core/templates/template_constants.cc
+components/content_creation/reactions/core/reaction_list_factory.cc
 components/content_settings/browser/page_specific_content_settings_unittest.cc
 components/content_settings/core/browser/content_settings_provider_unittest.cc
 components/content_settings/core/common/content_settings_pattern.cc
@@ -2030,6 +2035,7 @@ components/cronet/tools/generate_javadoc.py
 components/data_reduction_proxy/core/browser/data_reduction_proxy_compression_stats.h
 components/data_reduction_proxy/core/common/chrome_proxy_header.txt
 components/desks_storage/core/desk_sync_bridge_unittest.cc
+components/desks_storage/core/desk_template_conversion_unittests.cc
 components/digital_asset_links/digital_asset_links_handler.cc
 components/digital_asset_links/digital_asset_links_handler.h
 components/dom_distiller/content/browser/distiller_page_web_contents_browsertest.cc
@@ -2362,7 +2368,6 @@ components/payments/core/url_util_unittest.cc
 components/pdf/renderer/pdf_accessibility_tree_browsertest.cc
 components/performance_manager/graph/frame_node_impl.cc
 components/performance_manager/public/graph/frame_node.h
-components/performance_manager/public/graph/policies/tab_loading_frame_navigation_policy.h
 components/performance_manager/public/graph/process_node.h
 components/performance_manager/public/graph/worker_node.h
 components/permissions/android/permissions_android_strings.grd
@@ -2549,6 +2554,7 @@ components/services/paint_preview_compositor/paint_preview_compositor_impl_unitt
 components/services/quarantine/quarantine_mac.mm
 components/services/quarantine/quarantine_win.cc
 components/services/storage/partition_impl_unittest.cc
+components/services/storage/public/mojom/buckets/bucket_locator_mojom_traits_unittest.cc
 components/shared_highlighting/core/common/disabled_sites.cc
 components/shared_highlighting/core/common/disabled_sites_unittest.cc
 components/shared_highlighting/core/common/shared_highlighting_metrics_unittest.cc
@@ -3114,6 +3120,7 @@ ios/chrome/browser/autofill/manual_fill/passwords_fetcher_unittest.mm
 ios/chrome/browser/browser_state/chrome_browser_state_impl.h
 ios/chrome/browser/browser_state/chrome_browser_state_removal_controller.mm
 ios/chrome/browser/chrome_url_constants.cc
+ios/chrome/browser/commerce/shopping_persisted_data_tab_helper_unittest.mm
 ios/chrome/browser/crash_report/breadcrumbs/breadcrumb_manager_tab_helper.h
 ios/chrome/browser/crash_report/breadcrumbs/breadcrumb_manager_tab_helper.mm
 ios/chrome/browser/crash_report/breadcrumbs/breadcrumb_manager_tab_helper_unittest.mm
@@ -3217,12 +3224,12 @@ ios/chrome/browser/web_state_list/web_usage_enabler/web_usage_enabler_browser_ag
 ios/chrome/common/ns_regular_expression_unittest.mm
 ios/chrome/common/string_util_unittest.mm
 ios/chrome/common/x_callback_url_unittest.cc
-ios/chrome/credential_provider_extension/password_spec_fetcher.mm
 ios/chrome/credential_provider_extension/strings/ios_credential_provider_extension_strings.grd
 ios/chrome/test/data/policy/policy_test_cases.json
 ios/chrome/test/earl_grey/chrome_earl_grey_ui.h
 ios/chrome/test/earl_grey/device_check_egtest.mm
 ios/chrome/test/xcuitest/device_check_xctest.mm
+ios/components/credential_provider_extension/password_spec_fetcher.mm
 ios/net/cookies/cookie_cache_unittest.cc
 ios/net/cookies/cookie_store_ios_test_util.mm
 ios/net/cookies/cookie_store_ios_unittest.mm
@@ -3292,6 +3299,7 @@ media/audio/win/audio_low_latency_input_win.cc
 media/audio/win/audio_low_latency_output_win.h
 media/audio/win/core_audio_util_win.cc
 media/audio/win/core_audio_util_win.h
+media/base/android/media_codec_bridge_impl.cc
 media/base/android/media_drm_bridge.cc
 media/base/android/media_player_bridge.h
 media/base/container_names.cc
@@ -3744,7 +3752,6 @@ net/dns/dns_udp_tracker.h
 net/dns/dns_util.h
 net/dns/dns_util_unittest.cc
 net/dns/host_cache_unittest.cc
-net/dns/host_resolver_manager.cc
 net/dns/host_resolver_manager_unittest.cc
 net/dns/host_resolver_mdns_task.cc
 net/dns/https_record_rdata_unittest.cc
@@ -3871,7 +3878,6 @@ net/third_party/nss/ssl/cmpcert.h
 net/third_party/quiche/src/http2/core/priority_write_scheduler.h
 net/third_party/quiche/src/quic/core/crypto/quic_crypto_client_config.h
 net/third_party/quiche/src/quic/core/crypto/quic_crypto_client_config_test.cc
-net/third_party/quiche/src/quic/core/crypto/tls_connection.h
 net/third_party/quiche/src/quic/core/crypto/tls_server_connection.h
 net/third_party/quiche/src/quic/core/http/quic_client_promised_info_test.cc
 net/third_party/quiche/src/quic/core/http/quic_client_push_promise_index_test.cc
@@ -4167,7 +4173,6 @@ testing/perf/luci_test_result.h
 testing/perf/perf_result_reporter.cc
 testing/scripts/PRESUBMIT.py
 testing/scripts/common.py
-testing/scripts/run_chromedriver_tests.py
 testing/scripts/run_finch_smoke_tests_android.py
 testing/scripts/run_performance_tests.py
 testing/scripts/run_variations_smoke_tests.py
@@ -4356,7 +4361,6 @@ third_party/angle/extensions/EGL_ANGLE_direct_composition.txt
 third_party/angle/extensions/EGL_ANGLE_display_semaphore_share_group.txt
 third_party/angle/extensions/EGL_ANGLE_display_texture_share_group.txt
 third_party/angle/extensions/EGL_ANGLE_feature_control.txt
-third_party/angle/extensions/EGL_ANGLE_flexible_surface_compatibility.txt
 third_party/angle/extensions/EGL_ANGLE_ggp_stream_descriptor.txt
 third_party/angle/extensions/EGL_ANGLE_iosurface_client_buffer.txt
 third_party/angle/extensions/EGL_ANGLE_keyed_mutex.txt
@@ -4700,7 +4704,6 @@ third_party/blink/renderer/core/editing/finder/find_buffer.h
 third_party/blink/renderer/core/editing/spellcheck/cold_mode_spell_check_requester.h
 third_party/blink/renderer/core/editing/spellcheck/hot_mode_spell_check_requester.h
 third_party/blink/renderer/core/editing/spellcheck/idle_spell_check_controller.h
-third_party/blink/renderer/core/events/application_cache_error_event.idl
 third_party/blink/renderer/core/events/before_unload_event.cc
 third_party/blink/renderer/core/events/before_unload_event.h
 third_party/blink/renderer/core/events/clipboard_event.cc
@@ -4861,6 +4864,7 @@ third_party/blink/renderer/core/loader/resource/script_resource.h
 third_party/blink/renderer/core/loader/resource/xsl_style_sheet_resource.cc
 third_party/blink/renderer/core/loader/resource/xsl_style_sheet_resource.h
 third_party/blink/renderer/core/loader/subresource_filter.cc
+third_party/blink/renderer/core/page/frame_tree.h
 third_party/blink/renderer/core/page/print_context_test.cc
 third_party/blink/renderer/core/page/scrolling/element_fragment_anchor_test.cc
 third_party/blink/renderer/core/page/scrolling/scroll_state.idl
@@ -5146,7 +5150,6 @@ third_party/boringssl/src/tool/fd.cc
 third_party/boringssl/src/tool/internal.h
 third_party/boringssl/src/util/bot/go/env.py
 third_party/boringssl/src/util/bot/update_clang.py
-third_party/breakpad/BUILD.gn
 third_party/breakpad/breakpad/default.xml
 third_party/breakpad/breakpad/src/build/common.gypi
 third_party/breakpad/breakpad/src/client/linux/minidump_writer/minidump_writer.cc
@@ -6508,7 +6511,7 @@ third_party/dawn/src/common/Compiler.h
 third_party/dawn/src/common/vulkan_platform.h
 third_party/dawn/src/dawn_native/CommandAllocator.cpp
 third_party/dawn/src/dawn_native/CreatePipelineAsyncTask.cpp
-third_party/dawn/src/dawn_native/Extensions.cpp
+third_party/dawn/src/dawn_native/Features.cpp
 third_party/dawn/src/dawn_native/PipelineLayout.cpp
 third_party/dawn/src/dawn_native/Sampler.h
 third_party/dawn/src/dawn_native/SubresourceStorage.h
@@ -6956,7 +6959,6 @@ third_party/depot_tools/tests/metrics_test.py
 third_party/depot_tools/tests/presubmit_unittest.py
 third_party/depot_tools/tests/watchlists_unittest.py
 third_party/depot_tools/third_party/coverage/htmlfiles/pyfile.html
-third_party/depot_tools/third_party/httplib2/__init__.py
 third_party/depot_tools/watchlists.py
 third_party/depot_tools/win32imports.py
 third_party/depot_tools/win_toolchain/get_toolchain_if_necessary.py
@@ -9553,6 +9555,7 @@ third_party/libdrm/src/xf86drmMode.h
 third_party/libgav1/src/src/dsp/arm/distance_weighted_blend_neon.cc
 third_party/libgav1/src/src/dsp/x86/distance_weighted_blend_sse4.cc
 third_party/libgav1/src/src/utils/compiler_attributes.h
+third_party/libgav1/src/src/utils/cpu_test.cc
 third_party/libgifcodec/SkGifImageReader.cpp
 third_party/libgifcodec/SkGifImageReader.h
 third_party/libipp/BUILD.gn
@@ -9877,6 +9880,7 @@ third_party/llvm/lld/COFF/PDB.cpp
 third_party/llvm/lld/ELF/ICF.cpp
 third_party/llvm/lld/ELF/SyntheticSections.cpp
 third_party/llvm/lld/ELF/SyntheticSections.h
+third_party/llvm/lld/MachO/SyntheticSections.cpp
 third_party/llvm/lldb/CODE_OWNERS.txt
 third_party/llvm/lldb/include/lldb/Utility/UUID.h
 third_party/llvm/lldb/source/Plugins/LanguageRuntime/RenderScript/RenderScriptRuntime/RenderScriptExpressionOpts.cpp
@@ -9921,7 +9925,6 @@ third_party/llvm/llvm/lib/CodeGen/MachineOutliner.cpp
 third_party/llvm/llvm/lib/DebugInfo/CodeView/Formatters.cpp
 third_party/llvm/llvm/lib/MC/MCWin64EH.cpp
 third_party/llvm/llvm/lib/Object/COFFModuleDefinition.cpp
-third_party/llvm/llvm/lib/Object/CodeSignatureSection.cpp
 third_party/llvm/llvm/lib/Object/ELF.cpp
 third_party/llvm/llvm/lib/Passes/PassBuilderPipelines.cpp
 third_party/llvm/llvm/lib/Support/SHA1.cpp
@@ -10020,10 +10023,12 @@ third_party/nearby/src/cpp/platform/api/bluetooth_adapter.h
 third_party/nearby/src/cpp/platform/api/bluetooth_classic.h
 third_party/nearby/src/cpp/platform/api/platform.h
 third_party/nearby/src/cpp/platform/api/wifi_lan.h
+third_party/nearby/src/cpp/platform/api/wifi_lan_v2.h
 third_party/nearby/src/cpp/platform/base/nsd_service_info.h
 third_party/nearby/src/cpp/platform/impl/g3/bluetooth_adapter.h
 third_party/nearby/src/cpp/platform/impl/g3/bluetooth_classic.h
 third_party/nearby/src/cpp/platform/impl/windows/ble.h
+third_party/nearby/src/cpp/platform/impl/windows/bluetooth_adapter.cc
 third_party/nearby/src/cpp/platform/impl/windows/bluetooth_adapter.h
 third_party/nearby/src/cpp/platform/impl/windows/bluetooth_classic_device.cc
 third_party/nearby/src/cpp/platform/impl/windows/bluetooth_classic_device.h
@@ -10034,11 +10039,19 @@ third_party/nearby/src/cpp/platform/impl/windows/bluetooth_classic_server_socket
 third_party/nearby/src/cpp/platform/impl/windows/bluetooth_classic_socket.cc
 third_party/nearby/src/cpp/platform/impl/windows/bluetooth_classic_socket.h
 third_party/nearby/src/cpp/platform/impl/windows/generated/winrt/Windows.Foundation.h
-third_party/nearby/src/cpp/platform/impl/windows/wifi_lan.h
+third_party/nearby/src/cpp/platform/impl/windows/thread_pool.cc
 third_party/nearby/src/cpp/platform/public/bluetooth_adapter.h
 third_party/nearby/src/cpp/platform/public/bluetooth_classic.h
 third_party/nearby/src/cpp/platform/public/thread_check_nocompile.cc
 third_party/node/node_modules/@eslint/eslintrc/node_modules/globals/package.json
+third_party/node/node_modules/@typescript-eslint/eslint-plugin/node_modules/eslint-scope/lib/definition.js
+third_party/node/node_modules/@typescript-eslint/eslint-plugin/node_modules/eslint-scope/lib/index.js
+third_party/node/node_modules/@typescript-eslint/eslint-plugin/node_modules/eslint-scope/lib/pattern-visitor.js
+third_party/node/node_modules/@typescript-eslint/eslint-plugin/node_modules/eslint-scope/lib/reference.js
+third_party/node/node_modules/@typescript-eslint/eslint-plugin/node_modules/eslint-scope/lib/referencer.js
+third_party/node/node_modules/@typescript-eslint/eslint-plugin/node_modules/eslint-scope/lib/scope-manager.js
+third_party/node/node_modules/@typescript-eslint/eslint-plugin/node_modules/eslint-scope/lib/scope.js
+third_party/node/node_modules/@typescript-eslint/eslint-plugin/node_modules/eslint-scope/lib/variable.js
 third_party/node/node_modules/acorn/dist/acorn.js
 third_party/node/node_modules/acorn/package.json
 third_party/node/node_modules/ajv/dist/ajv.bundle.js
@@ -10054,14 +10067,6 @@ third_party/node/node_modules/babel-code-frame/node_modules/chalk/package.json
 third_party/node/node_modules/babel-code-frame/node_modules/strip-ansi/package.json
 third_party/node/node_modules/babel-code-frame/node_modules/supports-color/package.json
 third_party/node/node_modules/babel-code-frame/package.json
-third_party/node/node_modules/babel-eslint/node_modules/eslint-scope/lib/definition.js
-third_party/node/node_modules/babel-eslint/node_modules/eslint-scope/lib/index.js
-third_party/node/node_modules/babel-eslint/node_modules/eslint-scope/lib/pattern-visitor.js
-third_party/node/node_modules/babel-eslint/node_modules/eslint-scope/lib/reference.js
-third_party/node/node_modules/babel-eslint/node_modules/eslint-scope/lib/referencer.js
-third_party/node/node_modules/babel-eslint/node_modules/eslint-scope/lib/scope-manager.js
-third_party/node/node_modules/babel-eslint/node_modules/eslint-scope/lib/scope.js
-third_party/node/node_modules/babel-eslint/node_modules/eslint-scope/lib/variable.js
 third_party/node/node_modules/babel-eslint/package.json
 third_party/node/node_modules/babel-generator/package.json
 third_party/node/node_modules/babel-messages/package.json
@@ -10128,6 +10133,14 @@ third_party/node/node_modules/eslint/lib/rules/max-lines-per-function.js
 third_party/node/node_modules/eslint/node_modules/ansi-styles/package.json
 third_party/node/node_modules/eslint/node_modules/color-convert/package.json
 third_party/node/node_modules/eslint/node_modules/color-name/package.json
+third_party/node/node_modules/eslint/node_modules/eslint-scope/lib/definition.js
+third_party/node/node_modules/eslint/node_modules/eslint-scope/lib/index.js
+third_party/node/node_modules/eslint/node_modules/eslint-scope/lib/pattern-visitor.js
+third_party/node/node_modules/eslint/node_modules/eslint-scope/lib/reference.js
+third_party/node/node_modules/eslint/node_modules/eslint-scope/lib/referencer.js
+third_party/node/node_modules/eslint/node_modules/eslint-scope/lib/scope-manager.js
+third_party/node/node_modules/eslint/node_modules/eslint-scope/lib/scope.js
+third_party/node/node_modules/eslint/node_modules/eslint-scope/lib/variable.js
 third_party/node/node_modules/eslint/node_modules/globals/package.json
 third_party/node/node_modules/eslint/node_modules/has-flag/package.json
 third_party/node/node_modules/eslint/node_modules/supports-color/package.json
@@ -10183,8 +10196,10 @@ third_party/node/node_modules/is-fullwidth-code-point/package.json
 third_party/node/node_modules/is-negative-zero/package.json
 third_party/node/node_modules/is-number-object/package.json
 third_party/node/node_modules/is-regex/package.json
+third_party/node/node_modules/is-shared-array-buffer/package.json
 third_party/node/node_modules/is-string/package.json
 third_party/node/node_modules/is-symbol/package.json
+third_party/node/node_modules/is-weakref/package.json
 third_party/node/node_modules/js-yaml/package.json
 third_party/node/node_modules/lodash.camelcase/package.json
 third_party/node/node_modules/lodash.padend/package.json
@@ -10227,12 +10242,6 @@ third_party/node/node_modules/polymer-bundler/node_modules/acorn-jsx/node_module
 third_party/node/node_modules/polymer-bundler/node_modules/acorn-jsx/node_modules/acorn/src/index.js
 third_party/node/node_modules/polymer-bundler/node_modules/acorn-jsx/node_modules/acorn/src/loose/index.js
 third_party/node/node_modules/polymer-bundler/node_modules/acorn-jsx/node_modules/acorn/src/options.js
-third_party/node/node_modules/polymer-bundler/node_modules/acorn/acorn/dist/acorn.js
-third_party/node/node_modules/polymer-bundler/node_modules/acorn/dist/acorn.es.js
-third_party/node/node_modules/polymer-bundler/node_modules/acorn/dist/acorn.js
-third_party/node/node_modules/polymer-bundler/node_modules/acorn/dist/acorn_loose.es.js
-third_party/node/node_modules/polymer-bundler/node_modules/acorn/dist/acorn_loose.js
-third_party/node/node_modules/polymer-bundler/node_modules/acorn/package.json
 third_party/node/node_modules/polymer-bundler/node_modules/array-back/package.json
 third_party/node/node_modules/polymer-bundler/node_modules/clone/package.json
 third_party/node/node_modules/polymer-bundler/node_modules/command-line-args/node_modules/typical/package.json
@@ -10243,9 +10252,16 @@ third_party/node/node_modules/polymer-bundler/node_modules/deep-extend/lib/deep-
 third_party/node/node_modules/polymer-bundler/node_modules/deep-extend/package.json
 third_party/node/node_modules/polymer-bundler/node_modules/dom5/lib/util.js
 third_party/node/node_modules/polymer-bundler/node_modules/espree/espree.js
+third_party/node/node_modules/polymer-bundler/node_modules/espree/node_modules/acorn/acorn/dist/acorn.js
+third_party/node/node_modules/polymer-bundler/node_modules/espree/node_modules/acorn/dist/acorn.es.js
+third_party/node/node_modules/polymer-bundler/node_modules/espree/node_modules/acorn/dist/acorn.js
+third_party/node/node_modules/polymer-bundler/node_modules/espree/node_modules/acorn/dist/acorn_loose.es.js
+third_party/node/node_modules/polymer-bundler/node_modules/espree/node_modules/acorn/dist/acorn_loose.js
+third_party/node/node_modules/polymer-bundler/node_modules/espree/node_modules/acorn/package.json
 third_party/node/node_modules/polymer-bundler/node_modules/find-replace/package.json
 third_party/node/node_modules/polymer-bundler/node_modules/parse5/lib/tokenizer/index.js
 third_party/node/node_modules/polymer-bundler/node_modules/parse5/package.json
+third_party/node/node_modules/polymer-bundler/node_modules/rollup/package.json
 third_party/node/node_modules/polymer-bundler/node_modules/table-layout/node_modules/array-back/package.json
 third_party/node/node_modules/polymer-bundler/node_modules/table-layout/package.json
 third_party/node/node_modules/polymer-bundler/node_modules/wordwrapjs/package.json
@@ -10272,7 +10288,10 @@ third_party/node/node_modules/regenerator-runtime/runtime.js
 third_party/node/node_modules/repeating/package.json
 third_party/node/node_modules/resolve-from/package.json
 third_party/node/node_modules/resolve/lib/caller.js
-third_party/node/node_modules/rollup/package.json
+third_party/node/node_modules/rollup/dist/es/shared/rollup.js
+third_party/node/node_modules/rollup/dist/es/shared/watch.js
+third_party/node/node_modules/rollup/dist/shared/index.js
+third_party/node/node_modules/rollup/dist/shared/rollup.js
 third_party/node/node_modules/shebang-command/package.json
 third_party/node/node_modules/shebang-regex/package.json
 third_party/node/node_modules/side-channel/package.json
@@ -11299,6 +11318,7 @@ third_party/skia/demos.skia.org/demos/path_performance/index.html
 third_party/skia/demos.skia.org/demos/web_worker/index.html
 third_party/skia/demos.skia.org/demos/web_worker/main.js
 third_party/skia/demos.skia.org/demos/web_worker/worker.js
+third_party/skia/demos.skia.org/demos/webgpu/index.html
 third_party/skia/docs/examples/Canvas_129.cpp
 third_party/skia/docs/examples/Canvas_drawAnnotation_2.cpp
 third_party/skia/experimental/skottiekit/examples/ck.html
@@ -11444,7 +11464,6 @@ third_party/skia/src/ports/SkFontMgr_mac_ct.cpp
 third_party/skia/src/ports/SkScalerContext_mac_ct.cpp
 third_party/skia/src/ports/SkScalerContext_win_dw.cpp
 third_party/skia/src/ports/SkTypeface_mac_ct.cpp
-third_party/skia/src/shaders/SkImageShader.cpp
 third_party/skia/src/utils/SkFloatToDecimal.cpp
 third_party/skia/src/utils/SkFloatUtils.h
 third_party/skia/tests/BitmapTest.cpp
@@ -11723,7 +11742,6 @@ third_party/tensorflow-text/src/tensorflow_text/python/metrics/text_similarity_m
 third_party/tflite/src/configure.py
 third_party/tflite/src/tensorflow/compiler/mlir/hlo/lib/Dialect/mhlo/transforms/chlo_legalize_to_hlo.cc
 third_party/tflite/src/tensorflow/compiler/xla/service/gpu/ir_emitter_unnested.cc
-third_party/tflite/src/tensorflow/compiler/xla/service/gpu/kernel_mapping_scheme.h
 third_party/tflite/src/tensorflow/compiler/xla/service/gpu/llvm_gpu_backend/gpu_backend_lib.cc
 third_party/tflite/src/tensorflow/compiler/xla/service/hlo_graph_dumper.cc
 third_party/tflite/src/tensorflow/compiler/xla/service/hlo_verifier.cc
@@ -12731,6 +12749,7 @@ tools/metrics/histograms/metadata/service/histograms.xml
 tools/metrics/histograms/metadata/session/histograms.xml
 tools/metrics/histograms/metadata/settings/histograms.xml
 tools/metrics/histograms/metadata/sharing/histograms.xml
+tools/metrics/histograms/metadata/side_search/histograms.xml
 tools/metrics/histograms/metadata/signin/histograms.xml
 tools/metrics/histograms/metadata/simple/histograms.xml
 tools/metrics/histograms/metadata/software/histograms.xml
@@ -13037,10 +13056,10 @@ tools/symsrc/source_index.py
 tools/traceline/svgui/traceline.js
 tools/tracing/PRESUBMIT.py
 tools/tracing/rename_breakpad.py
-tools/traffic_annotation/auditor/tests/extractor_outputs/good_partial_annotation.txt
 tools/traffic_annotation/sample_traffic_annotation.cc
 tools/traffic_annotation/scripts/annotation_tools.py
 tools/traffic_annotation/scripts/auditor/auditor.py
+tools/traffic_annotation/scripts/test_data/extractor_outputs/good_partial_annotation.txt
 tools/traffic_annotation/scripts/update_annotations_doc.py
 tools/traffic_annotation/scripts/update_annotations_sheet.py
 tools/translation/upload_screenshots.py

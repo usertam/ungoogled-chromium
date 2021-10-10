@@ -64,7 +64,7 @@ chrome/browser/resources/chromeos/accessibility/select_to_speak/earcons/null_sel
 chrome/browser/resources/media/mei_preload/preloaded_data.pb
 chrome/browser/ui/app_list/search/search_result_ranker/20190722_example_preprocessor_config.pb
 chrome/browser/ui/app_list/search/search_result_ranker/search_ranker_assets/20190923_example_preprocessor_config.pb
-chrome/build/pgo_profiles/chrome-linux-main-1633111074-5ffd049107e232b21d39fca263418a89eae5f7f0.profdata
+chrome/build/pgo_profiles/chrome-linux-main-1633689404-89d1464324282bbc0aa25c3a0298d1e43b9af664.profdata
 chrome/chrome_cleaner/parsers/shortcut_parser/target/data/lnk_parser_fuzzer/Network Share Test.lnk
 chrome/chrome_cleaner/parsers/shortcut_parser/target/data/lnk_parser_fuzzer/New folder - Shortcut.lnk
 chrome/chrome_cleaner/parsers/shortcut_parser/target/data/lnk_parser_fuzzer/long_name.lnk
@@ -4676,6 +4676,7 @@ third_party/abseil-cpp/absl/time/internal/cctz/testdata/zoneinfo/Pacific/Guadalc
 third_party/abseil-cpp/absl/time/internal/cctz/testdata/zoneinfo/Pacific/Guam
 third_party/abseil-cpp/absl/time/internal/cctz/testdata/zoneinfo/Pacific/Honolulu
 third_party/abseil-cpp/absl/time/internal/cctz/testdata/zoneinfo/Pacific/Johnston
+third_party/abseil-cpp/absl/time/internal/cctz/testdata/zoneinfo/Pacific/Kanton
 third_party/abseil-cpp/absl/time/internal/cctz/testdata/zoneinfo/Pacific/Kiritimati
 third_party/abseil-cpp/absl/time/internal/cctz/testdata/zoneinfo/Pacific/Kosrae
 third_party/abseil-cpp/absl/time/internal/cctz/testdata/zoneinfo/Pacific/Kwajalein
@@ -10408,10 +10409,6 @@ third_party/catapult/telemetry/telemetry/internal/testing/bear.webm
 third_party/catapult/telemetry/telemetry/internal/testing/jebgalgnebhfojomionfpkfelancnnkf.crx
 third_party/catapult/telemetry/telemetry/internal/testing/screen_3_frames.mov
 third_party/catapult/telemetry/telemetry/internal/testing/vid.mp4
-third_party/catapult/telemetry/third_party/modulegraph/modulegraph_tests/testdata/syspath.egg
-third_party/catapult/telemetry/third_party/modulegraph/modulegraph_tests/testdata/syspath.zip
-third_party/catapult/telemetry/third_party/modulegraph/modulegraph_tests/testdata/test.egg
-third_party/catapult/telemetry/third_party/modulegraph/modulegraph_tests/testdata/zipped.egg
 third_party/catapult/third_party/google-endpoints/Crypto/Cipher/_AES.so
 third_party/catapult/third_party/google-endpoints/Crypto/Cipher/_ARC2.so
 third_party/catapult/third_party/google-endpoints/Crypto/Cipher/_ARC4.so
@@ -13717,6 +13714,7 @@ third_party/harfbuzz-ng/src/test/fuzzing/fonts/clusterfuzz-testcase-minimized-hb
 third_party/harfbuzz-ng/src/test/fuzzing/fonts/clusterfuzz-testcase-minimized-hb-subset-fuzzer-6382598554255360
 third_party/harfbuzz-ng/src/test/fuzzing/fonts/clusterfuzz-testcase-minimized-hb-subset-fuzzer-6421315436281856
 third_party/harfbuzz-ng/src/test/fuzzing/fonts/clusterfuzz-testcase-minimized-hb-subset-fuzzer-6543700493598720
+third_party/harfbuzz-ng/src/test/fuzzing/fonts/clusterfuzz-testcase-minimized-hb-subset-fuzzer-6616166961905664
 third_party/harfbuzz-ng/src/test/fuzzing/fonts/clusterfuzz-testcase-minimized-hb-subset-fuzzer-6651660668502016
 third_party/harfbuzz-ng/src/test/fuzzing/fonts/clusterfuzz-testcase-minimized-hb-subset-get-codepoints-fuzzer-5203067375976448
 third_party/harfbuzz-ng/src/test/fuzzing/fonts/clusterfuzz-testcase-minimized-hb-subset-get-codepoints-fuzzer-5630904853069824
@@ -14729,6 +14727,12 @@ third_party/libdrm/src/intel/tests/gen6-3d.batch
 third_party/libdrm/src/intel/tests/gen7-2d-copy.batch
 third_party/libdrm/src/intel/tests/gen7-3d.batch
 third_party/libdrm/src/intel/tests/gm45-3d.batch
+third_party/libgav1/src/tests/data/five-frames.ivf
+third_party/libgav1/src/tests/data/ivf-header-and-truncated-frame-header
+third_party/libgav1/src/tests/data/ivf-header-only
+third_party/libgav1/src/tests/data/one-frame-large-timestamp.ivf
+third_party/libgav1/src/tests/data/one-frame-truncated.ivf
+third_party/libgav1/src/tests/data/one-frame.ivf
 third_party/libjpeg_turbo/testimages/test1.icc
 third_party/libjpeg_turbo/testimages/test2.icc
 third_party/libjpeg_turbo/testimages/testorig.ppm

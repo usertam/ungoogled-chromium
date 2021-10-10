@@ -115,7 +115,7 @@ by default.
  
 --- a/chrome/browser/extensions/api/cryptotoken_private/cryptotoken_private_api.cc
 +++ b/chrome/browser/extensions/api/cryptotoken_private/cryptotoken_private_api.cc
-@@ -47,8 +47,8 @@ namespace {
+@@ -52,8 +52,8 @@ namespace {
  
  const char kGoogleDotCom[] = "google.com";
  constexpr const char* kGoogleGstaticAppIds[] = {
@@ -529,7 +529,7 @@ by default.
    return GetContentClient()->browser()->GetWebAuthenticationDelegate();
 --- a/content/shell/browser/shell_browser_main_parts.cc
 +++ b/content/shell/browser/shell_browser_main_parts.cc
-@@ -95,7 +95,7 @@ GURL GetStartupURL() {
+@@ -96,7 +96,7 @@ GURL GetStartupURL() {
  #else
    const base::CommandLine::StringVector& args = command_line->GetArgs();
    if (args.empty())
@@ -722,8 +722,8 @@ by default.
 -    "https://www.googleapis.com/auth/supportcontent";
 +    "trk:104:https://www.googleapis.com/auth/supportcontent";
  
- // Used to mint uber auth tokens when needed.
- const char kGaiaSid[] = "sid";
+ // OAuth 2 scope for NTP Photos module API.
+ const char kPhotosModuleOAuth2Scope[] =
 --- a/google_apis/gaia/gaia_urls.cc
 +++ b/google_apis/gaia/gaia_urls.cc
 @@ -24,6 +24,7 @@

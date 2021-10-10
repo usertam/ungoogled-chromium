@@ -1,6 +1,6 @@
 --- a/chrome/browser/about_flags.cc
 +++ b/chrome/browser/about_flags.cc
-@@ -2644,7 +2644,13 @@ const FeatureEntry::FeatureVariation kWi
+@@ -2704,7 +2704,13 @@ const FeatureEntry::FeatureVariation kWi
  // calculate and verify checksum.
  //
  // When adding a new choice, add it to the end of the list.

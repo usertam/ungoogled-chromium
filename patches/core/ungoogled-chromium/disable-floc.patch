@@ -46,7 +46,7 @@
  }  // namespace federated_learning
 --- a/chrome/browser/privacy_sandbox/privacy_sandbox_settings.cc
 +++ b/chrome/browser/privacy_sandbox/privacy_sandbox_settings.cc
-@@ -208,7 +208,7 @@ PrivacySandboxSettings::PrivacySandboxSe
+@@ -207,7 +207,7 @@ PrivacySandboxSettings::PrivacySandboxSe
  PrivacySandboxSettings::~PrivacySandboxSettings() = default;
  
  bool PrivacySandboxSettings::IsFlocAllowed() const {

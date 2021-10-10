@@ -34,7 +34,7 @@
  
 --- a/net/dns/host_resolver_manager.cc
 +++ b/net/dns/host_resolver_manager.cc
-@@ -138,11 +138,6 @@ const unsigned kMinimumTTLSeconds = kCac
+@@ -139,11 +139,6 @@ const unsigned kMinimumTTLSeconds = kCac
  // cached.
  const int kIPv6ProbePeriodMs = 1000;
  
@@ -46,7 +46,7 @@
  enum DnsResolveStatus {
    RESOLVE_STATUS_DNS_SUCCESS = 0,
    RESOLVE_STATUS_PROC_SUCCESS,
-@@ -3695,7 +3690,7 @@ bool HostResolverManager::IsIPv6Reachabl
+@@ -3696,7 +3691,7 @@ bool HostResolverManager::IsIPv6Reachabl
        (tick_clock_->NowTicks() - last_ipv6_probe_time_).InMilliseconds() >
            kIPv6ProbePeriodMs) {
      SetLastIPv6ProbeResult(

@@ -27,7 +27,7 @@
      searchEngine: CrInputElement,
    };
  }
-@@ -55,6 +56,7 @@ class SettingsSearchEngineDialogElement
+@@ -54,6 +55,7 @@ class SettingsSearchEngineDialogElement
        searchEngine_: String,
        keyword_: String,
        queryUrl_: String,
@@ -35,7 +35,7 @@
        dialogTitle_: String,
        actionButtonText_: String,
      };
-@@ -64,6 +66,7 @@ class SettingsSearchEngineDialogElement
+@@ -63,6 +65,7 @@ class SettingsSearchEngineDialogElement
    private searchEngine_: string;
    private keyword_: string;
    private queryUrl_: string;
@@ -43,7 +43,7 @@
    private dialogTitle_: string;
    private actionButtonText_: string;
    private browserProxy_: SearchEnginesBrowserProxy =
-@@ -93,6 +96,7 @@ class SettingsSearchEngineDialogElement
+@@ -92,6 +95,7 @@ class SettingsSearchEngineDialogElement
        this.searchEngine_ = this.model.name;
        this.keyword_ = this.model.keyword;
        this.queryUrl_ = this.model.url;
@@ -51,7 +51,7 @@
      } else {
        this.dialogTitle_ =
            loadTimeData.getString('searchEnginesAddSearchEngine');
-@@ -128,8 +132,12 @@ class SettingsSearchEngineDialogElement
+@@ -127,8 +131,12 @@ class SettingsSearchEngineDialogElement
        }
      }
  
@@ -66,7 +66,7 @@
    }
  
    private cancel_() {
-@@ -138,7 +146,8 @@ class SettingsSearchEngineDialogElement
+@@ -137,7 +145,8 @@ class SettingsSearchEngineDialogElement
  
    private onActionButtonTap_() {
      this.browserProxy_.searchEngineEditCompleted(
@@ -76,7 +76,7 @@
      this.$.dialog.close();
    }
  
-@@ -166,9 +175,11 @@ class SettingsSearchEngineDialogElement
+@@ -165,9 +174,11 @@ class SettingsSearchEngineDialogElement
  
    private updateActionButtonState_() {
      const allValid = [
