@@ -160,7 +160,7 @@
  
  using base::Time;
  using std::string;
-@@ -595,6 +597,12 @@ URLRequest::URLRequest(const GURL& url,
+@@ -593,6 +595,12 @@ URLRequest::URLRequest(const GURL& url,
    // Sanity check out environment.
    DCHECK(base::ThreadTaskRunnerHandle::IsSet());
  

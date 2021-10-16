@@ -64,7 +64,7 @@ chrome/browser/resources/chromeos/accessibility/select_to_speak/earcons/null_sel
 chrome/browser/resources/media/mei_preload/preloaded_data.pb
 chrome/browser/ui/app_list/search/search_result_ranker/20190722_example_preprocessor_config.pb
 chrome/browser/ui/app_list/search/search_result_ranker/search_ranker_assets/20190923_example_preprocessor_config.pb
-chrome/build/pgo_profiles/chrome-linux-main-1633689404-89d1464324282bbc0aa25c3a0298d1e43b9af664.profdata
+chrome/build/pgo_profiles/chrome-linux-main-1634234400-c2cff91355b5b66880cff5fe3063deb04f63c9df.profdata
 chrome/chrome_cleaner/parsers/shortcut_parser/target/data/lnk_parser_fuzzer/Network Share Test.lnk
 chrome/chrome_cleaner/parsers/shortcut_parser/target/data/lnk_parser_fuzzer/New folder - Shortcut.lnk
 chrome/chrome_cleaner/parsers/shortcut_parser/target/data/lnk_parser_fuzzer/long_name.lnk
@@ -220,6 +220,7 @@ components/test/data/update_client/jebgalgnebhfojomionfpkfelancnnkf/component1.d
 components/test/data/update_client/runaction_test_win.crx3
 components/test/data/value_store/000005.log
 components/test/data/value_store/MANIFEST-000004
+components/test/data/web_package/24_responses.wbn
 components/test/data/web_package/hello.wbn
 components/test/data/web_package/hello_b2.wbn
 components/test/data/web_package/hello_signed.wbn
@@ -17067,6 +17068,7 @@ third_party/llvm/lld/test/mach-o/Inputs/lib-search-paths/usr/local/lib/file.o
 third_party/llvm/lld/test/mach-o/Inputs/libbar.a
 third_party/llvm/lld/test/mach-o/Inputs/libfoo.a
 third_party/llvm/lld/test/wasm/corrupted.wasm.test
+third_party/llvm/lldb/examples/python/scripted_process/main.stack-dump
 third_party/llvm/lldb/test/API/commands/trace/intelpt-trace-multi-file/a.out
 third_party/llvm/lldb/test/API/commands/trace/intelpt-trace-multi-file/libbar.so
 third_party/llvm/lldb/test/API/commands/trace/intelpt-trace-multi-file/libfoo.so
@@ -18192,7 +18194,9 @@ third_party/llvm/llvm/test/tools/llvm-profdata/Inputs/unknown.section.compressed
 third_party/llvm/llvm/test/tools/llvm-profdata/Inputs/unknown.section.extbin.profdata
 third_party/llvm/llvm/test/tools/llvm-profdata/Inputs/weight-instr-bar.profdata
 third_party/llvm/llvm/test/tools/llvm-profdata/Inputs/weight-instr-foo.profdata
+third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/coroutine.perfbin
 third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/cs-preinline-cost.perfbin
+third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/func-split.perfbin
 third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/inline-cs-noprobe.perfbin
 third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/inline-cs-pseudoprobe.perfbin
 third_party/llvm/llvm/test/tools/llvm-profgen/Inputs/inline-noprobe.perfbin

@@ -353,7 +353,7 @@
    dict->SetBoolean("urlLocked", template_url->prepopulate_id() > 0);
    GURL icon_url = template_url->favicon_url();
    if (icon_url.is_valid())
-@@ -325,12 +329,14 @@ void SearchEnginesHandler::HandleSearchE
+@@ -324,12 +328,14 @@ void SearchEnginesHandler::HandleSearchE
  void SearchEnginesHandler::OnEditedKeyword(TemplateURL* template_url,
                                             const std::u16string& title,
                                             const std::u16string& keyword,
@@ -371,7 +371,7 @@
  
    edit_controller_.reset();
  }
-@@ -361,6 +367,8 @@ bool SearchEnginesHandler::CheckFieldVal
+@@ -359,6 +365,8 @@ bool SearchEnginesHandler::CheckFieldVal
      is_valid = edit_controller_->IsKeywordValid(base::UTF8ToUTF16(field_value));
    else if (field_name.compare(kQueryUrlField) == 0)
      is_valid = edit_controller_->IsURLValid(field_value);
@@ -380,7 +380,7 @@
    else
      NOTREACHED();
  
-@@ -382,17 +390,21 @@ void SearchEnginesHandler::HandleSearchE
+@@ -380,17 +388,21 @@ void SearchEnginesHandler::HandleSearchE
    std::string search_engine;
    std::string keyword;
    std::string query_url;

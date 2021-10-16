@@ -1,7 +1,7 @@
 # Disables translation and removes the "Translate to" context menu when --translate-script-url flag is not set
 --- a/chrome/browser/renderer_context_menu/render_view_context_menu.cc
 +++ b/chrome/browser/renderer_context_menu/render_view_context_menu.cc
-@@ -133,6 +133,7 @@
+@@ -134,6 +134,7 @@
  #include "components/spellcheck/common/spellcheck_common.h"
  #include "components/spellcheck/spellcheck_buildflags.h"
  #include "components/strings/grit/components_strings.h"
@@ -9,7 +9,7 @@
  #include "components/translate/core/browser/translate_download_manager.h"
  #include "components/translate/core/browser/translate_manager.h"
  #include "components/translate/core/browser/translate_prefs.h"
-@@ -1745,6 +1746,8 @@ void RenderViewContextMenu::AppendPageIt
+@@ -1748,6 +1749,8 @@ void RenderViewContextMenu::AppendPageIt
      menu_model_.AddSeparator(ui::NORMAL_SEPARATOR);
    }
  
@@ -18,7 +18,7 @@
    ChromeTranslateClient* chrome_translate_client =
        ChromeTranslateClient::FromWebContents(embedder_web_contents_);
    const bool canTranslate =
-@@ -1766,6 +1769,7 @@ void RenderViewContextMenu::AppendPageIt
+@@ -1769,6 +1772,7 @@ void RenderViewContextMenu::AppendPageIt
          IDC_CONTENT_CONTEXT_TRANSLATE,
          l10n_util::GetStringFUTF16(IDS_CONTENT_CONTEXT_TRANSLATE, language));
    }

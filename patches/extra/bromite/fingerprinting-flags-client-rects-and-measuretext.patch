@@ -44,7 +44,7 @@
  #endif  // CHROME_BROWSER_BROMITE_FLAG_ENTRIES_H_
 --- a/content/browser/BUILD.gn
 +++ b/content/browser/BUILD.gn
-@@ -222,6 +222,7 @@ source_set("browser") {
+@@ -224,6 +224,7 @@ source_set("browser") {
      "//third_party/libyuv",
      "//third_party/re2",
      "//third_party/sqlite",
@@ -62,7 +62,7 @@
  #include "ui/accessibility/accessibility_switches.h"
  #include "ui/base/ui_base_switches.h"
  #include "ui/display/display_switches.h"
-@@ -3465,6 +3466,8 @@ void RenderProcessHostImpl::PropagateBro
+@@ -3452,6 +3453,8 @@ void RenderProcessHostImpl::PropagateBro
      switches::kEnableWebGLDraftExtensions,
      switches::kEnableWebGLImageChromium,
      switches::kFileUrlPathAlias,
@@ -123,7 +123,7 @@
  #include "base/time/time.h"
  #include "cc/input/overscroll_behavior.h"
  #include "cc/input/scroll_snap_data.h"
-@@ -855,6 +856,14 @@ Range* Document::CreateRangeAdjustedToTr
+@@ -947,6 +948,14 @@ Range* Document::CreateRangeAdjustedToTr
                                       Position::BeforeNode(*shadow_host));
  }
  
@@ -138,7 +138,7 @@
  SelectorQueryCache& Document::GetSelectorQueryCache() {
    if (!selector_query_cache_)
      selector_query_cache_ = std::make_unique<SelectorQueryCache>();
-@@ -2145,6 +2154,15 @@ void Document::UpdateStyleAndLayoutTreeF
+@@ -2232,6 +2241,15 @@ void Document::UpdateStyleAndLayoutTreeF
  #if DCHECK_IS_ON()
    AssertLayoutTreeUpdated(*this, true /* allow_dirty_container_subtrees */);
  #endif
@@ -167,7 +167,7 @@
    AtomicString visibilityState() const;
    bool IsPageVisible() const;
    bool hidden() const;
-@@ -2078,6 +2082,9 @@ class CORE_EXPORT Document : public Cont
+@@ -2074,6 +2078,9 @@ class CORE_EXPORT Document : public Cont
  
    base::ElapsedTimer start_time_;
  
@@ -310,7 +310,7 @@
  }  // namespace blink
 --- a/third_party/blink/renderer/platform/runtime_enabled_features.json5
 +++ b/third_party/blink/renderer/platform/runtime_enabled_features.json5
-@@ -1072,6 +1072,12 @@
+@@ -1073,6 +1073,12 @@
        origin_trial_feature_name: "Fledge",
      },
      {

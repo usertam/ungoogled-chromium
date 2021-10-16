@@ -14,7 +14,7 @@
    }
    return content_restrictions;
  }
-@@ -1342,8 +1337,7 @@ bool CanSavePage(const Browser* browser)
+@@ -1344,8 +1339,7 @@ bool CanSavePage(const Browser* browser)
            prefs::kAllowFileSelectionDialogs)) {
      return false;
    }

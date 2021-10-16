@@ -8,7 +8,7 @@
      "//components/safe_browsing/content/browser:safe_browsing_service",
      "//components/safe_browsing/content/browser/password_protection",
      "//components/safe_browsing/content/browser/web_ui",
-@@ -3710,8 +3709,6 @@ static_library("browser") {
+@@ -3714,8 +3713,6 @@ static_library("browser") {
        "download/download_commands.h",
        "download/download_crx_util.cc",
        "download/download_crx_util.h",
@@ -144,7 +144,7 @@
          delete_begin, delete_end, filter_builder, host_content_settings_map_,
 --- a/chrome/browser/chrome_content_browser_client.cc
 +++ b/chrome/browser/chrome_content_browser_client.cc
-@@ -923,34 +923,6 @@ void SetApplicationLocaleOnIOThread(cons
+@@ -924,34 +924,6 @@ void SetApplicationLocaleOnIOThread(cons
    GetIOThreadApplicationLocale() = locale;
  }
  
@@ -179,7 +179,7 @@
  #if BUILDFLAG(ENABLE_EXTENSIONS)
  
  AppLoadedInTabSource ClassifyAppLoadedInTabSource(
-@@ -1425,7 +1397,6 @@ void ChromeContentBrowserClient::PostAft
+@@ -1426,7 +1398,6 @@ void ChromeContentBrowserClient::PostAft
    InitNetworkContextsParentDirectory();
  
    DCHECK_CURRENTLY_ON(BrowserThread::UI);
@@ -187,7 +187,7 @@
  }
  
  bool ChromeContentBrowserClient::IsBrowserStartupComplete() {
-@@ -4233,7 +4204,7 @@ ChromeContentBrowserClient::CreateThrott
+@@ -4232,7 +4203,7 @@ ChromeContentBrowserClient::CreateThrott
    content::WebContents* web_contents = handle->GetWebContents();
    throttles.push_back(std::make_unique<SSLErrorNavigationThrottle>(
        handle,
@@ -196,7 +196,7 @@
        base::BindOnce(&HandleSSLErrorWrapper), base::BindOnce(&IsInHostedApp),
        base::BindOnce(
            &ShouldIgnoreSslInterstitialBecauseNavigationDefaultedToHttps)));
-@@ -4262,15 +4233,6 @@ ChromeContentBrowserClient::CreateThrott
+@@ -4261,15 +4232,6 @@ ChromeContentBrowserClient::CreateThrott
                     &throttles);
  #endif
  
@@ -317,7 +317,7 @@
        return !download_->IsSavePackageDownload() &&
 --- a/chrome/browser/download/download_prefs.cc
 +++ b/chrome/browser/download/download_prefs.cc
-@@ -260,14 +260,7 @@ DownloadPrefs::DownloadPrefs(Profile* pr
+@@ -251,14 +251,7 @@ DownloadPrefs::DownloadPrefs(Profile* pr
          base::FilePath::StringType(1, base::FilePath::kExtensionSeparator) +
          extension);
  
@@ -333,7 +333,7 @@
    }
  }
  
-@@ -475,10 +468,6 @@ bool DownloadPrefs::IsAutoOpenByPolicy(c
+@@ -466,10 +459,6 @@ bool DownloadPrefs::IsAutoOpenByPolicy(c
  bool DownloadPrefs::EnableAutoOpenByUserBasedOnExtension(
      const base::FilePath& file_name) {
    base::FilePath::StringType extension = file_name.Extension();
@@ -691,7 +691,7 @@
    // SimpleURLLoader -> (owned loader, extension id).
 --- a/chrome/browser/metrics/chrome_metrics_service_client.cc
 +++ b/chrome/browser/metrics/chrome_metrics_service_client.cc
-@@ -828,9 +828,6 @@ void ChromeMetricsServiceClient::Registe
+@@ -824,9 +824,6 @@ void ChromeMetricsServiceClient::Registe
    metrics_service_->RegisterMetricsProvider(
        std::make_unique<HttpsEngagementMetricsProvider>());
  
@@ -733,7 +733,7 @@
  #include "chrome/browser/sessions/exit_type_service.h"
  #include "chrome/browser/sharing/sharing_service_factory.h"
  #include "chrome/browser/signin/identity_manager_factory.h"
-@@ -627,17 +626,6 @@ void ProfileImpl::LoadPrefsForNormalStar
+@@ -628,17 +627,6 @@ void ProfileImpl::LoadPrefsForNormalStar
  
    mojo::PendingRemote<prefs::mojom::TrackedPreferenceValidationDelegate>
        pref_validation_delegate;
@@ -799,7 +799,7 @@
  source_set("test_support") {
 --- a/chrome/browser/ssl/security_state_tab_helper.cc
 +++ b/chrome/browser/ssl/security_state_tab_helper.cc
-@@ -217,89 +217,6 @@ bool SecurityStateTabHelper::UsedPolicyI
+@@ -215,89 +215,6 @@ bool SecurityStateTabHelper::UsedPolicyI
  
  security_state::MaliciousContentStatus
  SecurityStateTabHelper::GetMaliciousContentStatus() const {
@@ -891,7 +891,7 @@
  
 --- a/chrome/browser/ui/BUILD.gn
 +++ b/chrome/browser/ui/BUILD.gn
-@@ -3946,7 +3946,6 @@ static_library("ui") {
+@@ -3954,7 +3954,6 @@ static_library("ui") {
        "views/device_chooser_content_view.h",
        "views/devtools_process_observer.cc",
        "views/devtools_process_observer.h",
@@ -1175,7 +1175,7 @@
      html = ui::ResourceBundle::GetSharedInstance().LoadDataResourceString(
 --- a/chrome/renderer/chrome_content_renderer_client.cc
 +++ b/chrome/renderer/chrome_content_renderer_client.cc
-@@ -97,7 +97,6 @@
+@@ -98,7 +98,6 @@
  #include "components/page_load_metrics/renderer/metrics_render_frame_observer.h"
  #include "components/paint_preview/buildflags/buildflags.h"
  #include "components/safe_browsing/buildflags.h"

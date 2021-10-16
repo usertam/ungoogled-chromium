@@ -1,6 +1,6 @@
 --- a/chrome/browser/chrome_content_browser_client.cc
 +++ b/chrome/browser/chrome_content_browser_client.cc
-@@ -6005,7 +6005,7 @@ bool ChromeContentBrowserClient::ShouldA
+@@ -6004,7 +6004,7 @@ bool ChromeContentBrowserClient::ShouldA
      const url::Origin& embedder_origin,
      const content::PepperPluginInfo& plugin_info) {
  #if BUILDFLAG(ENABLE_PDF)
@@ -363,7 +363,7 @@
      FILE_PATH_LITERAL("internal-pdf-viewer");
 --- a/chrome/renderer/chrome_content_renderer_client.cc
 +++ b/chrome/renderer/chrome_content_renderer_client.cc
-@@ -1054,7 +1054,7 @@ WebPlugin* ChromeContentRendererClient::
+@@ -1052,7 +1052,7 @@ WebPlugin* ChromeContentRendererClient::
              }
            }
          } else if (info.name ==
@@ -372,7 +372,7 @@
            // Report PDF load metrics. Since the PDF plugin is comprised of an
            // extension that loads a second plugin, avoid double counting by
            // ignoring the creation of the second plugin.
-@@ -1086,7 +1086,7 @@ WebPlugin* ChromeContentRendererClient::
+@@ -1084,7 +1084,7 @@ WebPlugin* ChromeContentRendererClient::
  
  #if BUILDFLAG(ENABLE_PDF)
          if (info.name ==
@@ -381,7 +381,7 @@
            return pdf::CreateInternalPlugin(
                info, std::move(params), render_frame,
                std::make_unique<ChromePdfInternalPluginDelegate>());
-@@ -1099,7 +1099,7 @@ WebPlugin* ChromeContentRendererClient::
+@@ -1097,7 +1097,7 @@ WebPlugin* ChromeContentRendererClient::
          PluginUMAReporter::GetInstance()->ReportPluginDisabled(orig_mime_type,
                                                                 url);
          if (info.name ==

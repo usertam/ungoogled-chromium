@@ -2,7 +2,7 @@
 
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
-@@ -3730,9 +3730,6 @@ static_library("browser") {
+@@ -3734,9 +3734,6 @@ static_library("browser") {
        "download/offline_item_model_manager_factory.h",
        "enterprise/connectors/analysis/analysis_service_settings.cc",
        "enterprise/connectors/analysis/analysis_service_settings.h",
@@ -12,7 +12,7 @@
        "enterprise/connectors/analysis/content_analysis_dialog.cc",
        "enterprise/connectors/analysis/content_analysis_dialog.h",
        "enterprise/connectors/analysis/content_analysis_downloads_delegate.cc",
-@@ -7030,9 +7027,14 @@ static_library("browser") {
+@@ -7050,9 +7047,14 @@ static_library("browser") {
        "//components/safe_browsing/content/browser:safe_browsing_blocking_page",
        "//components/safe_browsing/content/browser/download:download_stats",
        "//components/safe_browsing/content/common:file_type_policies",
@@ -44,7 +44,7 @@
    auto delegate = std::make_unique<AccuracyServiceDelegate>(profile);
 --- a/chrome/browser/chrome_content_browser_client.cc
 +++ b/chrome/browser/chrome_content_browser_client.cc
-@@ -4233,11 +4233,13 @@ ChromeContentBrowserClient::CreateThrott
+@@ -4232,11 +4232,13 @@ ChromeContentBrowserClient::CreateThrott
                     &throttles);
  #endif
  
@@ -58,7 +58,7 @@
  
  // TODO(crbug.com/1052397): Revisit the macro expression once build flag switch
  // of lacros-chrome is complete.
-@@ -5636,26 +5638,7 @@ ChromeContentBrowserClient::GetSafeBrows
+@@ -5635,26 +5637,7 @@ ChromeContentBrowserClient::GetSafeBrows
      const std::vector<std::string>& allowlist_domains) {
    DCHECK_CURRENTLY_ON(BrowserThread::IO);
  
@@ -86,7 +86,7 @@
  }
  
  safe_browsing::RealTimeUrlLookupServiceBase*
-@@ -5676,11 +5659,6 @@ ChromeContentBrowserClient::GetUrlLookup
+@@ -5675,11 +5658,6 @@ ChromeContentBrowserClient::GetUrlLookup
          GetForProfile(profile);
    }
  #endif
@@ -616,7 +616,7 @@
        registry_(ExtensionRegistry::Get(profile)),
        pending_extension_manager_(profile),
        install_directory_(install_directory),
-@@ -852,47 +850,6 @@ bool ExtensionService::IsExtensionEnable
+@@ -852,50 +850,6 @@ bool ExtensionService::IsExtensionEnable
    return extension_registrar_.IsExtensionEnabled(extension_id);
  }
  
@@ -643,8 +643,9 @@
 -    return;
 -  }
 -
--  if (extension_prefs_->HasDisableReason(
--          extension_id, disable_reason::DISABLE_REMOTELY_FOR_MALWARE)) {
+-  if (blocklist_prefs::HasOmahaBlocklistState(
+-          extension_id, BitMapBlocklistState::BLOCKLISTED_MALWARE,
+-          extension_prefs_)) {
 -    // The extension is already disabled. No work needs to be done.
 -    return;
 -  }
@@ -656,15 +657,17 @@
 -  // Add the extension to the blocklisted extensions set.
 -  UpdateBlocklistedExtensions({extension_id},
 -                              registry_->blocklisted_extensions().GetIDs());
--  extension_prefs_->AddDisableReason(
--      extension_id, disable_reason::DISABLE_REMOTELY_FOR_MALWARE);
+-  blocklist_prefs::AddOmahaBlocklistState(
+-      extension_id, BitMapBlocklistState::BLOCKLISTED_MALWARE,
+-      extension_prefs_);
 -  // Show an error for the newly blocklisted extension.
 -  error_controller_->ShowErrorIfNeeded();
 -}
- 
+-
  void ExtensionService::MaybeEnableRemotelyDisabledExtension(
      const std::string& extension_id) {
-@@ -909,56 +866,6 @@ void ExtensionService::MaybeEnableRemote
+   CHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
+@@ -914,56 +868,6 @@ void ExtensionService::MaybeEnableRemote
    unchanged.erase(extension_id);
    // Remove the extension from the blocklist.
    UpdateBlocklistedExtensions({}, unchanged);
@@ -975,6 +978,28 @@
  
  #if defined(OS_MAC)
    // Do not allow picker UI to be shown on a page that isn't in the foreground
+--- a/chrome/browser/new_tab_page/modules/safe_browsing/safe_browsing_handler.cc
++++ b/chrome/browser/new_tab_page/modules/safe_browsing/safe_browsing_handler.cc
+@@ -13,10 +13,8 @@
+ #include "components/prefs/pref_service.h"
+ #include "components/safe_browsing/core/browser/safe_browsing_metrics_collector.h"
+ #include "components/safe_browsing/core/common/safe_browsing_policy_handler.h"
+-#include "components/safe_browsing/core/common/safe_browsing_prefs.h"
+ #include "components/search/ntp_features.h"
+ 
+-using ::safe_browsing::IsEnhancedProtectionEnabled;
+ using ::safe_browsing::SafeBrowsingMetricsCollectorFactory;
+ using ::safe_browsing::SafeBrowsingPolicyHandler;
+ 
+@@ -66,7 +64,7 @@ void SafeBrowsingHandler::CanShowModule(
+   bool managed =
+       SafeBrowsingPolicyHandler::IsSafeBrowsingProtectionLevelSetByPolicy(
+           pref_service_);
+-  bool already_enabled = IsEnhancedProtectionEnabled(*pref_service_);
++  bool already_enabled = false;
+   bool module_already_opened =
+       pref_service_->GetBoolean(prefs::kSafeBrowsingModuleOpened);
+   base::Time cooldown_end = GetLastCooldownEndTime(pref_service_);
 --- a/chrome/browser/password_manager/chrome_password_manager_client.cc
 +++ b/chrome/browser/password_manager/chrome_password_manager_client.cc
 @@ -33,7 +33,6 @@
@@ -1044,7 +1069,7 @@
  }
  
  #if !defined(OS_ANDROID)
-@@ -1365,9 +1346,11 @@ void ChromePasswordManagerClient::OnPast
+@@ -1366,9 +1347,11 @@ void ChromePasswordManagerClient::OnPast
    }
  
    was_on_paste_called_ = true;
@@ -1057,7 +1082,7 @@
  
  void ChromePasswordManagerClient::RenderFrameCreated(
      content::RenderFrameHost* render_frame_host) {
-@@ -1402,7 +1385,9 @@ void ChromePasswordManagerClient::OnInpu
+@@ -1403,7 +1386,9 @@ void ChromePasswordManagerClient::OnInpu
    if (key_event.windows_key_code == (ui::VKEY_V & 0x1f)) {
      OnPaste();
    } else {
@@ -1067,7 +1092,7 @@
    }
  #endif  // defined(OS_ANDROID)
  }
-@@ -1441,6 +1426,7 @@ bool ChromePasswordManagerClient::IsPass
+@@ -1442,6 +1427,7 @@ bool ChromePasswordManagerClient::IsPass
      is_enabled = false;
    }
  
@@ -1075,7 +1100,7 @@
    // SafeBrowsing Delayed Warnings experiment can delay some SafeBrowsing
    // warnings until user interaction. If the current page has a delayed warning,
    // it'll have a user interaction observer attached. Disable password
-@@ -1451,6 +1437,7 @@ bool ChromePasswordManagerClient::IsPass
+@@ -1452,6 +1438,7 @@ bool ChromePasswordManagerClient::IsPass
      observer->OnPasswordSaveOrAutofillDenied();
      is_enabled = false;
    }
@@ -1832,7 +1857,7 @@
  // static
 --- a/components/safe_browsing/content/browser/user_population.cc
 +++ b/components/safe_browsing/content/browser/user_population.cc
-@@ -7,7 +7,6 @@
+@@ -7,29 +7,13 @@
  #include "base/feature_list.h"
  #include "components/prefs/pref_service.h"
  #include "components/safe_browsing/core/common/features.h"
@@ -1840,27 +1865,35 @@
  #include "components/safe_browsing/core/common/utils.h"
  #include "components/unified_consent/pref_names.h"
  #include "components/version_info/version_info.h"
-@@ -15,7 +14,6 @@
+ 
  namespace safe_browsing {
  
+-ChromeUserPopulation::UserPopulation GetUserPopulationPref(PrefService* prefs) {
+-  if (prefs) {
+-    if (IsEnhancedProtectionEnabled(*prefs)) {
+-      return ChromeUserPopulation::ENHANCED_PROTECTION;
+-    } else if (IsExtendedReportingEnabled(*prefs)) {
+-      return ChromeUserPopulation::EXTENDED_REPORTING;
+-    } else if (IsSafeBrowsingEnabled(*prefs)) {
+-      return ChromeUserPopulation::SAFE_BROWSING;
+-    }
+-  }
+-
+-  return ChromeUserPopulation::UNKNOWN_USER_POPULATION;
+-}
+-
  ChromeUserPopulation GetUserPopulation(
 -    PrefService* prefs,
      bool is_incognito,
      bool is_history_sync_enabled,
      bool is_under_advanced_protection,
-@@ -25,19 +23,6 @@ ChromeUserPopulation GetUserPopulation(
+@@ -39,13 +23,6 @@ ChromeUserPopulation GetUserPopulation(
      absl::optional<size_t> num_open_profiles) {
    ChromeUserPopulation population;
  
--  if (prefs) {
--    if (IsEnhancedProtectionEnabled(*prefs)) {
--      population.set_user_population(ChromeUserPopulation::ENHANCED_PROTECTION);
--    } else if (IsExtendedReportingEnabled(*prefs)) {
--      population.set_user_population(ChromeUserPopulation::EXTENDED_REPORTING);
--    } else if (IsSafeBrowsingEnabled(*prefs)) {
--      population.set_user_population(ChromeUserPopulation::SAFE_BROWSING);
--    }
+-  population.set_user_population(GetUserPopulationPref(prefs));
 -
+-  if (prefs) {
 -    population.set_is_mbb_enabled(prefs->GetBoolean(
 -        unified_consent::prefs::kUrlKeyedAnonymizedDataCollectionEnabled));
 -  }
@@ -1870,7 +1903,7 @@
    population.set_is_history_sync_enabled(is_history_sync_enabled);
 --- a/components/safe_browsing/content/browser/user_population.h
 +++ b/components/safe_browsing/content/browser/user_population.h
-@@ -18,8 +18,6 @@ namespace safe_browsing {
+@@ -21,8 +21,6 @@ ChromeUserPopulation::UserPopulation Get
  
  // Creates a ChromeUserPopulation proto for the given state.
  ChromeUserPopulation GetUserPopulation(

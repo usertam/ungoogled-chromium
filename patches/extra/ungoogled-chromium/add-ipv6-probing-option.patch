@@ -23,7 +23,7 @@
  }  // namespace net
 --- a/net/base/features.h
 +++ b/net/base/features.h
-@@ -396,6 +396,8 @@ NET_EXPORT extern const base::Feature kP
+@@ -397,6 +397,8 @@ NET_EXPORT extern const base::Feature kP
  // feature flag, assuming no breakage occurs with it enabled.
  NET_EXPORT extern const base::Feature kExtraCookieValidityChecks;
  
@@ -46,7 +46,7 @@
  enum DnsResolveStatus {
    RESOLVE_STATUS_DNS_SUCCESS = 0,
    RESOLVE_STATUS_PROC_SUCCESS,
-@@ -3696,7 +3691,7 @@ bool HostResolverManager::IsIPv6Reachabl
+@@ -3698,7 +3693,7 @@ bool HostResolverManager::IsIPv6Reachabl
        (tick_clock_->NowTicks() - last_ipv6_probe_time_).InMilliseconds() >
            kIPv6ProbePeriodMs) {
      SetLastIPv6ProbeResult(

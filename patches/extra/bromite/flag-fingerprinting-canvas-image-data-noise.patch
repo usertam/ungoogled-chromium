@@ -34,7 +34,7 @@ approach to change color components.
  #endif  // CHROME_BROWSER_BROMITE_FLAG_ENTRIES_H_
 --- a/content/browser/renderer_host/render_process_host_impl.cc
 +++ b/content/browser/renderer_host/render_process_host_impl.cc
-@@ -3468,6 +3468,7 @@ void RenderProcessHostImpl::PropagateBro
+@@ -3455,6 +3455,7 @@ void RenderProcessHostImpl::PropagateBro
      switches::kFileUrlPathAlias,
      switches::kFingerprintingClientRectsNoise,
      switches::kFingerprintingCanvasMeasureTextNoise,
@@ -322,7 +322,7 @@ approach to change color components.
    // Methods overridden by all sub-classes
 --- a/third_party/blink/renderer/platform/runtime_enabled_features.json5
 +++ b/third_party/blink/renderer/platform/runtime_enabled_features.json5
-@@ -1078,6 +1078,9 @@
+@@ -1079,6 +1079,9 @@
        name: "FingerprintingCanvasMeasureTextNoise",
      },
      {

@@ -100,7 +100,7 @@ with limited CPU/memory resources and it is disabled by default.
  
 --- a/chrome/browser/flag_descriptions.cc
 +++ b/chrome/browser/flag_descriptions.cc
-@@ -1621,6 +1621,10 @@ const char kMediaHistoryDescription[] =
+@@ -1616,6 +1616,10 @@ const char kMediaHistoryDescription[] =
      "Enables Media History which records data around media playbacks on "
      "websites.";
  
@@ -113,7 +113,7 @@ with limited CPU/memory resources and it is disabled by default.
  const char kMediaRouterCastAllowAllIPsDescription[] =
 --- a/chrome/browser/flag_descriptions.h
 +++ b/chrome/browser/flag_descriptions.h
-@@ -930,6 +930,9 @@ extern const char kLogJsConsoleMessagesD
+@@ -927,6 +927,9 @@ extern const char kLogJsConsoleMessagesD
  extern const char kMediaHistoryName[];
  extern const char kMediaHistoryDescription[];
  

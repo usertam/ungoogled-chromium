@@ -1,6 +1,6 @@
 --- a/content/browser/BUILD.gn
 +++ b/content/browser/BUILD.gn
-@@ -1274,6 +1274,10 @@ source_set("browser") {
+@@ -1276,6 +1276,10 @@ source_set("browser") {
      "net/browser_online_state_observer.cc",
      "net/browser_online_state_observer.h",
      "net/cookie_store_factory.cc",
@@ -11,7 +11,7 @@
      "net/network_errors_listing_ui.cc",
      "net/network_errors_listing_ui.h",
      "net/network_quality_observer_impl.cc",
-@@ -3033,10 +3037,6 @@ source_set("browser") {
+@@ -3034,10 +3038,6 @@ source_set("browser") {
  
    if (enable_reporting) {
      sources += [
@@ -62,7 +62,7 @@
    # mechanisms (e.g. HSTS, HPKP) to enforce trusted connections to a significant
 --- a/services/network/public/mojom/BUILD.gn
 +++ b/services/network/public/mojom/BUILD.gn
-@@ -916,7 +916,6 @@ mojom("mojom") {
+@@ -929,7 +929,6 @@ mojom("mojom") {
      export_class_attribute_blink = "BLINK_PLATFORM_EXPORT"
      export_define_blink = "BLINK_PLATFORM_IMPLEMENTATION=1"
      export_header_blink = "third_party/blink/public/platform/web_common.h"

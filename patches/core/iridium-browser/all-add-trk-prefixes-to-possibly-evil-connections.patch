@@ -306,7 +306,7 @@ by default.
 -    "https://www.gstatic.com/chrome/extensions/blocklist";
 +    "trk:270:https://www.gstatic.com/chrome/extensions/blocklist";
  
- const char kThumbsWhiteListedExtension[] = "khopmbdjffemhegeeobelklnbglcdgfh";
+ }  // namespace
  
 --- a/chrome/installer/setup/google_chrome_behaviors.cc
 +++ b/chrome/installer/setup/google_chrome_behaviors.cc
@@ -554,7 +554,7 @@ by default.
    extensions::ExtensionsClient* client = extensions::ExtensionsClient::Get();
 --- a/google_apis/gaia/gaia_constants.cc
 +++ b/google_apis/gaia/gaia_constants.cc
-@@ -25,133 +25,133 @@ const char kSyncService[] = "chromiumsyn
+@@ -25,149 +25,149 @@ const char kSyncService[] = "chromiumsyn
  const char kRemotingService[] = "chromoting";
  
  // OAuth scopes.
@@ -607,123 +607,143 @@ by default.
 -    "https://www.googleapis.com/auth/userinfo.profile";
 +    "trk:079:https://www.googleapis.com/auth/userinfo.profile";
  
+ // OAuth2 scope for access to the parent approval widget.
+ const char kParentApprovalOAuth2Scope[] =
+-    "https://www.googleapis.com/auth/kids.parentapproval";
++    "trk:080:https://www.googleapis.com/auth/kids.parentapproval";
+ 
  // OAuth2 scope for access to the people API (read-only).
  const char kPeopleApiReadOnlyOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/peopleapi.readonly";
-+    "trk:080:https://www.googleapis.com/auth/peopleapi.readonly";
++    "trk:081:https://www.googleapis.com/auth/peopleapi.readonly";
+ 
+ // OAuth2 scope for access to the programmatic challenge API (read-only).
+ const char kProgrammaticChallengeOAuth2Scope[] =
+-    "https://www.googleapis.com/auth/accounts.programmaticchallenge";
++    "trk:082:https://www.googleapis.com/auth/accounts.programmaticchallenge";
  
  // OAuth2 scope for access to the Reauth flow.
  const char kAccountsReauthOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/accounts.reauth";
-+    "trk:081:https://www.googleapis.com/auth/accounts.reauth";
++    "trk:083:https://www.googleapis.com/auth/accounts.reauth";
  
  // OAuth2 scope for access to audit recording (ARI).
  const char kAuditRecordingOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/auditrecording-pa";
-+    "trk:082:https://www.googleapis.com/auth/auditrecording-pa";
++    "trk:084:https://www.googleapis.com/auth/auditrecording-pa";
  
  // OAuth2 scope for access to clear cut logs.
 -const char kClearCutOAuth2Scope[] = "https://www.googleapis.com/auth/cclog";
-+const char kClearCutOAuth2Scope[] = "trk:083:https://www.googleapis.com/auth/cclog";
++const char kClearCutOAuth2Scope[] = "trk:085:https://www.googleapis.com/auth/cclog";
  
  // OAuth2 scope for FCM, the Firebase Cloud Messaging service.
  const char kFCMOAuthScope[] =
 -    "https://www.googleapis.com/auth/firebase.messaging";
-+    "trk:084:https://www.googleapis.com/auth/firebase.messaging";
++    "trk:086:https://www.googleapis.com/auth/firebase.messaging";
  
  // OAuth2 scope for access to Tachyon api.
 -const char kTachyonOAuthScope[] = "https://www.googleapis.com/auth/tachyon";
-+const char kTachyonOAuthScope[] = "trk:085:https://www.googleapis.com/auth/tachyon";
++const char kTachyonOAuthScope[] = "trk:087:https://www.googleapis.com/auth/tachyon";
  
  // OAuth2 scope for access to the Photos API.
 -const char kPhotosOAuth2Scope[] = "https://www.googleapis.com/auth/photos";
-+const char kPhotosOAuth2Scope[] = "trk:086:https://www.googleapis.com/auth/photos";
++const char kPhotosOAuth2Scope[] = "trk:088:https://www.googleapis.com/auth/photos";
  
  // OAuth2 scope for access to Cast backdrop API.
  const char kCastBackdropOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/cast.backdrop";
-+    "trk:087:https://www.googleapis.com/auth/cast.backdrop";
++    "trk:089:https://www.googleapis.com/auth/cast.backdrop";
  
  // OAuth scope for access to Cloud Translation API.
  const char kCloudTranslationOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/cloud-translation";
-+    "trk:088:https://www.googleapis.com/auth/cloud-translation";
++    "trk:090:https://www.googleapis.com/auth/cloud-translation";
  
  // OAuth2 scope for access to passwords leak checking API.
  const char kPasswordsLeakCheckOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/identity.passwords.leak.check";
-+    "trk:089:https://www.googleapis.com/auth/identity.passwords.leak.check";
++    "trk:091:https://www.googleapis.com/auth/identity.passwords.leak.check";
  
  // OAuth2 scope for access to Chrome safe browsing API.
  const char kChromeSafeBrowsingOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/chrome-safe-browsing";
-+    "trk:090:https://www.googleapis.com/auth/chrome-safe-browsing";
++    "trk:092:https://www.googleapis.com/auth/chrome-safe-browsing";
  
  // OAuth2 scope for access to kid permissions by URL.
  const char kClassifyUrlKidPermissionOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/kid.permission";
-+    "trk:091:https://www.googleapis.com/auth/kid.permission";
++    "trk:093:https://www.googleapis.com/auth/kid.permission";
  const char kKidFamilyReadonlyOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/kid.family.readonly";
-+    "trk:092:https://www.googleapis.com/auth/kid.family.readonly";
++    "trk:094:https://www.googleapis.com/auth/kid.family.readonly";
  
  // OAuth2 scope for access to payments.
  const char kPaymentsOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/wallet.chrome";
-+    "trk:093:https://www.googleapis.com/auth/wallet.chrome";
++    "trk:095:https://www.googleapis.com/auth/wallet.chrome";
  
  const char kCryptAuthOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/cryptauth";
-+    "trk:094:https://www.googleapis.com/auth/cryptauth";
++    "trk:096:https://www.googleapis.com/auth/cryptauth";
  
  // OAuth2 scope for access to Drive.
 -const char kDriveOAuth2Scope[] = "https://www.googleapis.com/auth/drive";
-+const char kDriveOAuth2Scope[] = "trk:095:https://www.googleapis.com/auth/drive";
++const char kDriveOAuth2Scope[] = "trk:097:https://www.googleapis.com/auth/drive";
  
  // The scope required for an access token in order to query ItemSuggest.
  const char kDriveReadOnlyOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/drive.readonly";
-+    "trk:096:https://www.googleapis.com/auth/drive.readonly";
++    "trk:098:https://www.googleapis.com/auth/drive.readonly";
  
  // OAuth2 scope for access to Assistant SDK.
  const char kAssistantOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/assistant-sdk-prototype";
-+    "trk:097:https://www.googleapis.com/auth/assistant-sdk-prototype";
++    "trk:099:https://www.googleapis.com/auth/assistant-sdk-prototype";
  
  // OAuth2 scope for access to nearby devices (fast pair) APIs.
  const char kCloudPlatformProjectsOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/cloudplatformprojects";
-+    "trk:098:https://www.googleapis.com/auth/cloudplatformprojects";
++    "trk:100:https://www.googleapis.com/auth/cloudplatformprojects";
  
  // OAuth2 scope for access to nearby sharing.
  const char kNearbyShareOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/nearbysharing-pa";
-+    "trk:099:https://www.googleapis.com/auth/nearbysharing-pa";
++    "trk:101:https://www.googleapis.com/auth/nearbysharing-pa";
  
  // OAuth2 scopes for access to GCM account tracker.
 -const char kGCMGroupServerOAuth2Scope[] = "https://www.googleapis.com/auth/gcm";
-+const char kGCMGroupServerOAuth2Scope[] = "trk:100:https://www.googleapis.com/auth/gcm";
++const char kGCMGroupServerOAuth2Scope[] = "trk:102:https://www.googleapis.com/auth/gcm";
  const char kGCMCheckinServerOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/android_checkin";
-+    "trk:101:https://www.googleapis.com/auth/android_checkin";
++    "trk:103:https://www.googleapis.com/auth/android_checkin";
  
  // OAuth2 scope for access to readonly Chrome web store.
  const char kChromeWebstoreOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/chromewebstore.readonly";
-+    "trk:102:https://www.googleapis.com/auth/chromewebstore.readonly";
++    "trk:104:https://www.googleapis.com/auth/chromewebstore.readonly";
  
  // OAuth2 scope for access to Account Capabilities API.
  const char kAccountCapabilitiesOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/account.capabilities";
-+    "trk:103:https://www.googleapis.com/auth/account.capabilities";
++    "trk:105:https://www.googleapis.com/auth/account.capabilities";
  
  // OAuth2 scope for support content API.
  const char kSupportContentOAuth2Scope[] =
 -    "https://www.googleapis.com/auth/supportcontent";
-+    "trk:104:https://www.googleapis.com/auth/supportcontent";
++    "trk:106:https://www.googleapis.com/auth/supportcontent";
  
  // OAuth 2 scope for NTP Photos module API.
  const char kPhotosModuleOAuth2Scope[] =
+-    "https://www.googleapis.com/auth/photos.firstparty.readonly";
++    "trk:107:https://www.googleapis.com/auth/photos.firstparty.readonly";
+ 
+ // OAuth 2 scope for NTP Photos module image API.
+ const char kPhotosModuleImageOAuth2Scope[] =
+-    "https://www.googleapis.com/auth/photos.image.readonly";
++    "trk:108:https://www.googleapis.com/auth/photos.image.readonly";
+ 
+ // Used to mint uber auth tokens when needed.
+ const char kGaiaSid[] = "sid";
 --- a/google_apis/gaia/gaia_urls.cc
 +++ b/google_apis/gaia/gaia_urls.cc
 @@ -24,6 +24,7 @@
