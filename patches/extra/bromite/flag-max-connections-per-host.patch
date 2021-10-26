@@ -17,7 +17,7 @@ with limited CPU/memory resources and it is disabled by default.
 
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
-@@ -2127,6 +2127,7 @@ static_library("browser") {
+@@ -2138,6 +2138,7 @@ static_library("browser") {
      "//components/net_log",
      "//components/network_hints/common:mojo_bindings",
      "//components/network_session_configurator/browser",
@@ -61,7 +61,7 @@ with limited CPU/memory resources and it is disabled by default.
  #include "base/run_loop.h"
 +#include "base/strings/string_number_conversions.h"
  #include "base/synchronization/waitable_event.h"
- #include "base/task/single_thread_task_runner_forward.h"
+ #include "base/task/single_thread_task_runner.h"
  #include "base/task/task_traits.h"
 @@ -104,6 +106,7 @@
  #include "components/metrics/metrics_service.h"
@@ -100,7 +100,7 @@ with limited CPU/memory resources and it is disabled by default.
  
 --- a/chrome/browser/flag_descriptions.cc
 +++ b/chrome/browser/flag_descriptions.cc
-@@ -1616,6 +1616,10 @@ const char kMediaHistoryDescription[] =
+@@ -1615,6 +1615,10 @@ const char kMediaHistoryDescription[] =
      "Enables Media History which records data around media playbacks on "
      "websites.";
  

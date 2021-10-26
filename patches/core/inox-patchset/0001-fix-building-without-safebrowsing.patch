@@ -1,6 +1,6 @@
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
-@@ -2195,7 +2195,6 @@ static_library("browser") {
+@@ -2207,7 +2207,6 @@ static_library("browser") {
      "//components/reputation/core:proto",
      "//components/resources",
      "//components/safe_browsing/content/browser",
@@ -8,7 +8,7 @@
      "//components/safe_browsing/content/browser:safe_browsing_service",
      "//components/safe_browsing/content/browser/password_protection",
      "//components/safe_browsing/content/browser/web_ui",
-@@ -3714,8 +3713,6 @@ static_library("browser") {
+@@ -3725,8 +3724,6 @@ static_library("browser") {
        "download/download_commands.h",
        "download/download_crx_util.cc",
        "download/download_crx_util.h",
@@ -131,7 +131,7 @@
  #include "chrome/browser/search_engines/template_url_service_factory.h"
  #include "chrome/browser/share/share_history.h"
  #include "chrome/browser/share/share_ranking.h"
-@@ -642,10 +641,6 @@ void ChromeBrowsingDataRemoverDelegate::
+@@ -643,10 +642,6 @@ void ChromeBrowsingDataRemoverDelegate::
      base::RecordAction(UserMetricsAction("ClearBrowsingData_Cookies"));
  
      network::mojom::NetworkContext* safe_browsing_context = nullptr;
@@ -144,7 +144,7 @@
          delete_begin, delete_end, filter_builder, host_content_settings_map_,
 --- a/chrome/browser/chrome_content_browser_client.cc
 +++ b/chrome/browser/chrome_content_browser_client.cc
-@@ -924,34 +924,6 @@ void SetApplicationLocaleOnIOThread(cons
+@@ -929,34 +929,6 @@ void SetApplicationLocaleOnIOThread(cons
    GetIOThreadApplicationLocale() = locale;
  }
  
@@ -179,7 +179,7 @@
  #if BUILDFLAG(ENABLE_EXTENSIONS)
  
  AppLoadedInTabSource ClassifyAppLoadedInTabSource(
-@@ -1426,7 +1398,6 @@ void ChromeContentBrowserClient::PostAft
+@@ -1438,7 +1410,6 @@ void ChromeContentBrowserClient::PostAft
    InitNetworkContextsParentDirectory();
  
    DCHECK_CURRENTLY_ON(BrowserThread::UI);
@@ -187,7 +187,7 @@
  }
  
  bool ChromeContentBrowserClient::IsBrowserStartupComplete() {
-@@ -4232,7 +4203,7 @@ ChromeContentBrowserClient::CreateThrott
+@@ -4246,7 +4217,7 @@ ChromeContentBrowserClient::CreateThrott
    content::WebContents* web_contents = handle->GetWebContents();
    throttles.push_back(std::make_unique<SSLErrorNavigationThrottle>(
        handle,
@@ -196,7 +196,7 @@
        base::BindOnce(&HandleSSLErrorWrapper), base::BindOnce(&IsInHostedApp),
        base::BindOnce(
            &ShouldIgnoreSslInterstitialBecauseNavigationDefaultedToHttps)));
-@@ -4261,15 +4232,6 @@ ChromeContentBrowserClient::CreateThrott
+@@ -4275,15 +4246,6 @@ ChromeContentBrowserClient::CreateThrott
                     &throttles);
  #endif
  
@@ -611,7 +611,7 @@
  WebstorePrivateGetExtensionStatusFunction::
 --- a/chrome/browser/extensions/blocklist_state_fetcher.cc
 +++ b/chrome/browser/extensions/blocklist_state_fetcher.cc
-@@ -34,33 +34,8 @@ BlocklistStateFetcher::~BlocklistStateFe
+@@ -38,23 +38,8 @@ BlocklistStateFetcher::~BlocklistStateFe
  void BlocklistStateFetcher::Request(const std::string& id,
                                      RequestCallback callback) {
    DCHECK_CURRENTLY_ON(BrowserThread::UI);
@@ -631,23 +631,13 @@
 -  if (request_already_sent)
 -    return;
 -
--  if (g_browser_process && g_browser_process->safe_browsing_service()) {
--    if (base::FeatureList::IsEnabled(
--            safe_browsing::kSafeBrowsingRemoveCookies)) {
--      url_loader_factory_ = g_browser_process->shared_url_loader_factory();
--    } else {
--      url_loader_factory_ =
--          g_browser_process->safe_browsing_service()->GetURLLoaderFactory();
--    }
--  }
--
 -  SendRequest(id);
 +  base::ThreadTaskRunnerHandle::Get()->PostTask(
 +      FROM_HERE, base::BindOnce(std::move(callback), BLOCKLISTED_UNKNOWN));
  }
  
  void BlocklistStateFetcher::SendRequest(const std::string& id) {
-@@ -71,8 +46,7 @@ void BlocklistStateFetcher::SendRequest(
+@@ -65,8 +50,7 @@ void BlocklistStateFetcher::SendRequest(
    std::string request_str;
    request.SerializeToString(&request_str);
  
@@ -657,7 +647,7 @@
    net::NetworkTrafficAnnotationTag traffic_annotation =
        net::DefineNetworkTrafficAnnotation("extension_blacklist", R"(
          semantics {
-@@ -122,12 +96,6 @@ void BlocklistStateFetcher::SendRequest(
+@@ -114,12 +98,6 @@ void BlocklistStateFetcher::SendRequest(
                       base::Unretained(this), fetcher));
  }
  
@@ -781,7 +771,7 @@
  
    if (safe_browsing_mode != 0) {
      # "Safe Browsing Basic" files used for safe browsing in full mode
-@@ -411,6 +413,7 @@ static_library("advanced_protection") {
+@@ -414,6 +416,7 @@ static_library("advanced_protection") {
  }
  
  source_set("metrics_collector") {
@@ -789,7 +779,7 @@
    sources = [
      "safe_browsing_metrics_collector_factory.cc",
      "safe_browsing_metrics_collector_factory.h",
-@@ -428,6 +431,7 @@ source_set("metrics_collector") {
+@@ -431,6 +434,7 @@ source_set("metrics_collector") {
      "//components/safe_browsing/core/common:safe_browsing_prefs",
      "//content/public/browser",
    ]
@@ -799,7 +789,7 @@
  source_set("test_support") {
 --- a/chrome/browser/ssl/security_state_tab_helper.cc
 +++ b/chrome/browser/ssl/security_state_tab_helper.cc
-@@ -215,89 +215,6 @@ bool SecurityStateTabHelper::UsedPolicyI
+@@ -210,89 +210,6 @@ bool SecurityStateTabHelper::UsedPolicyI
  
  security_state::MaliciousContentStatus
  SecurityStateTabHelper::GetMaliciousContentStatus() const {
@@ -891,7 +881,7 @@
  
 --- a/chrome/browser/ui/BUILD.gn
 +++ b/chrome/browser/ui/BUILD.gn
-@@ -3954,7 +3954,6 @@ static_library("ui") {
+@@ -3956,7 +3956,6 @@ static_library("ui") {
        "views/device_chooser_content_view.h",
        "views/devtools_process_observer.cc",
        "views/devtools_process_observer.h",
@@ -901,7 +891,7 @@
        "views/download/download_item_view.cc",
 --- a/chrome/browser/ui/tab_helpers.cc
 +++ b/chrome/browser/ui/tab_helpers.cc
-@@ -330,16 +330,6 @@ void TabHelpers::AttachTabHelpers(WebCon
+@@ -333,16 +333,6 @@ void TabHelpers::AttachTabHelpers(WebCon
    //     See https://crbug.com/910288.
    resource_coordinator::ResourceCoordinatorTabHelper::CreateForWebContents(
        web_contents);
@@ -928,7 +918,7 @@
  #include "chrome/browser/download/download_history.h"
  #include "chrome/browser/download/download_item_model.h"
  #include "chrome/browser/download/download_prefs.h"
-@@ -171,9 +170,6 @@ void DownloadsDOMHandler::SaveDangerousR
+@@ -172,9 +171,6 @@ void DownloadsDOMHandler::SaveDangerousR
    }
  
    CountDownloadsDOMEvents(DOWNLOADS_DOM_EVENT_SAVE_DANGEROUS);
@@ -938,7 +928,7 @@
  }
  
  void DownloadsDOMHandler::AcceptIncognitoWarning(const std::string& id) {
-@@ -325,12 +321,6 @@ void DownloadsDOMHandler::RemoveDownload
+@@ -326,12 +322,6 @@ void DownloadsDOMHandler::RemoveDownload
    IdSet ids;
  
    for (auto* download : to_remove) {
@@ -951,7 +941,7 @@
      DownloadItemModel item_model(download);
      if (!item_model.ShouldShowInShelf() ||
          download->GetState() == download::DownloadItem::IN_PROGRESS) {
-@@ -404,44 +394,6 @@ void DownloadsDOMHandler::FinalizeRemova
+@@ -405,44 +395,6 @@ void DownloadsDOMHandler::FinalizeRemova
    }
  }
  
@@ -1006,7 +996,7 @@
  #include "chrome/browser/ui/webui/downloads/downloads.mojom-forward.h"
  #include "chrome/browser/ui/webui/downloads/downloads_list_tracker.h"
  #include "content/public/browser/web_contents_observer.h"
-@@ -94,18 +93,6 @@ class DownloadsDOMHandler : public conte
+@@ -95,18 +94,6 @@ class DownloadsDOMHandler : public conte
    // null-checking |original_notifier_|.
    content::DownloadManager* GetOriginalNotifierManager() const;
  

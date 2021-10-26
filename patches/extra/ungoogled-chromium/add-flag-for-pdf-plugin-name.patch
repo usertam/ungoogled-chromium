@@ -1,6 +1,6 @@
 --- a/chrome/browser/chrome_content_browser_client.cc
 +++ b/chrome/browser/chrome_content_browser_client.cc
-@@ -6004,7 +6004,7 @@ bool ChromeContentBrowserClient::ShouldA
+@@ -6031,7 +6031,7 @@ bool ChromeContentBrowserClient::ShouldA
      const url::Origin& embedder_origin,
      const content::PepperPluginInfo& plugin_info) {
  #if BUILDFLAG(ENABLE_PDF)
@@ -33,15 +33,12 @@
      plugin_service->RegisterInternalPlugin(info, true);
 --- a/chrome/browser/plugins/plugin_prefs.cc
 +++ b/chrome/browser/plugins/plugin_prefs.cc
-@@ -37,9 +37,9 @@ namespace {
- 
- bool IsPDFViewerPlugin(const std::u16string& plugin_name) {
-   return (plugin_name ==
--          base::ASCIIToUTF16(ChromeContentClient::kPDFExtensionPluginName)) ||
-+          base::ASCIIToUTF16(ChromeContentClient::GetPDFExtensionPluginName())) ||
-          (plugin_name ==
--          base::ASCIIToUTF16(ChromeContentClient::kPDFInternalPluginName));
-+          base::ASCIIToUTF16(ChromeContentClient::GetPDFInternalPluginName()));
+@@ -40,7 +40,7 @@ bool IsPDFViewerPlugin(const std::u16str
+   // plugin, which is also used for Print Preview. Note that only the PDF viewer
+   // and Print Preview can create the internal PDF plugin in the first place.
+   return plugin_name ==
+-         base::ASCIIToUTF16(ChromeContentClient::kPDFExtensionPluginName);
++         base::ASCIIToUTF16(ChromeContentClient::GetPDFExtensionPluginName());
  }
  
  }  // namespace

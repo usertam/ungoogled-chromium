@@ -127,12 +127,12 @@
          border-top: none;
        }
      </style>
--<if expr="not chromeos">
+-<if expr="not chromeos and not lacros">
 +<if expr="false">
+     <!-- Signout is not supported yet on lacros, https://crbug.com/1217645 -->
      <settings-toggle-button id="signinAllowedToggle"
          class="hr"
-         hidden="[[!signinAvailable_]]"
-@@ -51,12 +51,6 @@
+@@ -52,12 +52,6 @@
      </settings-toggle-button>
  </if><!-- not chromeos -->
  </if><!-- _google_chrome -->
@@ -173,7 +173,7 @@
            prefs.default_search_provider_data.template_url_data)]]">
 --- a/chrome/browser/resources/settings/settings_menu/settings_menu.html
 +++ b/chrome/browser/resources/settings/settings_menu/settings_menu.html
-@@ -111,7 +111,7 @@
+@@ -118,7 +118,7 @@
              $i18n{autofillPageTitle}
              <paper-ripple></paper-ripple>
            </a>

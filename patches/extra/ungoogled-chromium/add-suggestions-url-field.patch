@@ -371,7 +371,7 @@
  
    edit_controller_.reset();
  }
-@@ -359,6 +365,8 @@ bool SearchEnginesHandler::CheckFieldVal
+@@ -357,6 +363,8 @@ bool SearchEnginesHandler::CheckFieldVal
      is_valid = edit_controller_->IsKeywordValid(base::UTF8ToUTF16(field_value));
    else if (field_name.compare(kQueryUrlField) == 0)
      is_valid = edit_controller_->IsURLValid(field_value);
@@ -380,15 +380,11 @@
    else
      NOTREACHED();
  
-@@ -380,17 +388,21 @@ void SearchEnginesHandler::HandleSearchE
-   std::string search_engine;
-   std::string keyword;
-   std::string query_url;
-+  std::string suggestions_url;
-   CHECK(args->GetString(0, &search_engine));
-   CHECK(args->GetString(1, &keyword));
-   CHECK(args->GetString(2, &query_url));
-+  CHECK(args->GetString(3, &suggestions_url));
+@@ -378,14 +386,17 @@ void SearchEnginesHandler::HandleSearchE
+   const std::string& search_engine = args->GetList()[0].GetString();
+   const std::string& keyword = args->GetList()[1].GetString();
+   const std::string& query_url = args->GetList()[2].GetString();
++  const std::string& suggestions_url = args->GetList()[3].GetString();
  
    // Recheck validity. It's possible to get here with invalid input if e.g. the
    // user calls the right JS functions directly from the web inspector.

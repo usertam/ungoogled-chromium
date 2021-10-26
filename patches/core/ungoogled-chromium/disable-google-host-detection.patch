@@ -552,13 +552,7 @@
  }
  
  std::unique_ptr<network::SimpleURLLoader>
-@@ -360,14 +331,11 @@ CreateSimpleURLLoaderWithVariationsHeade
- }
- 
- bool IsVariationsHeader(const std::string& header_name) {
--  return header_name == kClientDataHeader ||
--         header_name == kOmniboxOnDeviceSuggestionsHeader;
-+  return false;
+@@ -360,9 +331,7 @@ CreateSimpleURLLoaderWithVariationsHeade
  }
  
  bool HasVariationsHeader(const network::ResourceRequest& request) {
@@ -569,7 +563,7 @@
  }
  
  bool ShouldAppendVariationsHeaderForTesting(
-@@ -378,12 +346,6 @@ bool ShouldAppendVariationsHeaderForTest
+@@ -373,12 +342,6 @@ bool ShouldAppendVariationsHeaderForTest
  
  void UpdateCorsExemptHeaderForVariations(
      network::mojom::NetworkContextParams* params) {

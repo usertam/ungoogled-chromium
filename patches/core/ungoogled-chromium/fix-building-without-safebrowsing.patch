@@ -2,7 +2,7 @@
 
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
-@@ -3734,9 +3734,6 @@ static_library("browser") {
+@@ -3745,9 +3745,6 @@ static_library("browser") {
        "download/offline_item_model_manager_factory.h",
        "enterprise/connectors/analysis/analysis_service_settings.cc",
        "enterprise/connectors/analysis/analysis_service_settings.h",
@@ -12,7 +12,7 @@
        "enterprise/connectors/analysis/content_analysis_dialog.cc",
        "enterprise/connectors/analysis/content_analysis_dialog.h",
        "enterprise/connectors/analysis/content_analysis_downloads_delegate.cc",
-@@ -7050,9 +7047,14 @@ static_library("browser") {
+@@ -7078,9 +7075,14 @@ static_library("browser") {
        "//components/safe_browsing/content/browser:safe_browsing_blocking_page",
        "//components/safe_browsing/content/browser/download:download_stats",
        "//components/safe_browsing/content/common:file_type_policies",
@@ -44,7 +44,7 @@
    auto delegate = std::make_unique<AccuracyServiceDelegate>(profile);
 --- a/chrome/browser/chrome_content_browser_client.cc
 +++ b/chrome/browser/chrome_content_browser_client.cc
-@@ -4232,11 +4232,13 @@ ChromeContentBrowserClient::CreateThrott
+@@ -4246,11 +4246,13 @@ ChromeContentBrowserClient::CreateThrott
                     &throttles);
  #endif
  
@@ -58,7 +58,7 @@
  
  // TODO(crbug.com/1052397): Revisit the macro expression once build flag switch
  // of lacros-chrome is complete.
-@@ -5635,26 +5637,7 @@ ChromeContentBrowserClient::GetSafeBrows
+@@ -5662,26 +5664,7 @@ ChromeContentBrowserClient::GetSafeBrows
      const std::vector<std::string>& allowlist_domains) {
    DCHECK_CURRENTLY_ON(BrowserThread::IO);
  
@@ -86,7 +86,7 @@
  }
  
  safe_browsing::RealTimeUrlLookupServiceBase*
-@@ -5675,11 +5658,6 @@ ChromeContentBrowserClient::GetUrlLookup
+@@ -5702,11 +5685,6 @@ ChromeContentBrowserClient::GetUrlLookup
          GetForProfile(profile);
    }
  #endif
@@ -189,7 +189,7 @@
  using safe_browsing::DownloadProtectionService;
  using ConnectionType = net::NetworkChangeNotifier::ConnectionType;
  
-@@ -1517,8 +1516,6 @@ void ChromeDownloadManagerDelegate::OnDo
+@@ -1527,8 +1526,6 @@ void ChromeDownloadManagerDelegate::OnDo
      if (item->GetOriginalMimeType() == "application/x-x509-user-cert")
        DownloadItemModel(item).SetShouldPreferOpeningInBrowser(true);
  #endif
@@ -198,7 +198,7 @@
    }
    if (ShouldBlockFile(target_info->danger_type, item)) {
      MaybeReportDangerousDownloadBlocked(
-@@ -1674,9 +1671,11 @@ void ChromeDownloadManagerDelegate::Mayb
+@@ -1684,9 +1681,11 @@ void ChromeDownloadManagerDelegate::Mayb
    if (!download->GetAutoOpened()) {
      download::DownloadContent download_content =
          download::DownloadContentFromMimeType(download->GetMimeType(), false);
@@ -210,7 +210,7 @@
    }
  }
  
-@@ -1747,6 +1746,7 @@ void ChromeDownloadManagerDelegate::Chec
+@@ -1757,6 +1756,7 @@ void ChromeDownloadManagerDelegate::Chec
    DCHECK(download_item);
    DCHECK(download_item->IsSavePackageDownload());
  
@@ -218,7 +218,7 @@
  #if defined(OS_WIN) || defined(OS_LINUX) || defined(OS_CHROMEOS) || \
      defined(OS_MAC)
    if (!base::FeatureList::IsEnabled(
-@@ -1779,6 +1779,7 @@ void ChromeDownloadManagerDelegate::Chec
+@@ -1789,6 +1789,7 @@ void ChromeDownloadManagerDelegate::Chec
      }
    }
  #endif
@@ -365,7 +365,7 @@
  
 --- a/chrome/browser/extensions/BUILD.gn
 +++ b/chrome/browser/extensions/BUILD.gn
-@@ -650,8 +650,6 @@ static_library("extensions") {
+@@ -644,8 +644,6 @@ static_library("extensions") {
      "menu_manager_factory.h",
      "navigation_observer.cc",
      "navigation_observer.h",
@@ -826,7 +826,7 @@
  #include "chrome/browser/ui/file_system_access_dialogs.h"
  #include "chrome/common/chrome_paths.h"
  #include "components/content_settings/core/browser/host_content_settings_map.h"
-@@ -299,83 +297,6 @@ BindResultCallbackToCurrentSequence(
+@@ -300,83 +298,6 @@ BindResultCallbackToCurrentSequence(
        base::SequencedTaskRunnerHandle::Get(), std::move(callback));
  }
  
@@ -910,7 +910,7 @@
  std::string GenerateLastPickedDirectoryKey(const std::string& id) {
    return id.empty() ? kDefaultLastPickedDirectoryKey
                      : base::StrCat({kCustomLastPickedDirectoryKey, "-", id});
-@@ -1106,28 +1027,6 @@ void ChromeFileSystemAccessPermissionCon
+@@ -1107,28 +1028,6 @@ void ChromeFileSystemAccessPermissionCon
                       std::move(callback)));
  }
  
@@ -1212,7 +1212,7 @@
  void ContextualNotificationPermissionUiSelector::OnSafeBrowsingVerdictReceived(
 --- a/chrome/browser/permissions/prediction_based_permission_ui_selector.cc
 +++ b/chrome/browser/permissions/prediction_based_permission_ui_selector.cc
-@@ -22,7 +22,6 @@
+@@ -23,7 +23,6 @@
  #include "components/permissions/prediction_service/prediction_service.h"
  #include "components/permissions/prediction_service/prediction_service_messages.pb.h"
  #include "components/prefs/pref_service.h"
@@ -1220,7 +1220,7 @@
  
  namespace {
  
-@@ -204,10 +203,8 @@ bool PredictionBasedPermissionUiSelector
+@@ -212,10 +211,8 @@ bool PredictionBasedPermissionUiSelector
      permissions::RequestType request_type) {
    // We need to also check `kQuietNotificationPrompts` here since there is no
    // generic safeguard anywhere else in the stack.
@@ -1436,7 +1436,7 @@
 +++ b/chrome/browser/ui/tab_contents/chrome_web_contents_view_handle_drop.cc
 @@ -11,7 +11,10 @@
  #include "base/task/post_task.h"
- #include "base/task/task_runner_util_forward.h"
+ #include "base/task/task_runner_util.h"
  #include "base/task/thread_pool.h"
 +#include "components/safe_browsing/buildflags.h"
 +#if BUILDFLAG(FULL_SAFE_BROWSING)
@@ -1544,7 +1544,7 @@
  
 --- a/chrome/browser/ui/webui/downloads/downloads_dom_handler.cc
 +++ b/chrome/browser/ui/webui/downloads/downloads_dom_handler.cc
-@@ -366,7 +366,6 @@ void DownloadsDOMHandler::OpenDuringScan
+@@ -367,7 +367,6 @@ void DownloadsDOMHandler::OpenDuringScan
    if (download) {
      DownloadItemModel model(download);
      model.SetOpenWhenComplete(true);
@@ -1855,8 +1855,35 @@
  }
  
  // static
---- a/components/safe_browsing/content/browser/user_population.cc
-+++ b/components/safe_browsing/content/browser/user_population.cc
+--- a/components/safe_browsing/content/common/proto/BUILD.gn
++++ b/components/safe_browsing/content/common/proto/BUILD.gn
+@@ -5,8 +5,12 @@
+ import("//components/safe_browsing/buildflags.gni")
+ import("//third_party/protobuf/proto_library.gni")
+ 
+-if (safe_browsing_mode != 0) {
++# Although this was gated on safe_browsing_mode != 0, a considerable amount
++# of source code that relies on the types included in download_file_types.pb.h
++# is not gated on BUILDFLAG(SAFE_BROWSING_AVAILABLE). This is far less
++# invasive than the alternative.
++# if (safe_browsing_mode != 0) {
+   proto_library("download_file_types_proto") {
+     sources = [ "download_file_types.proto" ]
+   }
+-}
++# }
+--- a/components/safe_browsing/content/common/safe_browsing.mojom
++++ b/components/safe_browsing/content/common/safe_browsing.mojom
+@@ -120,7 +120,6 @@ enum PhishingDetectorResult {
+   INVALID_SCORE = 4,
+ };
+ 
+-[EnableIf=full_safe_browsing]
+ // Interface for setting the CSD model and to start phishing classification.
+ interface PhishingDetector {
+   // A classification model for client-side phishing detection.
+--- a/components/safe_browsing/core/browser/user_population.cc
++++ b/components/safe_browsing/core/browser/user_population.cc
 @@ -7,29 +7,13 @@
  #include "base/feature_list.h"
  #include "components/prefs/pref_service.h"
@@ -1901,8 +1928,8 @@
    population.set_is_incognito(is_incognito);
  
    population.set_is_history_sync_enabled(is_history_sync_enabled);
---- a/components/safe_browsing/content/browser/user_population.h
-+++ b/components/safe_browsing/content/browser/user_population.h
+--- a/components/safe_browsing/core/browser/user_population.h
++++ b/components/safe_browsing/core/browser/user_population.h
 @@ -21,8 +21,6 @@ ChromeUserPopulation::UserPopulation Get
  
  // Creates a ChromeUserPopulation proto for the given state.
@@ -1912,33 +1939,6 @@
      bool is_incognito,
      bool is_history_sync_enabled,
      bool is_under_advanced_protection,
---- a/components/safe_browsing/content/common/proto/BUILD.gn
-+++ b/components/safe_browsing/content/common/proto/BUILD.gn
-@@ -5,8 +5,12 @@
- import("//components/safe_browsing/buildflags.gni")
- import("//third_party/protobuf/proto_library.gni")
- 
--if (safe_browsing_mode != 0) {
-+# Although this was gated on safe_browsing_mode != 0, a considerable amount
-+# of source code that relies on the types included in download_file_types.pb.h
-+# is not gated on BUILDFLAG(SAFE_BROWSING_AVAILABLE). This is far less
-+# invasive than the alternative.
-+# if (safe_browsing_mode != 0) {
-   proto_library("download_file_types_proto") {
-     sources = [ "download_file_types.proto" ]
-   }
--}
-+# }
---- a/components/safe_browsing/content/common/safe_browsing.mojom
-+++ b/components/safe_browsing/content/common/safe_browsing.mojom
-@@ -120,7 +120,6 @@ enum PhishingDetectorResult {
-   INVALID_SCORE = 4,
- };
- 
--[EnableIf=full_safe_browsing]
- // Interface for setting the CSD model and to start phishing classification.
- interface PhishingDetector {
-   // A classification model for client-side phishing detection.
 --- a/content/browser/file_system_access/safe_move_helper.cc
 +++ b/content/browser/file_system_access/safe_move_helper.cc
 @@ -150,14 +150,8 @@ void SafeMoveHelper::Start(SafeMoveHelpe

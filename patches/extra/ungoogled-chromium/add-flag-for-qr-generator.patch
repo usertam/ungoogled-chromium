@@ -1,11 +1,12 @@
 --- a/chrome/browser/sharing/features.cc
 +++ b/chrome/browser/sharing/features.cc
-@@ -32,3 +32,5 @@ const base::Feature kSharingPreferVapid
-       base::FEATURE_DISABLED_BY_DEFAULT
- #endif  // defined(OS_ANDROID)
- };
+@@ -26,3 +26,6 @@ const base::Feature kSharingSendViaSync{
+ 
+ const base::Feature kSharingPreferVapid {
+   "SharingPreferVapid", base::FEATURE_DISABLED_BY_DEFAULT};
 +
-+const base::Feature kDisableQRGenerator{"DisableQRGenerator", base::FEATURE_DISABLED_BY_DEFAULT};
++const base::Feature kDisableQRGenerator{
++    "DisableQRGenerator", base::FEATURE_DISABLED_BY_DEFAULT};
 --- a/chrome/browser/sharing/features.h
 +++ b/chrome/browser/sharing/features.h
 @@ -34,4 +34,5 @@ extern const base::Feature kSharingSendV

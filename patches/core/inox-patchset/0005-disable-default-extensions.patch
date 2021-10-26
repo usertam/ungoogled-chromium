@@ -22,7 +22,7 @@
  }
  
  #if BUILDFLAG(IS_CHROMEOS_ASH)
-@@ -495,18 +490,6 @@ void ComponentLoader::AddDefaultComponen
+@@ -500,18 +495,6 @@ void ComponentLoader::AddDefaultComponen
      AddHangoutServicesExtension();
  #endif  // BUILDFLAG(ENABLE_HANGOUT_SERVICES_EXTENSION)
  
