@@ -1,6 +1,6 @@
 --- a/chrome/browser/ui/browser_command_controller.cc
 +++ b/chrome/browser/ui/browser_command_controller.cc
-@@ -1136,7 +1136,8 @@ void BrowserCommandController::InitComma
+@@ -1153,7 +1153,8 @@ void BrowserCommandController::InitComma
    command_updater_.UpdateCommandEnabled(IDC_WINDOW_CLOSE_OTHER_TABS,
                                          normal_window);
  
@@ -32,7 +32,7 @@
          l10n_util::GetStringUTF16(IDS_TOOLTIP_TAB_SEARCH));
 --- a/chrome/browser/ungoogled_flag_entries.h
 +++ b/chrome/browser/ungoogled_flag_entries.h
-@@ -68,4 +68,8 @@
+@@ -64,4 +64,8 @@
       "Clear data on exit",
       "Clears all browsing data on exit.  ungoogled-chromium flag",
       kOsDesktop, FEATURE_VALUE_TYPE(browsing_data::features::kClearDataOnExit)},

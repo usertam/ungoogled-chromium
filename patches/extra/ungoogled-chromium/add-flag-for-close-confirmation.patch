@@ -7,8 +7,8 @@
 +#include "chrome/browser/ui/views/frame/browser_view.h"
 +#include "chrome/browser/ui/views/message_box_dialog.h"
  #include "chrome/browser/ui/web_applications/app_browser_controller.h"
+ #include "chrome/browser/ui/web_applications/web_app_launch_utils.h"
  #include "chrome/browser/ui/webui/signin/login_ui_service.h"
- #include "chrome/browser/ui/webui/signin/login_ui_service_factory.h"
 @@ -464,6 +466,7 @@ Browser::Browser(const CreateParams& par
        omit_from_session_restore_(params.omit_from_session_restore),
        should_trigger_session_restore_(params.should_trigger_session_restore),
@@ -17,7 +17,7 @@
        override_bounds_(params.initial_bounds),
        initial_show_state_(params.initial_show_state),
        initial_workspace_(params.initial_workspace),
-@@ -828,7 +831,7 @@ Browser::WarnBeforeClosingResult Browser
+@@ -831,7 +834,7 @@ Browser::WarnBeforeClosingResult Browser
    // If the browser can close right away (there are no pending downloads we need
    // to prompt about) then there's no need to warn. In the future, we might need
    // to check other conditions as well.
@@ -26,7 +26,7 @@
      return WarnBeforeClosingResult::kOkToClose;
  
    DCHECK(!warn_before_closing_callback_)
-@@ -858,6 +861,7 @@ bool Browser::TryToCloseWindow(
+@@ -861,6 +864,7 @@ bool Browser::TryToCloseWindow(
  
  void Browser::ResetTryToCloseWindow() {
    cancel_download_confirmation_state_ = NOT_PROMPTED;
@@ -34,7 +34,7 @@
    unload_controller_.ResetTryToCloseWindow();
  }
  
-@@ -2696,6 +2700,62 @@ bool Browser::CanCloseWithInProgressDown
+@@ -2684,6 +2688,62 @@ bool Browser::CanCloseWithInProgressDown
    return false;
  }
  
@@ -97,7 +97,7 @@
  void Browser::InProgressDownloadResponse(bool cancel_downloads) {
    if (cancel_downloads) {
      cancel_download_confirmation_state_ = RESPONSE_RECEIVED;
-@@ -2714,6 +2774,22 @@ void Browser::InProgressDownloadResponse
+@@ -2702,6 +2762,22 @@ void Browser::InProgressDownloadResponse
  
    std::move(warn_before_closing_callback_)
        .Run(WarnBeforeClosingResult::kDoNotClose);
@@ -130,7 +130,7 @@
  #include "chrome/browser/ui/signin_view_controller.h"
  #include "chrome/browser/ui/tabs/tab_strip_model_observer.h"
  #include "chrome/browser/ui/unload_controller.h"
-@@ -1005,12 +1006,17 @@ class Browser : public TabStripModelObse
+@@ -1010,12 +1011,17 @@ class Browser : public TabStripModelObse
    // Returns true if the window can close, false otherwise.
    bool CanCloseWithInProgressDownloads();
  
@@ -148,7 +148,7 @@
    // Called when all warnings have completed when attempting to close the
    // browser directly (e.g. via hotkey, close button, terminate signal, etc.)
    // Used as a WarnBeforeClosingCallback by ShouldCloseWindow().
-@@ -1173,6 +1179,8 @@ class Browser : public TabStripModelObse
+@@ -1178,6 +1184,8 @@ class Browser : public TabStripModelObse
    // when the browser is closed with in-progress downloads.
    CancelDownloadConfirmationState cancel_download_confirmation_state_;
  
@@ -175,11 +175,11 @@
  #endif  // CHROME_BROWSER_UNGOOGLED_FLAG_CHOICES_H_
 --- a/chrome/browser/ungoogled_flag_entries.h
 +++ b/chrome/browser/ungoogled_flag_entries.h
-@@ -80,4 +80,8 @@
+@@ -76,4 +76,8 @@
       "Remove Grab Handle",
       "Removes the reserved empty space in the tabstrip for moving the window.  ungoogled-chromium flag",
       kOsDesktop, SINGLE_VALUE_TYPE("remove-grab-handle")},
-+    {"close-confirmation", 
++    {"close-confirmation",
 +     "Close Confirmation",
 +     "Show a warning prompt when closing the browser window.  ungoogled-chromium flag",
 +     kOsDesktop, MULTI_VALUE_TYPE(kCloseConfirmation)},
