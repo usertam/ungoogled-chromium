@@ -34,7 +34,7 @@ approach to change color components.
  #endif  // CHROME_BROWSER_BROMITE_FLAG_ENTRIES_H_
 --- a/content/browser/renderer_host/render_process_host_impl.cc
 +++ b/content/browser/renderer_host/render_process_host_impl.cc
-@@ -3338,6 +3338,7 @@ void RenderProcessHostImpl::PropagateBro
+@@ -3343,6 +3343,7 @@ void RenderProcessHostImpl::PropagateBro
      switches::kFileUrlPathAlias,
      switches::kFingerprintingClientRectsNoise,
      switches::kFingerprintingCanvasMeasureTextNoise,
@@ -44,7 +44,7 @@ approach to change color components.
      switches::kForceGpuMemAvailableMb,
 --- a/content/child/runtime_features.cc
 +++ b/content/child/runtime_features.cc
-@@ -489,6 +489,8 @@ void SetRuntimeFeaturesFromCommandLine(c
+@@ -491,6 +491,8 @@ void SetRuntimeFeaturesFromCommandLine(c
         switches::kFingerprintingClientRectsNoise, true},
        {wrf::EnableFingerprintingCanvasMeasureTextNoise,
         switches::kFingerprintingCanvasMeasureTextNoise, true},
@@ -85,7 +85,7 @@ approach to change color components.
    return image_data;
 --- a/third_party/blink/renderer/platform/BUILD.gn
 +++ b/third_party/blink/renderer/platform/BUILD.gn
-@@ -1641,7 +1641,9 @@ component("platform") {
+@@ -1635,7 +1635,9 @@ component("platform") {
      "//third_party/blink/renderer:non_test_config",
    ]
  
@@ -322,7 +322,7 @@ approach to change color components.
    // Methods overridden by all sub-classes
 --- a/third_party/blink/renderer/platform/runtime_enabled_features.json5
 +++ b/third_party/blink/renderer/platform/runtime_enabled_features.json5
-@@ -1109,6 +1109,9 @@
+@@ -1113,6 +1113,9 @@
        name: "FingerprintingCanvasMeasureTextNoise",
      },
      {

@@ -23,7 +23,7 @@
  // TODO(amalova): Make sure NetworkContextParams is configured correctly when
 --- a/chrome/app/settings_strings.grdp
 +++ b/chrome/app/settings_strings.grdp
-@@ -1653,69 +1653,9 @@
+@@ -1647,69 +1647,9 @@
    <message name="IDS_SETTINGS_NETWORK_PREDICTION_ENABLED_DESC_COOKIES_PAGE" desc="On the cookies page, the secondary text next to the checkbox that enables prediction of network actions.">
      Preloads pages that Chrome thinks you might visit. To do this, Chrome may use cookies, if you allow cookies, and may encrypt and send pages through Google to hide your identity from sites.
    </message>
@@ -349,7 +349,7 @@
      LogSignalsCollectionLatency(kLatencyHistogramWithCacheVariant, start_time);
 --- a/chrome/browser/enterprise/signals/context_info_fetcher.cc
 +++ b/chrome/browser/enterprise/signals/context_info_fetcher.cc
-@@ -214,10 +214,6 @@ void ContextInfoFetcher::Fetch(ContextIn
+@@ -218,10 +218,6 @@ void ContextInfoFetcher::Fetch(ContextIn
        utils::GetThirdPartyBlockingEnabled(g_browser_process->local_state());
  
    Profile* profile = Profile::FromBrowserContext(browser_context_);
@@ -1011,7 +1011,7 @@
    { key::kAccessibilityImageLabelsEnabled,
      prefs::kAccessibilityImageLabelsEnabled,
      base::Value::Type::BOOLEAN },
-@@ -1680,8 +1650,6 @@ std::unique_ptr<ConfigurationPolicyHandl
+@@ -1685,8 +1655,6 @@ std::unique_ptr<ConfigurationPolicyHandl
    handlers->AddHandler(std::make_unique<JavascriptPolicyHandler>());
    handlers->AddHandler(std::make_unique<NetworkPredictionPolicyHandler>());
    handlers->AddHandler(std::make_unique<RestoreOnStartupPolicyHandler>());
@@ -1020,7 +1020,7 @@
    handlers->AddHandler(std::make_unique<SimpleDeprecatingPolicyHandler>(
        std::make_unique<SimplePolicyHandler>(key::kAuthServerWhitelist,
                                              prefs::kAuthServerAllowlist,
-@@ -1705,9 +1673,6 @@ std::unique_ptr<ConfigurationPolicyHandl
+@@ -1710,9 +1678,6 @@ std::unique_ptr<ConfigurationPolicyHandl
            key::kWindowOcclusionEnabled,
            policy::policy_prefs::kNativeWindowOcclusionEnabled,
            base::Value::Type::BOOLEAN)));
@@ -1030,7 +1030,7 @@
    handlers->AddHandler(std::make_unique<syncer::SyncPolicyHandler>());
    handlers->AddHandler(std::make_unique<BrowsingHistoryPolicyHandler>());
  
-@@ -1803,12 +1768,6 @@ std::unique_ptr<ConfigurationPolicyHandl
+@@ -1808,12 +1773,6 @@ std::unique_ptr<ConfigurationPolicyHandl
            key::kOnSecurityEventEnterpriseConnector,
            enterprise_connectors::kOnSecurityEventPref,
            enterprise_connectors::kOnSecurityEventScopePref, chrome_schema));
@@ -1043,7 +1043,7 @@
  
    handlers->AddHandler(std::make_unique<BrowsingDataLifetimePolicyHandler>(
        key::kClearBrowsingDataOnExitList,
-@@ -1858,17 +1817,6 @@ std::unique_ptr<ConfigurationPolicyHandl
+@@ -1863,17 +1822,6 @@ std::unique_ptr<ConfigurationPolicyHandl
    signin_legacy_policies.push_back(std::make_unique<SimplePolicyHandler>(
        key::kForceBrowserSignin, prefs::kForceBrowserSignin,
        base::Value::Type::BOOLEAN));
@@ -1071,7 +1071,7 @@
  #include "components/search_engines/template_url_prepopulate_data.h"
  #include "components/security_interstitials/content/insecure_form_blocking_page.h"
  #include "components/security_interstitials/content/stateful_ssl_host_state_delegate.h"
-@@ -933,7 +932,6 @@ void RegisterLocalState(PrefRegistrySimp
+@@ -943,7 +942,6 @@ void RegisterLocalState(PrefRegistrySimp
    ProfileNetworkContextService::RegisterLocalStatePrefs(registry);
    profiles::RegisterPrefs(registry);
    RegisterScreenshotPrefs(registry);
@@ -1079,7 +1079,7 @@
    secure_origin_allowlist::RegisterPrefs(registry);
  #if !defined(OS_ANDROID)
    SerialPolicyAllowedPorts::RegisterPrefs(registry);
-@@ -1189,7 +1187,6 @@ void RegisterProfilePrefs(user_prefs::Pr
+@@ -1199,7 +1197,6 @@ void RegisterProfilePrefs(user_prefs::Pr
    PushMessagingAppIdentifier::RegisterProfilePrefs(registry);
    QuietNotificationPermissionUiState::RegisterProfilePrefs(registry);
    RegisterBrowserUserPrefs(registry);
@@ -2889,7 +2889,7 @@
  #include "components/signin/public/base/signin_buildflags.h"
  #include "components/strings/grit/components_chromium_strings.h"
  #include "components/strings/grit/components_strings.h"
-@@ -1402,44 +1401,6 @@ void AddPrivacyStrings(content::WebUIDat
+@@ -1400,44 +1399,6 @@ void AddPrivacyStrings(content::WebUIDat
      {"clearBrowsingData", IDS_SETTINGS_CLEAR_BROWSING_DATA},
      {"clearBrowsingDataDescription", IDS_SETTINGS_CLEAR_DATA_DESCRIPTION},
      {"titleAndCount", IDS_SETTINGS_TITLE_AND_COUNT},
@@ -2934,7 +2934,7 @@
      {"safeBrowsingSectionLabel", IDS_SETTINGS_SAFEBROWSING_SECTION_LABEL},
      {"syncAndGoogleServicesPrivacyDescription",
       IDS_SETTINGS_SYNC_AND_GOOGLE_SERVICES_PRIVACY_DESC_UNIFIED_CONSENT},
-@@ -2661,11 +2622,6 @@ void AddSiteSettingsStrings(content::Web
+@@ -2658,11 +2619,6 @@ void AddSiteSettingsStrings(content::Web
    html_source->AddLocalizedStrings(kSensorsLocalizedStrings);
  
    html_source->AddBoolean(
@@ -3851,8 +3851,8 @@
  #include "net/base/ip_address.h"
 --- a/components/safe_browsing/core/browser/safe_browsing_metrics_collector.cc
 +++ b/components/safe_browsing/core/browser/safe_browsing_metrics_collector.cc
-@@ -11,13 +11,11 @@
- #include "base/time/time.h"
+@@ -13,13 +13,11 @@
+ #include "components/crash/core/common/crash_key.h"
  #include "components/prefs/pref_service.h"
  #include "components/prefs/scoped_user_pref_update.h"
 -#include "components/safe_browsing/core/common/safe_browsing_prefs.h"
@@ -3865,7 +3865,7 @@
  
  const int kMetricsLoggingIntervalDay = 1;
  
-@@ -58,11 +56,6 @@ SafeBrowsingMetricsCollector::SafeBrowsi
+@@ -60,11 +58,6 @@ SafeBrowsingMetricsCollector::SafeBrowsi
      PrefService* pref_service)
      : pref_service_(pref_service) {
    pref_change_registrar_.Init(pref_service_);
@@ -3877,7 +3877,7 @@
  }
  
  void SafeBrowsingMetricsCollector::Shutdown() {
-@@ -70,16 +63,6 @@ void SafeBrowsingMetricsCollector::Shutd
+@@ -72,16 +65,6 @@ void SafeBrowsingMetricsCollector::Shutd
  }
  
  void SafeBrowsingMetricsCollector::StartLogging() {
@@ -3894,7 +3894,7 @@
  }
  
  void SafeBrowsingMetricsCollector::LogMetricsAndScheduleNextLogging() {
-@@ -87,9 +70,6 @@ void SafeBrowsingMetricsCollector::LogMe
+@@ -89,9 +72,6 @@ void SafeBrowsingMetricsCollector::LogMe
    LogDailyEventMetrics();
    RemoveOldEventsFromPref();
  
@@ -3904,7 +3904,7 @@
    ScheduleNextLoggingAfterInterval(base::Days(kMetricsLoggingIntervalDay));
  }
  
-@@ -102,111 +82,27 @@ void SafeBrowsingMetricsCollector::Sched
+@@ -104,111 +84,27 @@ void SafeBrowsingMetricsCollector::Sched
  }
  
  void SafeBrowsingMetricsCollector::LogDailyOptInMetrics() {
@@ -4018,7 +4018,7 @@
  }
  
  absl::optional<base::Time>
-@@ -218,55 +114,14 @@ SafeBrowsingMetricsCollector::GetLatestS
+@@ -220,57 +116,14 @@ SafeBrowsingMetricsCollector::GetLatestS
  void SafeBrowsingMetricsCollector::AddSafeBrowsingEventAndUserStateToPref(
      UserState user_state,
      EventType event_type) {
@@ -4050,6 +4050,8 @@
  }
  
  void SafeBrowsingMetricsCollector::OnEnhancedProtectionPrefChanged() {
+-  LogTemporaryDebugInfo();
+-
 -  // Pref changed by policy is not initiated by users, so this case is ignored.
 -  if (IsSafeBrowsingPolicyManaged(*pref_service_)) {
 -    return;
@@ -4075,7 +4077,7 @@
  }
  
  absl::optional<SafeBrowsingMetricsCollector::Event>
-@@ -427,20 +282,7 @@ int SafeBrowsingMetricsCollector::GetEve
+@@ -452,20 +305,7 @@ int SafeBrowsingMetricsCollector::GetEve
  }
  
  UserState SafeBrowsingMetricsCollector::GetUserState() {
@@ -4097,6 +4099,19 @@
  }
  
  bool SafeBrowsingMetricsCollector::IsBypassEventType(const EventType& type) {
+@@ -636,10 +476,10 @@ void SafeBrowsingMetricsCollector::LogTe
+   // once the variables are out of scope.
+   crash_reporter::ScopedCrashKeyString scope_0(
+       &is_safe_browsing_policy_managed_cks,
+-      bool_to_string(IsSafeBrowsingPolicyManaged(*pref_service_)));
++      "F");
+   crash_reporter::ScopedCrashKeyString scope_1(
+       &is_safe_browsing_enhanced_cks,
+-      bool_to_string(pref_service_->GetBoolean(prefs::kSafeBrowsingEnhanced)));
++      "F");
+   crash_reporter::ScopedCrashKeyString scope_2(&latest_enabled_timestamp_cks,
+                                                latest_enabled_timestamp);
+   crash_reporter::ScopedCrashKeyString scope_3(&latest_disabled_timestamp_cks,
 --- a/components/safe_browsing/core/common/BUILD.gn
 +++ b/components/safe_browsing/core/common/BUILD.gn
 @@ -6,20 +6,8 @@ import("//build/config/features.gni")
@@ -5358,7 +5373,7 @@
  #include "components/sync_preferences/testing_pref_service_syncable.h"
 --- a/tools/metrics/histograms/enums.xml
 +++ b/tools/metrics/histograms/enums.xml
-@@ -86053,7 +86053,6 @@ Full version information for the fingerp
+@@ -86129,7 +86129,6 @@ Full version information for the fingerp
    <int value="3" label="kRestoreOnStartup"/>
    <int value="4" label="kURLsToRestoreOnStartup"/>
    <int value="5" label="extensions::pref_names::kExtensions"/>
@@ -5366,7 +5381,7 @@
    <int value="7" label="kSearchProviderOverrides"/>
    <int value="8" label="kDefaultSearchProviderSearchURL (Obsolete 12/2016)"/>
    <int value="9" label="kDefaultSearchProviderKeyword (Obsolete 12/2016)"/>
-@@ -86068,10 +86067,7 @@ Full version information for the fingerp
+@@ -86144,10 +86143,7 @@ Full version information for the fingerp
    <int value="18" label="kSafeBrowsingIncidentsSent"/>
    <int value="19" label="kSwReporterPromptVersion"/>
    <int value="20" label="kSwReporterPromptReason"/>

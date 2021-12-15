@@ -1,8 +1,3 @@
-.pc/core/inox-patchset/0001-fix-building-without-safebrowsing.patch/chrome/browser/chrome_content_browser_client.cc
-.pc/core/inox-patchset/0001-fix-building-without-safebrowsing.patch/chrome/browser/extensions/api/downloads/downloads_api.h
-.pc/core/inox-patchset/0001-fix-building-without-safebrowsing.patch/chrome/browser/net/trial_comparison_cert_verifier_controller.cc
-.pc/core/inox-patchset/0001-fix-building-without-safebrowsing.patch/chrome/browser/profiles/profile_impl.cc
-.pc/core/inox-patchset/0001-fix-building-without-safebrowsing.patch/chrome/browser/ui/webui/interstitials/interstitial_ui.cc
 BUILD.gn
 PRESUBMIT.py
 PRESUBMIT_test.py
@@ -572,7 +567,6 @@ chrome/browser/ash/scheduler_configuration_manager.h
 chrome/browser/ash/settings/cros_settings_unittest.cc
 chrome/browser/ash/settings/device_settings_provider_unittest.cc
 chrome/browser/ash/smb_client/smb_service_helper.h
-chrome/browser/ash/sync/ash_turn_sync_on_helper_unittest.cc
 chrome/browser/ash/system_token_cert_db_initializer.h
 chrome/browser/ash/tpm_firmware_update.h
 chrome/browser/ash/u2f_notification.cc
@@ -708,7 +702,6 @@ chrome/browser/extensions/api/bookmarks/bookmark_api_helpers_unittest.cc
 chrome/browser/extensions/api/bookmarks/bookmark_apitest.cc
 chrome/browser/extensions/api/braille_display_private/braille_display_private_apitest.cc
 chrome/browser/extensions/api/content_settings/content_settings_apitest.cc
-chrome/browser/extensions/api/content_settings/content_settings_store_unittest.cc
 chrome/browser/extensions/api/cryptotoken_private/cryptotoken_private_api.cc
 chrome/browser/extensions/api/cryptotoken_private/cryptotoken_private_api_unittest.cc
 chrome/browser/extensions/api/declarative_content/chrome_content_rules_registry.h
@@ -1551,6 +1544,7 @@ chrome/browser/web_applications/web_app_install_task.cc
 chrome/browser/web_applications/web_app_install_utils_unittest.cc
 chrome/browser/web_applications/web_app_installation_utils_unittest.cc
 chrome/browser/web_applications/web_app_mover_unittest.cc
+chrome/browser/webauthn/cablev2_devices.h
 chrome/browser/webauthn/chrome_authenticator_request_delegate.cc
 chrome/browser/webshare/win/fake_random_access_stream.cc
 chrome/browser/webshare/win/share_operation.cc
@@ -2018,7 +2012,7 @@ components/autofill_assistant/browser/devtools/message_dispatcher.h
 components/autofill_assistant/browser/devtools/value_conversions.h
 components/autofill_assistant/browser/field_formatter_unittest.cc
 components/autofill_assistant/browser/script_parameters_unittest.cc
-components/autofill_assistant/browser/service/cup.h
+components/autofill_assistant/browser/service/cup_impl.h
 components/autofill_assistant/browser/service/server_url_fetcher.cc
 components/autofill_assistant/browser/service/server_url_fetcher_unittest.cc
 components/autofill_assistant/browser/starter_unittest.cc
@@ -3092,6 +3086,7 @@ docs/website/site/developers/design-documents/accessibility/tracker/CSUN_Improvi
 docs/website/site/developers/how-tos/gpu-wrangling/check_gpu_bots-script/check_gpu_bots.py
 docs/website/site/sts/redirect.xml
 extensions/browser/PRESUBMIT.py
+extensions/browser/api/content_settings/content_settings_store_unittest.cc
 extensions/browser/api/content_settings/content_settings_unittest.cc
 extensions/browser/api/declarative/declarative_rule.h
 extensions/browser/api/declarative_net_request/composite_matcher_unittest.cc
@@ -5062,7 +5057,6 @@ third_party/blink/renderer/core/paint/first_meaningful_paint_detector.cc
 third_party/blink/renderer/core/paint/first_meaningful_paint_detector.h
 third_party/blink/renderer/core/paint/image_paint_timing_detector.h
 third_party/blink/renderer/core/paint/ng/ng_box_fragment_painter_test.cc
-third_party/blink/renderer/core/paint/paint_invalidator.h
 third_party/blink/renderer/core/paint/paint_layer.cc
 third_party/blink/renderer/core/paint/paint_layer.h
 third_party/blink/renderer/core/paint/paint_layer_clipper.cc
@@ -6720,13 +6714,15 @@ third_party/dawn/src/dawn_native/opengl/TextureGL.cpp
 third_party/dawn/src/dawn_native/vulkan/RenderPassCache.h
 third_party/dawn/src/dawn_native/vulkan/VulkanInfo.cpp
 third_party/dawn/src/dawn_native/vulkan/VulkanInfo.h
-third_party/dawn/src/tests/end2end/D3D12VideoViewsTests.cpp
 third_party/dawn/src/tests/end2end/DepthBiasTests.cpp
 third_party/dawn/src/tests/end2end/DepthStencilLoadOpTests.cpp
 third_party/dawn/src/tests/end2end/SwapChainValidationTests.cpp
 third_party/dawn/src/tests/end2end/TextureFormatTests.cpp
 third_party/dawn/src/tests/end2end/TextureViewTests.cpp
 third_party/dawn/src/tests/end2end/VertexStateTests.cpp
+third_party/dawn/src/tests/end2end/VideoViewsTests.h
+third_party/dawn/src/tests/end2end/VideoViewsTests_gbm.cpp
+third_party/dawn/src/tests/end2end/VideoViewsTests_win.cpp
 third_party/dawn/src/tests/perf_tests/DawnPerfTestPlatform.h
 third_party/dawn/src/tests/perf_tests/ShaderRobustnessPerf.cpp
 third_party/dawn/src/tests/unittests/validation/ComputeValidationTests.cpp

@@ -73,7 +73,7 @@ chrome/browser/resources/chromeos/accessibility/select_to_speak/earcons/null_sel
 chrome/browser/resources/media/mei_preload/preloaded_data.pb
 chrome/browser/ui/app_list/search/search_result_ranker/20190722_example_preprocessor_config.pb
 chrome/browser/ui/app_list/search/search_result_ranker/search_ranker_assets/20190923_example_preprocessor_config.pb
-chrome/build/pgo_profiles/chrome-linux-main-1639158968-32fe2454101e8dd08e524e1a7a9b4849054b28b5.profdata
+chrome/build/pgo_profiles/chrome-linux-main-1639418353-1ac5298c2b40a361254a8c3e5d8f91ecc7dd7444.profdata
 chrome/chrome_cleaner/parsers/shortcut_parser/target/data/lnk_parser_fuzzer/Network Share Test.lnk
 chrome/chrome_cleaner/parsers/shortcut_parser/target/data/lnk_parser_fuzzer/New folder - Shortcut.lnk
 chrome/chrome_cleaner/parsers/shortcut_parser/target/data/lnk_parser_fuzzer/long_name.lnk

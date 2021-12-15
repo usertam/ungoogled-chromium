@@ -1,6 +1,6 @@
 --- a/chrome/common/chrome_features.cc
 +++ b/chrome/common/chrome_features.cc
-@@ -327,12 +327,7 @@ const base::Feature kDesktopPWAsWebBundl
+@@ -321,12 +321,7 @@ const base::Feature kDesktopPWAsWebBundl
  // Enable DNS over HTTPS (DoH).
  const base::Feature kDnsOverHttps {
    "DnsOverHttps",
@@ -13,7 +13,7 @@
  };
  
  // Provides a mechanism to remove providers from the dropdown list in the
-@@ -349,12 +344,7 @@ const base::FeatureParam<bool> kDnsOverH
+@@ -343,12 +338,7 @@ const base::FeatureParam<bool> kDnsOverH
  // Sets whether the DoH setting is displayed in the settings UI.
  const base::FeatureParam<bool> kDnsOverHttpsShowUiParam {
    &kDnsOverHttps, "ShowUi",
@@ -28,7 +28,7 @@
  // Supply one or more space-separated DoH server URI templates to use when this
 --- a/net/dns/public/doh_provider_entry.cc
 +++ b/net/dns/public/doh_provider_entry.cc
-@@ -117,24 +117,6 @@ const DohProviderEntry::List& DohProvide
+@@ -118,24 +118,6 @@ const DohProviderEntry::List& DohProvide
            /*privacy_policy=*/"https://dns.sb/privacy/",
            /*display_globally=*/false, /*display_countries=*/{"EE", "DE"},
            LoggingLevel::kNormal),

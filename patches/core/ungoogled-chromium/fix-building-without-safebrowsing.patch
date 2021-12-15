@@ -2,7 +2,7 @@
 
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
-@@ -3775,9 +3775,6 @@ static_library("browser") {
+@@ -3777,9 +3777,6 @@ static_library("browser") {
        "download/offline_item_model_manager_factory.h",
        "enterprise/connectors/analysis/analysis_service_settings.cc",
        "enterprise/connectors/analysis/analysis_service_settings.h",
@@ -12,7 +12,7 @@
        "enterprise/connectors/analysis/content_analysis_dialog.cc",
        "enterprise/connectors/analysis/content_analysis_dialog.h",
        "enterprise/connectors/analysis/content_analysis_downloads_delegate.cc",
-@@ -7198,9 +7195,14 @@ static_library("browser") {
+@@ -7202,9 +7199,14 @@ static_library("browser") {
        "//components/safe_browsing/content/browser:safe_browsing_blocking_page",
        "//components/safe_browsing/content/browser/download:download_stats",
        "//components/safe_browsing/content/common:file_type_policies",
@@ -345,7 +345,7 @@
    // precedence.
 --- a/chrome/browser/enterprise/signals/context_info_fetcher.cc
 +++ b/chrome/browser/enterprise/signals/context_info_fetcher.cc
-@@ -199,7 +199,6 @@ void ContextInfoFetcher::Fetch(ContextIn
+@@ -203,7 +203,6 @@ void ContextInfoFetcher::Fetch(ContextIn
        GetAnalysisConnectorProviders(enterprise_connectors::FILE_DOWNLOADED);
    info.on_bulk_data_entry_providers =
        GetAnalysisConnectorProviders(enterprise_connectors::BULK_DATA_ENTRY);
@@ -353,7 +353,7 @@
    info.on_security_event_providers = GetOnSecurityEventProviders();
    info.browser_version = version_info::GetVersionNumber();
    info.site_isolation_enabled =
-@@ -257,11 +256,6 @@ std::vector<std::string> ContextInfoFetc
+@@ -261,11 +260,6 @@ std::vector<std::string> ContextInfoFetc
    return connectors_service_->GetAnalysisServiceProviderNames(connector);
  }
  
@@ -400,7 +400,7 @@
  
 --- a/chrome/browser/extensions/BUILD.gn
 +++ b/chrome/browser/extensions/BUILD.gn
-@@ -640,8 +640,6 @@ static_library("extensions") {
+@@ -638,8 +638,6 @@ static_library("extensions") {
      "menu_manager_factory.h",
      "navigation_observer.cc",
      "navigation_observer.h",
