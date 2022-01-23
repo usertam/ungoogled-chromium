@@ -11,33 +11,89 @@ Instead, let them appear just like regular ones.
  net/cert/ev_root_ca_metadata.cc | 14 +++++++++++++-
  1 file changed, 13 insertions(+), 1 deletion(-)
 
---- a/net/cert/ev_root_ca_metadata.cc
-+++ b/net/cert/ev_root_ca_metadata.cc
-@@ -41,6 +41,16 @@ struct EVMetadata {
- 
- // These certificates may be found in net/data/ssl/ev_roots.
- static const EVMetadata kEvRootCaMetadata[] = {
-+    // need some dummy thing to make compiler happy, because
-+    // arraysize() is implemented as a convoluted template rather than
-+    // the traditional sizeof(x)/sizeof(*x)
-+    { { { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+          0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff } },
-+      {
-+        "0",
-+      }
-+    },
-+#if 0
-     // AC Camerfirma S.A. Chambers of Commerce Root - 2008
-     // https://www.camerfirma.com
-     {
-@@ -590,7 +600,9 @@ static const EVMetadata kEvRootCaMetadat
-           0xd2, 0x09, 0xb7, 0x37, 0xcb, 0xe2, 0xc1, 0x8c, 0xfb, 0x2c, 0x10,
-           0xc0, 0xff, 0x0b, 0xcf, 0x0d, 0x32, 0x86, 0xfc, 0x1a, 0xa2}},
-         {"2.16.840.1.114404.1.1.2.4.1", ""},
--    }};
-+    }
-+#endif
-+};
- 
- #endif  // defined(PLATFORM_USES_CHROMIUM_EV_METADATA)
- }  // namespace
+--- a/net/tools/root_store_tool/root_store_tool.cc
++++ b/net/tools/root_store_tool/root_store_tool.cc
+@@ -171,72 +171,19 @@ bool WriteRootCppFile(const RootStore& r
+ // Returns true if file was correctly written, false otherwise.
+ bool WriteEvCppFile(const RootStore& root_store,
+                     const base::FilePath cpp_path) {
+-  // There should be at least one EV root.
+-  CHECK_GT(root_store.trust_anchors_size(), 0);
+-
+   std::string string_to_write =
+       "// This file is auto-generated, DO NOT EDIT.\n\n"
+-      "static const EVMetadata kEvRootCaMetadata[] = {\n";
+-
+-  for (auto& anchor : root_store.trust_anchors()) {
+-    // Every trust anchor at this point should have a DER.
+-    CHECK(!anchor.der().empty());
+-
+-    std::string sha256_hash = crypto::SHA256HashString(anchor.der());
+-
+-    // Begin struct. Assumed type of EVMetadata:
+-    //
+-    // struct EVMetadata {
+-    //  static const size_t kMaxOIDsPerCA = 2;
+-    //  SHA256HashValue fingerprint;
+-    //  const base::StringPiece policy_oids[kMaxOIDsPerCA];
+-    // };
+-    string_to_write += "    {\n";
+-    string_to_write += "        {{";
+-
+-    int wrap_count = 0;
+-    for (auto c : sha256_hash) {
+-      if (wrap_count != 0) {
+-        if (wrap_count % 11 == 0) {
+-          string_to_write += ",\n          ";
+-        } else {
+-          string_to_write += ", ";
+-        }
+-      }
+-      base::StringAppendF(&string_to_write, "0x%02x", static_cast<uint8_t>(c));
+-      wrap_count++;
+-    }
+-
+-    string_to_write += "}},\n";
+-    string_to_write += "        {\n";
+-
+-    // struct expects exactly two policy oids, and we can only support 1 or 2
+-    // policy OIDs. These checks will need to change if we ever merge the EV and
+-    // Chrome Root Store textprotos.
+-    const int kMaxPolicyOids = 2;
+-    int oids_size = anchor.ev_policy_oids_size();
+-    std::string hexencode_hash =
+-        base::HexEncode(sha256_hash.data(), sha256_hash.size());
+-    if (oids_size > kMaxPolicyOids) {
+-      PLOG(ERROR) << hexencode_hash << " has too many OIDs!";
+-      return false;
+-    } else if (oids_size < 1) {
+-      PLOG(ERROR) << hexencode_hash << " has no OIDs!";
+-      return false;
+-    }
+-    for (int i = 0; i < kMaxPolicyOids; i++) {
+-      std::string oid;
+-      if (i < oids_size) {
+-        oid = anchor.ev_policy_oids(i);
+-      }
+-      string_to_write += "            \"" + oid + "\",\n";
+-    }
+-
+-    // End struct
+-    string_to_write += "        },\n";
+-    string_to_write += "    },\n";
+-  }
+-  string_to_write += "};\n";
++      "static const EVMetadata kEvRootCaMetadata[] = {\n"
++      "    // need some dummy thing to make compiler happy, because\n"
++      "    // arraysize() is implemented as a convoluted template rather than\n"
++      "    // the traditional sizeof(x)/sizeof(*x)\n"
++      "    { { { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n"
++      "          0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff } },\n"
++      "      {\n"
++      "        \"0\",\n"
++      "      }\n"
++      "    },\n"
++      "};\n";
+   if (!base::WriteFile(cpp_path, string_to_write)) {
+     PLOG(ERROR) << "Error writing cpp include file";
+     return false;

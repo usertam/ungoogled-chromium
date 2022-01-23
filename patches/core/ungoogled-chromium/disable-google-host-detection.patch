@@ -12,7 +12,7 @@
 -
  namespace {
  
- #if defined(OS_ANDROID)
+ #if BUILDFLAG(IS_ANDROID)
 @@ -65,52 +61,6 @@ void GoogleURLLoaderThrottle::DetachFrom
  void GoogleURLLoaderThrottle::WillStartRequest(
      network::ResourceRequest* request,
@@ -43,7 +43,7 @@
 -        dynamic_params_.allowed_domains_for_apps);
 -  }
 -
--#if defined(OS_ANDROID)
+-#if BUILDFLAG(IS_ANDROID)
 -  if (!client_data_header_.empty() &&
 -      google_util::IsGoogleAssociatedDomainUrl(request->url)) {
 -    request->cors_exempt_headers.SetHeader(kCCTClientDataHeader,
@@ -95,7 +95,7 @@
 -        dynamic_params_.allowed_domains_for_apps);
 -  }
 -
--#if defined(OS_ANDROID)
+-#if BUILDFLAG(IS_ANDROID)
 -  if (!client_data_header_.empty() &&
 -      !google_util::IsGoogleAssociatedDomainUrl(redirect_info->new_url)) {
 -    to_be_removed_headers->push_back(kCCTClientDataHeader);
@@ -130,7 +130,7 @@
  #endif
 --- a/components/google/core/common/google_util.cc
 +++ b/components/google/core/common/google_util.cc
-@@ -33,112 +33,6 @@ namespace google_util {
+@@ -32,112 +32,6 @@ namespace google_util {
  
  namespace {
  
@@ -243,7 +243,7 @@
  }  // namespace
  
  // Global functions -----------------------------------------------------------
-@@ -146,12 +40,6 @@ bool IsGoogleSearchSubdomainUrl(const GU
+@@ -145,12 +39,6 @@ bool IsGoogleSearchSubdomainUrl(const GU
  const char kGoogleHomepageURL[] = "trk:113:https://www.google.com/";
  
  bool HasGoogleSearchQueryParam(base::StringPiece str) {
@@ -256,7 +256,7 @@
    return false;
  }
  
-@@ -162,161 +50,53 @@ std::string GetGoogleLocale(const std::s
+@@ -161,161 +49,53 @@ std::string GetGoogleLocale(const std::s
  
  GURL AppendGoogleLocaleParam(const GURL& url,
                               const std::string& application_locale) {
@@ -430,7 +430,7 @@
  
 --- a/components/page_load_metrics/browser/page_load_metrics_util.cc
 +++ b/components/page_load_metrics/browser/page_load_metrics_util.cc
-@@ -196,9 +196,7 @@ bool DidObserveLoadingBehaviorInAnyFrame
+@@ -199,9 +199,7 @@ bool DidObserveLoadingBehaviorInAnyFrame
  }
  
  bool IsGoogleSearchHostname(const GURL& url) {
@@ -485,7 +485,7 @@
  bool IsGoogleHostname(const GURL& url) {
 --- a/components/search_engines/template_url.cc
 +++ b/components/search_engines/template_url.cc
-@@ -527,11 +527,7 @@ std::u16string TemplateURLRef::SearchTer
+@@ -528,11 +528,7 @@ std::u16string TemplateURLRef::SearchTer
  bool TemplateURLRef::HasGoogleBaseURLs(
      const SearchTermsData& search_terms_data) const {
    ParseIfNecessary(search_terms_data);
@@ -578,7 +578,7 @@
  }  // namespace variations
 --- a/net/base/url_util.cc
 +++ b/net/base/url_util.cc
-@@ -442,27 +442,6 @@ bool HasGoogleHost(const GURL& url) {
+@@ -455,27 +455,6 @@ bool HasGoogleHost(const GURL& url) {
  }
  
  bool IsGoogleHost(base::StringPiece host) {
