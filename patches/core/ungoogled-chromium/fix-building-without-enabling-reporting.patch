@@ -1,8 +1,8 @@
 --- a/services/network/network_context.cc
 +++ b/services/network/network_context.cc
-@@ -1200,6 +1200,11 @@ void NetworkContext::QueueSignedExchange
-     const net::NetworkIsolationKey& network_isolation_key) {
-   NOTREACHED();
+@@ -1172,6 +1172,11 @@ void NetworkContext::OnReportingObserver
+     is_observing_reporting_service_ = false;
+   }
  }
 +
 +void NetworkContext::AddReportingApiObserver(
@@ -14,7 +14,7 @@
  void NetworkContext::ClearDomainReliability(
 --- a/services/network/network_context.h
 +++ b/services/network/network_context.h
-@@ -575,10 +575,10 @@ class COMPONENT_EXPORT(NETWORK_SERVICE)
+@@ -581,10 +581,10 @@ class COMPONENT_EXPORT(NETWORK_SERVICE)
      return cors_non_wildcard_request_headers_support_;
    }
  
@@ -36,7 +36,7 @@
  #include "services/data_decoder/public/mojom/resource_snapshot_for_web_bundle.mojom-blink.h"
  #include "services/network/public/cpp/features.h"
  #include "services/network/public/mojom/content_security_policy.mojom-blink.h"
-@@ -2284,9 +2285,11 @@ const base::UnguessableToken& LocalFrame
+@@ -2293,9 +2294,11 @@ const base::UnguessableToken& LocalFrame
    return base::UnguessableToken::Null();
  }
  
@@ -58,7 +58,7 @@
  #include "services/device/public/mojom/device_posture_provider.mojom-blink-forward.h"
  #include "services/network/public/mojom/fetch_api.mojom-blink-forward.h"
  #include "third_party/blink/public/common/frame/frame_ad_evidence.h"
-@@ -544,7 +545,9 @@ class CORE_EXPORT LocalFrame final
+@@ -548,7 +549,9 @@ class CORE_EXPORT LocalFrame final
  
    SmoothScrollSequencer& GetSmoothScrollSequencer();
  
@@ -78,7 +78,7 @@
  #include "third_party/blink/public/common/browser_interface_broker_proxy.h"
  #include "third_party/blink/public/platform/platform.h"
  #include "third_party/blink/public/platform/task_type.h"
-@@ -54,7 +55,9 @@ const char ReportingContext::kSupplement
+@@ -53,7 +54,9 @@ const char ReportingContext::kSupplement
  ReportingContext::ReportingContext(ExecutionContext& context)
      : Supplement<ExecutionContext>(context),
        execution_context_(context),
@@ -88,7 +88,7 @@
        receiver_(this, &context) {}
  
  // static
-@@ -118,7 +121,9 @@ void ReportingContext::Trace(Visitor* vi
+@@ -117,7 +120,9 @@ void ReportingContext::Trace(Visitor* vi
    visitor->Trace(observers_);
    visitor->Trace(report_buffer_);
    visitor->Trace(execution_context_);
@@ -98,7 +98,7 @@
    visitor->Trace(receiver_);
    Supplement<ExecutionContext>::Trace(visitor);
  }
-@@ -140,6 +145,7 @@ void ReportingContext::CountReport(Repor
+@@ -139,6 +144,7 @@ void ReportingContext::CountReport(Repor
    UseCounter::Count(execution_context_, feature);
  }
  
@@ -106,7 +106,7 @@
  const HeapMojoRemote<mojom::blink::ReportingServiceProxy>&
  ReportingContext::GetReportingService() const {
    if (!reporting_service_.is_bound()) {
-@@ -149,6 +155,7 @@ ReportingContext::GetReportingService()
+@@ -148,6 +154,7 @@ ReportingContext::GetReportingService()
    }
    return reporting_service_;
  }
@@ -114,7 +114,7 @@
  
  void ReportingContext::NotifyInternal(Report* report) {
    // Buffer the report.
-@@ -171,6 +178,7 @@ void ReportingContext::NotifyInternal(Re
+@@ -170,6 +177,7 @@ void ReportingContext::NotifyInternal(Re
  
  void ReportingContext::SendToReportingAPI(Report* report,
                                            const String& endpoint) const {
@@ -122,7 +122,7 @@
    const String& type = report->type();
    if (!(type == ReportType::kCSPViolation || type == ReportType::kDeprecation ||
          type == ReportType::kPermissionsPolicyViolation ||
-@@ -226,6 +234,7 @@ void ReportingContext::SendToReportingAP
+@@ -225,6 +233,7 @@ void ReportingContext::SendToReportingAP
          url, endpoint, body->featureId(), body->disposition(), body->message(),
          body->sourceFile(), line_number, column_number);
    }

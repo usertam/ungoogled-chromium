@@ -19,9 +19,9 @@
      case blink::kWebNavigationPolicyNewPopup:
 +      if (base::CommandLine::ForCurrentProcess()->HasSwitch("popups-to-tabs"))
 +        return WindowOpenDisposition::NEW_FOREGROUND_TAB;
+     case blink::kWebNavigationPolicyPictureInPicture:
        return WindowOpenDisposition::NEW_POPUP;
      default:
-       NOTREACHED() << "Unexpected WebNavigationPolicy";
 --- a/ui/base/mojom/window_open_disposition_mojom_traits.h
 +++ b/ui/base/mojom/window_open_disposition_mojom_traits.h
 @@ -5,6 +5,7 @@

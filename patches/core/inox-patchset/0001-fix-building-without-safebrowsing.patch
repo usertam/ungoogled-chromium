@@ -1,6 +1,6 @@
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
-@@ -2201,7 +2201,6 @@ static_library("browser") {
+@@ -2194,7 +2194,6 @@ static_library("browser") {
      "//components/reputation/core:proto",
      "//components/resources",
      "//components/safe_browsing/content/browser",
@@ -8,7 +8,7 @@
      "//components/safe_browsing/content/browser:safe_browsing_service",
      "//components/safe_browsing/content/browser/password_protection",
      "//components/safe_browsing/content/browser/web_ui",
-@@ -3739,8 +3738,6 @@ static_library("browser") {
+@@ -3733,8 +3732,6 @@ static_library("browser") {
        "download/download_commands.h",
        "download/download_crx_util.cc",
        "download/download_crx_util.h",
@@ -123,7 +123,7 @@
        subresource_filter_ruleset_service_;
 --- a/chrome/browser/browsing_data/chrome_browsing_data_remover_delegate.cc
 +++ b/chrome/browser/browsing_data/chrome_browsing_data_remover_delegate.cc
-@@ -65,7 +65,6 @@
+@@ -63,7 +63,6 @@
  #include "chrome/browser/profiles/keep_alive/profile_keep_alive_types.h"
  #include "chrome/browser/profiles/keep_alive/scoped_profile_keep_alive.h"
  #include "chrome/browser/profiles/profile.h"
@@ -131,7 +131,7 @@
  #include "chrome/browser/search_engines/template_url_service_factory.h"
  #include "chrome/browser/share/share_history.h"
  #include "chrome/browser/share/share_ranking.h"
-@@ -632,10 +631,6 @@ void ChromeBrowsingDataRemoverDelegate::
+@@ -612,10 +611,6 @@ void ChromeBrowsingDataRemoverDelegate::
      base::RecordAction(UserMetricsAction("ClearBrowsingData_Cookies"));
  
      network::mojom::NetworkContext* safe_browsing_context = nullptr;
@@ -144,7 +144,7 @@
        browsing_data::RemoveEmbedderCookieData(
 --- a/chrome/browser/chrome_content_browser_client.cc
 +++ b/chrome/browser/chrome_content_browser_client.cc
-@@ -942,34 +942,6 @@ void SetApplicationLocaleOnIOThread(cons
+@@ -944,34 +944,6 @@ void SetApplicationLocaleOnIOThread(cons
    GetIOThreadApplicationLocale() = locale;
  }
  
@@ -179,7 +179,7 @@
  #if BUILDFLAG(ENABLE_EXTENSIONS)
  
  AppLoadedInTabSource ClassifyAppLoadedInTabSource(
-@@ -1458,7 +1430,6 @@ void ChromeContentBrowserClient::PostAft
+@@ -1465,7 +1437,6 @@ void ChromeContentBrowserClient::PostAft
    InitNetworkContextsParentDirectory();
  
    DCHECK_CURRENTLY_ON(BrowserThread::UI);
@@ -187,7 +187,7 @@
  }
  
  bool ChromeContentBrowserClient::IsBrowserStartupComplete() {
-@@ -4243,7 +4214,7 @@ ChromeContentBrowserClient::CreateThrott
+@@ -4275,7 +4246,7 @@ ChromeContentBrowserClient::CreateThrott
    content::WebContents* web_contents = handle->GetWebContents();
    throttles.push_back(std::make_unique<SSLErrorNavigationThrottle>(
        handle,
@@ -196,7 +196,7 @@
        base::BindOnce(&HandleSSLErrorWrapper), base::BindOnce(&IsInHostedApp),
        base::BindOnce(
            &ShouldIgnoreSslInterstitialBecauseNavigationDefaultedToHttps)));
-@@ -4272,16 +4243,6 @@ ChromeContentBrowserClient::CreateThrott
+@@ -4310,16 +4281,6 @@ ChromeContentBrowserClient::CreateThrott
                     &throttles);
  #endif
  
@@ -238,7 +238,7 @@
  }  // namespace
 --- a/chrome/browser/download/chrome_download_manager_delegate.cc
 +++ b/chrome/browser/download/chrome_download_manager_delegate.cc
-@@ -435,13 +435,6 @@ ChromeDownloadManagerDelegate::~ChromeDo
+@@ -431,13 +431,6 @@ ChromeDownloadManagerDelegate::~ChromeDo
  
  void ChromeDownloadManagerDelegate::SetDownloadManager(DownloadManager* dm) {
    download_manager_ = dm;
@@ -252,14 +252,15 @@
  }
  
  #if BUILDFLAG(IS_ANDROID)
-@@ -790,16 +783,6 @@ void ChromeDownloadManagerDelegate::Choo
- 
+@@ -791,17 +784,6 @@ void ChromeDownloadManagerDelegate::Choo
  void ChromeDownloadManagerDelegate::SanitizeSavePackageResourceName(
-     base::FilePath* filename) {
+     base::FilePath* filename,
+     const GURL& source_url) {
 -  safe_browsing::FileTypePolicies* file_type_policies =
 -      safe_browsing::FileTypePolicies::GetInstance();
 -
--  if (file_type_policies->GetFileDangerLevel(*filename) ==
+-  const PrefService* prefs = profile_->GetPrefs();
+-  if (file_type_policies->GetFileDangerLevel(*filename, source_url, prefs) ==
 -      safe_browsing::DownloadFileType::NOT_DANGEROUS)
 -    return;
 -
@@ -361,13 +362,14 @@
    // If no mime type or explicitly specified a name, don't replace file
    // extension.
    if (sniffed_mime_type.empty() || !suggested_filename.empty())
-@@ -1114,29 +1107,7 @@ DownloadFileType::DangerLevel DownloadTa
+@@ -1111,30 +1104,7 @@ DownloadFileType::DangerLevel DownloadTa
        download_->HasUserGesture())
      return DownloadFileType::NOT_DANGEROUS;
  
 -  DownloadFileType::DangerLevel danger_level =
 -      safe_browsing::FileTypePolicies::GetInstance()->GetFileDangerLevel(
--          virtual_path_.BaseName());
+-          virtual_path_.BaseName(), download_->GetURL(),
+-          GetProfile()->GetPrefs());
 -
 -  // A danger level of ALLOW_ON_USER_GESTURE is used to label potentially
 -  // dangerous file types that have a high frequency of legitimate use. We would
@@ -537,7 +539,7 @@
            referrer_entries)));
 --- a/chrome/browser/extensions/api/webstore_private/webstore_private_api.cc
 +++ b/chrome/browser/extensions/api/webstore_private/webstore_private_api.cc
-@@ -682,18 +682,6 @@ void WebstorePrivateBeginInstallWithMani
+@@ -716,18 +716,6 @@ void WebstorePrivateBeginInstallWithMani
  
  void WebstorePrivateBeginInstallWithManifest3Function::
      ReportFrictionAcceptedEvent() {
@@ -556,7 +558,7 @@
  }
  
  void WebstorePrivateBeginInstallWithManifest3Function::OnInstallPromptDone(
-@@ -1158,52 +1146,9 @@ WebstorePrivateGetReferrerChainFunction:
+@@ -1192,52 +1180,9 @@ WebstorePrivateGetReferrerChainFunction:
  
  ExtensionFunction::ResponseAction
  WebstorePrivateGetReferrerChainFunction::Run() {
@@ -706,7 +708,7 @@
  // static
 --- a/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc
 +++ b/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc
-@@ -311,7 +311,6 @@ void ChromeBrowserMainExtraPartsProfiles
+@@ -312,7 +312,6 @@ void ChromeBrowserMainExtraPartsProfiles
  #if BUILDFLAG(IS_CHROMEOS_LACROS)
    CertDbInitializerFactory::GetInstance();
  #endif
@@ -716,7 +718,7 @@
  #endif
 --- a/chrome/browser/profiles/profile_impl.cc
 +++ b/chrome/browser/profiles/profile_impl.cc
-@@ -95,7 +95,6 @@
+@@ -96,7 +96,6 @@
  #include "chrome/browser/profiles/profile_metrics.h"
  #include "chrome/browser/push_messaging/push_messaging_service_factory.h"
  #include "chrome/browser/push_messaging/push_messaging_service_impl.h"
@@ -724,7 +726,7 @@
  #include "chrome/browser/sessions/exit_type_service.h"
  #include "chrome/browser/sharing/sharing_service_factory.h"
  #include "chrome/browser/signin/identity_manager_factory.h"
-@@ -628,17 +627,6 @@ void ProfileImpl::LoadPrefsForNormalStar
+@@ -629,17 +628,6 @@ void ProfileImpl::LoadPrefsForNormalStar
  
    mojo::PendingRemote<prefs::mojom::TrackedPreferenceValidationDelegate>
        pref_validation_delegate;
@@ -882,7 +884,7 @@
  
 --- a/chrome/browser/ui/BUILD.gn
 +++ b/chrome/browser/ui/BUILD.gn
-@@ -4089,7 +4089,6 @@ static_library("ui") {
+@@ -4103,7 +4103,6 @@ static_library("ui") {
        "views/devtools_process_observer.h",
        "views/download/bubble/download_toolbar_button_view.cc",
        "views/download/bubble/download_toolbar_button_view.h",
@@ -892,7 +894,7 @@
        "views/download/download_item_view.cc",
 --- a/chrome/browser/ui/tab_helpers.cc
 +++ b/chrome/browser/ui/tab_helpers.cc
-@@ -359,22 +359,6 @@ void TabHelpers::AttachTabHelpers(WebCon
+@@ -364,22 +364,6 @@ void TabHelpers::AttachTabHelpers(WebCon
    //     See https://crbug.com/910288.
    resource_coordinator::ResourceCoordinatorTabHelper::CreateForWebContents(
        web_contents);
@@ -1176,7 +1178,7 @@
      html = ui::ResourceBundle::GetSharedInstance().LoadDataResourceString(
 --- a/chrome/renderer/chrome_content_renderer_client.cc
 +++ b/chrome/renderer/chrome_content_renderer_client.cc
-@@ -92,7 +92,6 @@
+@@ -91,7 +91,6 @@
  #include "components/page_load_metrics/renderer/metrics_render_frame_observer.h"
  #include "components/paint_preview/buildflags/buildflags.h"
  #include "components/safe_browsing/buildflags.h"

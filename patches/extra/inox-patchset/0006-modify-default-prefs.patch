@@ -12,7 +12,7 @@
  void BackgroundModeManager::RegisterProfile(Profile* profile) {
 --- a/chrome/browser/chrome_content_browser_client.cc
 +++ b/chrome/browser/chrome_content_browser_client.cc
-@@ -1262,7 +1262,7 @@ void ChromeContentBrowserClient::Registe
+@@ -1264,7 +1264,7 @@ void ChromeContentBrowserClient::Registe
  void ChromeContentBrowserClient::RegisterProfilePrefs(
      user_prefs::PrefRegistrySyncable* registry) {
    registry->RegisterBooleanPref(prefs::kDisable3DAPIs, false);
@@ -45,7 +45,7 @@
  // Enum representing possible values of the Preload Pages opt-in state.  Since
 --- a/chrome/browser/profiles/profile.cc
 +++ b/chrome/browser/profiles/profile.cc
-@@ -277,7 +277,7 @@ const char Profile::kProfileKey[] = "__P
+@@ -276,7 +276,7 @@ const char Profile::kProfileKey[] = "__P
  void Profile::RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
    registry->RegisterBooleanPref(
        prefs::kSearchSuggestEnabled,

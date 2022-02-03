@@ -161,10 +161,10 @@
        <cr-button id="addCreditCard" class="header-aligned-button"
 --- a/chrome/browser/resources/settings/basic_page/basic_page.html
 +++ b/chrome/browser/resources/settings/basic_page/basic_page.html
-@@ -60,7 +60,7 @@
-             </settings-privacy-review-promo>
-           </settings-section>
-         </template>
+@@ -59,7 +59,7 @@
+               prefs="{{prefs}}">
+           </settings-privacy-review-promo>
+         </settings-section>
 -        <template is="dom-if" if="[[showPage_(pageVisibility.safetyCheck)]]"
 +        <template is="dom-if" if="[[false]]"
              restamp>

@@ -34,7 +34,7 @@ approach to change color components.
  #endif  // CHROME_BROWSER_BROMITE_FLAG_ENTRIES_H_
 --- a/content/browser/renderer_host/render_process_host_impl.cc
 +++ b/content/browser/renderer_host/render_process_host_impl.cc
-@@ -3355,6 +3355,7 @@ void RenderProcessHostImpl::PropagateBro
+@@ -3354,6 +3354,7 @@ void RenderProcessHostImpl::PropagateBro
      switches::kFileUrlPathAlias,
      switches::kFingerprintingClientRectsNoise,
      switches::kFingerprintingCanvasMeasureTextNoise,
@@ -44,7 +44,7 @@ approach to change color components.
      switches::kForceGpuMemAvailableMb,
 --- a/content/child/runtime_features.cc
 +++ b/content/child/runtime_features.cc
-@@ -491,6 +491,8 @@ void SetRuntimeFeaturesFromCommandLine(c
+@@ -487,6 +487,8 @@ void SetRuntimeFeaturesFromCommandLine(c
         switches::kFingerprintingClientRectsNoise, true},
        {wrf::EnableFingerprintingCanvasMeasureTextNoise,
         switches::kFingerprintingCanvasMeasureTextNoise, true},
@@ -55,7 +55,7 @@ approach to change color components.
      if (command_line.HasSwitch(mapping.switch_name))
 --- a/third_party/blink/public/platform/web_runtime_features.h
 +++ b/third_party/blink/public/platform/web_runtime_features.h
-@@ -221,6 +221,7 @@ class WebRuntimeFeatures {
+@@ -217,6 +217,7 @@ class WebRuntimeFeatures {
    BLINK_PLATFORM_EXPORT static void EnableAllowSyncXHRInPageDismissal(bool);
    BLINK_PLATFORM_EXPORT static void EnableFingerprintingClientRectsNoise(bool);
    BLINK_PLATFORM_EXPORT static void EnableFingerprintingCanvasMeasureTextNoise(bool);
@@ -85,7 +85,7 @@ approach to change color components.
    return image_data;
 --- a/third_party/blink/renderer/platform/BUILD.gn
 +++ b/third_party/blink/renderer/platform/BUILD.gn
-@@ -1621,7 +1621,9 @@ component("platform") {
+@@ -1620,7 +1620,9 @@ component("platform") {
      "//third_party/blink/renderer:non_test_config",
    ]
  
@@ -98,7 +98,7 @@ approach to change color components.
      "//third_party/blink/renderer/platform/blob",
 --- a/third_party/blink/renderer/platform/exported/web_runtime_features.cc
 +++ b/third_party/blink/renderer/platform/exported/web_runtime_features.cc
-@@ -699,4 +699,8 @@ void WebRuntimeFeatures::EnableFingerpri
+@@ -685,4 +685,8 @@ void WebRuntimeFeatures::EnableFingerpri
    RuntimeEnabledFeatures::SetFingerprintingCanvasMeasureTextNoiseEnabled(enable);
  }
  
@@ -322,7 +322,7 @@ approach to change color components.
    // Methods overridden by all sub-classes
 --- a/third_party/blink/renderer/platform/runtime_enabled_features.json5
 +++ b/third_party/blink/renderer/platform/runtime_enabled_features.json5
-@@ -1112,6 +1112,9 @@
+@@ -1127,6 +1127,9 @@
        name: "FingerprintingCanvasMeasureTextNoise",
      },
      {

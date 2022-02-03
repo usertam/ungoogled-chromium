@@ -1,6 +1,6 @@
 --- a/chrome/common/chrome_features.cc
 +++ b/chrome/common/chrome_features.cc
-@@ -338,12 +338,7 @@ const base::FeatureParam<int> kDisableHt
+@@ -339,12 +339,7 @@ const base::Feature kDesktopPWAsWebAppSe
  // Enable DNS over HTTPS (DoH).
  const base::Feature kDnsOverHttps {
    "DnsOverHttps",
@@ -42,7 +42,7 @@
                             "https://public.dns.iij.jp/dns-query",
 --- a/services/network/public/cpp/features.cc
 +++ b/services/network/public/cpp/features.cc
-@@ -107,12 +107,7 @@ const base::Feature kSplitAuthCacheByNet
+@@ -106,12 +106,7 @@ const base::Feature kSplitAuthCacheByNet
  // Enable usage of hardcoded DoH upgrade mapping for use in automatic mode.
  const base::Feature kDnsOverHttpsUpgrade {
    "DnsOverHttpsUpgrade",

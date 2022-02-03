@@ -13,9 +13,9 @@
  #endif  // CHROME_BROWSER_UNGOOGLED_FLAG_ENTRIES_H_
 --- a/net/base/features.cc
 +++ b/net/base/features.cc
-@@ -266,5 +266,7 @@ const base::Feature kSwitchWebSocketThro
- const base::FeatureParam<int> kRollingAverageWindow{
-     &kSwitchWebSocketThroughputWindow, "RollingAverageWindow", 100};
+@@ -254,5 +254,7 @@ const base::Feature kExtraCookieValidity
+ const base::Feature kRecordRadioWakeupTrigger{
+     "RecordRadioWakeupTrigger", base::FEATURE_DISABLED_BY_DEFAULT};
  
 +const base::Feature kSetIpv6ProbeFalse{"SetIpv6ProbeFalse", base::FEATURE_DISABLED_BY_DEFAULT};
 +
@@ -23,9 +23,9 @@
  }  // namespace net
 --- a/net/base/features.h
 +++ b/net/base/features.h
-@@ -393,6 +393,8 @@ NET_EXPORT extern const base::FeaturePar
- NET_EXPORT extern const base::Feature kSwitchWebSocketThroughputWindow;
- NET_EXPORT extern const base::FeatureParam<int> kRollingAverageWindow;
+@@ -382,6 +382,8 @@ NET_EXPORT extern const base::Feature kE
+ // Android.
+ NET_EXPORT extern const base::Feature kRecordRadioWakeupTrigger;
  
 +NET_EXPORT extern const base::Feature kSetIpv6ProbeFalse;
 +

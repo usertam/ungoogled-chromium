@@ -9,7 +9,7 @@
 
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
-@@ -2375,6 +2375,7 @@ static_library("browser") {
+@@ -2368,6 +2368,7 @@ static_library("browser") {
      "//third_party/libyuv",
      "//third_party/metrics_proto",
      "//third_party/re2",
@@ -19,7 +19,7 @@
      "//third_party/widevine/cdm:headers",
 --- a/chrome/browser/about_flags.cc
 +++ b/chrome/browser/about_flags.cc
-@@ -149,6 +149,7 @@
+@@ -148,6 +148,7 @@
  #include "components/translate/core/browser/translate_ranker_impl.h"
  #include "components/translate/core/common/translate_util.h"
  #include "components/ui_devtools/switches.h"
@@ -62,7 +62,7 @@
  #include "components/viz/common/switches.h"
  #include "components/viz/host/gpu_client.h"
  #include "content/browser/bad_message.h"
-@@ -3352,6 +3353,8 @@ void RenderProcessHostImpl::PropagateBro
+@@ -3351,6 +3352,8 @@ void RenderProcessHostImpl::PropagateBro
      switches::kEnableWebGLDraftExtensions,
      switches::kEnableWebGLImageChromium,
      switches::kFileUrlPathAlias,
@@ -91,7 +91,7 @@
  #include "ui/accessibility/accessibility_features.h"
  #include "ui/base/ui_base_features.h"
  #include "ui/events/blink/blink_features.h"
-@@ -486,6 +487,10 @@ void SetRuntimeFeaturesFromCommandLine(c
+@@ -482,6 +483,10 @@ void SetRuntimeFeaturesFromCommandLine(c
        {wrf::EnableWebGPU, switches::kEnableUnsafeWebGPU, true},
        {wrf::ForceOverlayFullscreenVideo, switches::kForceOverlayFullscreenVideo,
         true},
@@ -104,7 +104,7 @@
      if (command_line.HasSwitch(mapping.switch_name))
 --- a/third_party/blink/public/platform/web_runtime_features.h
 +++ b/third_party/blink/public/platform/web_runtime_features.h
-@@ -219,6 +219,8 @@ class WebRuntimeFeatures {
+@@ -215,6 +215,8 @@ class WebRuntimeFeatures {
    BLINK_PLATFORM_EXPORT static void EnableMediaControlsExpandGesture(bool);
    BLINK_PLATFORM_EXPORT static void EnableGetDisplayMedia(bool);
    BLINK_PLATFORM_EXPORT static void EnableAllowSyncXHRInPageDismissal(bool);
@@ -138,7 +138,7 @@
  SelectorQueryCache& Document::GetSelectorQueryCache() {
    if (!selector_query_cache_)
      selector_query_cache_ = std::make_unique<SelectorQueryCache>();
-@@ -2179,6 +2188,15 @@ void Document::UpdateStyleAndLayoutTreeF
+@@ -2177,6 +2186,15 @@ void Document::UpdateStyleAndLayoutTreeF
  #if DCHECK_IS_ON()
    AssertLayoutTreeUpdated(*this, true /* allow_dirty_container_subtrees */);
  #endif
@@ -179,7 +179,7 @@
    HeapVector<Member<ScriptElementBase>> current_script_stack_;
 --- a/third_party/blink/renderer/core/dom/element.cc
 +++ b/third_party/blink/renderer/core/dom/element.cc
-@@ -2074,6 +2074,11 @@ DOMRectList* Element::getClientRects() {
+@@ -2078,6 +2078,11 @@ DOMRectList* Element::getClientRects() {
    DCHECK(element_layout_object);
    GetDocument().AdjustQuadsForScrollAndAbsoluteZoom(quads,
                                                      *element_layout_object);
@@ -191,7 +191,7 @@
    return MakeGarbageCollected<DOMRectList>(quads);
  }
  
-@@ -2091,6 +2096,9 @@ gfx::RectF Element::GetBoundingClientRec
+@@ -2095,6 +2100,9 @@ gfx::RectF Element::GetBoundingClientRec
    DCHECK(element_layout_object);
    GetDocument().AdjustRectForScrollAndAbsoluteZoom(result,
                                                     *element_layout_object);
@@ -266,7 +266,7 @@
                const TextDirection&,
 --- a/third_party/blink/renderer/modules/canvas/canvas2d/canvas_rendering_context_2d.cc
 +++ b/third_party/blink/renderer/modules/canvas/canvas2d/canvas_rendering_context_2d.cc
-@@ -920,9 +920,15 @@ TextMetrics* CanvasRenderingContext2D::m
+@@ -923,9 +923,15 @@ TextMetrics* CanvasRenderingContext2D::m
    TextDirection direction =
        ToTextDirection(GetState().GetDirection(), canvas());
  
@@ -285,17 +285,17 @@
  void CanvasRenderingContext2D::fillFormattedText(
 --- a/third_party/blink/renderer/platform/BUILD.gn
 +++ b/third_party/blink/renderer/platform/BUILD.gn
-@@ -1663,6 +1663,7 @@ component("platform") {
+@@ -1662,6 +1662,7 @@ component("platform") {
      "//components/paint_preview/common",
      "//components/power_scheduler",
      "//components/search_engines:search_engine_utils",
 +    "//components/ungoogled:ungoogled_switches",
      "//components/viz/client",
      "//components/viz/common",
-     "//crypto",
+     "//components/webrtc:net_address_utils",
 --- a/third_party/blink/renderer/platform/exported/web_runtime_features.cc
 +++ b/third_party/blink/renderer/platform/exported/web_runtime_features.cc
-@@ -691,4 +691,12 @@ void WebRuntimeFeatures::EnableCLSScroll
+@@ -677,4 +677,12 @@ void WebRuntimeFeatures::EnableCLSScroll
    RuntimeEnabledFeatures::SetCLSScrollAnchoringEnabled(enable);
  }
  
@@ -310,7 +310,7 @@
  }  // namespace blink
 --- a/third_party/blink/renderer/platform/runtime_enabled_features.json5
 +++ b/third_party/blink/renderer/platform/runtime_enabled_features.json5
-@@ -1106,6 +1106,12 @@
+@@ -1121,6 +1121,12 @@
        name: "Focusgroup",
      },
      {
